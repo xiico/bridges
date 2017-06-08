@@ -24,8 +24,8 @@ module.exports = {
 
 		var newEnquiry = new Enquiry.model({
 			name: { first: 'Test', last: 'User' },
-			email: 'contact@bridges.com',
-			phone: '+61 2 1234 5678',
+			email: 'contact@bridges2.com.br',
+			phone: '+55 11 98150 2547',
 			enquiryType: 'message',
 			message: { md: 'Nice enquiry notification.' },
 		});

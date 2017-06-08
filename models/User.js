@@ -13,7 +13,9 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
-	canPost: { type: Boolean, label: 'Can write posts', index: true }
+	canPost: { type: Boolean, label: 'Can write posts', index: true },
+	isTeacher: { type: Boolean, label: 'Teacher', index: true },
+	isStudent: { type: Boolean, label: 'Student', index: true }
 });
 
 // Provide access to Keystone
@@ -31,5 +33,5 @@ User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
 /**
  * Registration
  */
-User.defaultColumns = 'name, email, isAdmin';
+User.defaultColumns = 'name, email, isAdmin, canPost';
 User.register();
