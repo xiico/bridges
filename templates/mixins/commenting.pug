@@ -30,6 +30,6 @@ mixin comment-post(comment)
 					p=comment.content.replace(/\n/g, '<br>')
 
 mixin comment-thread(comments)
-	if comments.length
+	if comments
 		for comment in comments
 			+comment-post(comment)
