@@ -20,7 +20,7 @@ mixin comment-post(comment)
 		div(id='comment-id-' + comment.id, style="margin-top: 20px;")
 			.media
 				.pull-left
-					img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(80,80) : 'http://placehold.it/80x80', alt=comment.author.name.full, width=80, height=80).img-rounded
+					img(src=comment.author.photo ? comment.author._.photo.thumbnail(80,80) : 'http://placehold.it/80x80', alt=comment.author.name.full, width=80, height=80).img-rounded
 				.media-body
 					p
 						strong= comment.author.name.full

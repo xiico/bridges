@@ -14,6 +14,10 @@ exports = module.exports = function (req, res) {
 	locals.data = {
 		posts: [],
 	};
+	//locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
+	locals.formData = req.body || {};
+	locals.validationErrors = {};
+	locals.enquirySubmitted = false;
 
 	// Load the current post
 	view.on('init', function (next) {
@@ -27,25 +31,21 @@ exports = module.exports = function (req, res) {
 			locals.data.post = result;
 			next(err);
 		});
-
 	});
 
 	// Load other posts
-	view.on('init', function (next) {
-
+	/*view.on('init', function (next) {
 		var q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author').limit('4');
-
 		q.exec(function (err, results) {
 			locals.data.posts = results;
 			next(err);
 		});
-
-	});
+	});*/
 
 		// Load comments on the Post
 	view.on('init', function (next) {
 		PostComment.model.find()
-			.where('post', locals.post)
+			.where('post', locals.data.post)
 			.where('commentState', 'published')
 			.where('author').ne(null)
 			.populate('author', 'name photo')
@@ -63,7 +63,7 @@ exports = module.exports = function (req, res) {
 
 		var newComment = new PostComment.model({
 			state: 'published',
-			post: locals.post.id,
+			post: locals.data.post.id,
 			author: locals.user.id,
 		});
 
@@ -78,7 +78,7 @@ exports = module.exports = function (req, res) {
 				validationErrors = err.errors;
 			} else {
 				req.flash('success', 'Your comment was added.');
-				return res.redirect('/blog/post/' + locals.post.key + '#comment-id-' + newComment.id);
+				return res.redirect('/blog/post/' + locals.data.post.slug + '#comment-id-' + newComment.id);
 			}
 			next();
 		});
@@ -95,7 +95,7 @@ exports = module.exports = function (req, res) {
 
 		PostComment.model.findOne({
 				_id: req.query.comment,
-				post: locals.post.id,
+				post: locals.data.post.id,
 			})
 			.exec(function (err, comment) {
 				if (err) {
@@ -117,7 +117,7 @@ exports = module.exports = function (req, res) {
 				comment.save(function (err) {
 					if (err) return res.err(err);
 					req.flash('success', 'Your comment has been deleted.');
-					return res.redirect('/blog/post/' + locals.post.key);
+					return res.redirect('/blog/post/' + locals.data.post.slug);
 				});
 			});
 	});
