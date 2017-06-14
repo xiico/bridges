@@ -1,0 +1,163 @@
+extends ../layouts/default
+
+mixin post(post)
+	.col-sm-12.col-md-12
+		div(data-ks-editable=editable(user, { list: 'Post', id: post.id })).single-blog.single-column
+			.post-thumb
+				a(href='/blog/post/' + post.slug)
+					img(src=post._.image.fit(850,400)).img-responsive
+				.post-overlay
+					span.uppercase
+						a(href='#')
+							| #{post._.publishedDate.format('D')} 
+							br
+							small #{post._.publishedDate.format('MMMM')} 
+			.post-content.overflow
+				h2.post-title.bold
+					a(href='/blog/post/' + post.slug)= post.title
+				h3.post-author
+					| Posted by #{post.author.name.first}
+				p!= post.content.brief
+				if post.content.extended
+					p.read-more: a(href='/blog/post/' + post.slug) Read more...
+				.post-bottom.overflow
+					ul.nav.navbar-nav.post-nav
+						li
+							a(href='/blog/post/' + post.slug)
+								i.fa.fa-heart
+								| 32 Love
+						li
+							a(href='/blog/post/' + post.slug)
+								i.fa.fa-comments
+								| #{post.comments} Comments
+
+	section#page-breadcrumb
+		.vertical-center.sun
+			.container
+				.row
+					.action
+						.col-sm-12
+							h1.title= data.category ? data.category.name : 'Blog'
+							p Plenty of Ideas
+	// /#page-breadcrumb
+	section#blog.padding-top
+		.container
+			.row
+				.col-md-9.col-sm-7
+					.row
+						each post in data.posts.results
+							+post(post)
+					.blog-pagination
+						if data.posts.totalPages > 1
+							ul.pagination
+								if data.posts.previous
+									li: a(href='?page=' + data.posts.previous): span.glyphicon.glyphicon-chevron-left
+								else
+									li.disabled: a(href='?page=' + 1): span.glyphicon.glyphicon-chevron-left
+								each p, i in data.posts.pages
+									li(class=data.posts.currentPage == p ? 'active' : null)
+										a(href='?page=' + (p == '...' ? (i ? data.posts.totalPages : 1) : p ))= p
+								if data.posts.next
+									li: a(href='?page=' + data.posts.next): span.glyphicon.glyphicon-chevron-right
+								else
+									li.disabled: a(href='?page=' + data.posts.totalPages): span.entypo.glyphicon.glyphicon-chevron-right
+				.col-md-3.col-sm-5
+					.sidebar.blog-sidebar
+						.sidebar-item.recent
+							h3 Comments
+							.media
+								.pull-left
+									a(href='#')
+										img(src='images/portfolio/project1.jpg', alt='')
+								.media-body
+									h4
+										a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+									p posted on  07 March 2014
+							.media
+								.pull-left
+									a(href='#')
+										img(src='images/portfolio/project2.jpg', alt='')
+								.media-body
+									h4
+										a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+									p posted on  07 March 2014
+							.media
+								.pull-left
+									a(href='#')
+										img(src='images/portfolio/project3.jpg', alt='')
+								.media-body
+									h4
+										a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+									p posted on  07 March 2014
+						.sidebar-item.categories
+							h3 Categories
+							ul.nav.navbar-stacked
+								li
+									a(href='#')
+										| Lorem ipsum
+										span.pull-right (1)
+								li.active
+									a(href='#')
+										| Dolor sit amet
+										span.pull-right (8)
+								li
+									a(href='#')
+										| Adipisicing elit
+										span.pull-right (4)
+								li
+									a(href='#')
+										| Sed do
+										span.pull-right (9)
+								li
+									a(href='#')
+										| Eiusmod
+										span.pull-right (3)
+								li
+									a(href='#')
+										| Mockup
+										span.pull-right (4)
+								li
+									a(href='#')
+										| Ut enim ad minim 
+										span.pull-right (2)
+								li
+									a(href='#')
+										| Veniam, quis nostrud 
+										span.pull-right (8)
+						.sidebar-item.tag-cloud
+							h3 Tag Cloud
+							ul.nav.nav-pills
+								li
+									a(href='#') Corporate
+								li
+									a(href='#') Joomla
+								li
+									a(href='#') Abstract
+								li
+									a(href='#') Creative
+								li
+									a(href='#') Business
+								li
+									a(href='#') Product
+						.sidebar-item.popular
+							h3 Latest Photos
+							ul.gallery
+								li
+									a(href='#')
+										img(src='images/portfolio/popular1.jpg', alt='')
+								li
+									a(href='#')
+										img(src='images/portfolio/popular2.jpg', alt='')
+								li
+									a(href='#')
+										img(src='images/portfolio/popular3.jpg', alt='')
+								li
+									a(href='#')
+										img(src='images/portfolio/popular4.jpg', alt='')
+								li
+									a(href='#')
+										img(src='images/portfolio/popular5.jpg', alt='')
+								li
+									a(href='#')
+										img(src='images/portfolio/popular1.jpg', alt='')
+	// /#blog

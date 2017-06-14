@@ -78,6 +78,20 @@ exports = module.exports = function (req, res) {
 		});
 	});
 
+	// count post comments
+	view.on('init', function (next) {
+		// Load the counts for each post
+		async.each(locals.data.posts.results, function (post, next) {
+			keystone.list('PostComment').model.count().where('post').in([post.id]).exec(function (err, count) {
+				post.comments = count;
+				next(err);
+			});
+
+		}, function (err) {
+			next(err);
+		});
+	});
+
 	// Render the view
 	view.render('blog');
 };

@@ -1,6 +1,25 @@
 extends ../../layouts/default
 
 block content
-	.container
-		h1 404
-		p.lead Sorry, the page you requested can't be found.
+	section#error-page
+		.error-page-inner
+			.container-fluid
+				.row
+					.col-sm-12
+						.text-center
+							.bg-404
+								.error-image
+									img.img-responsive(src='images/404.png', alt='')
+							h2 PAGE NOT FOUND
+							p The page you are looking for might have been removed, had its name changed.
+							a.btn.btn-error(href='/') RETURN TO THE HOMEPAGE
+							.social-link
+								span
+									a(href='#')
+										i.fa.fa-facebook
+								span
+									a(href='#')
+										i.fa.fa-twitter
+								span
+									a(href='#')
+										i.fa.fa-google-plus

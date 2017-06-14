@@ -14,16 +14,16 @@ html(lang='en')
 		//-link(href='css/responsive.css', rel='stylesheet')
 		link(href="/styles/site.min.css", rel="stylesheet")
 		//-link(href='styles/bootstrap.min.css', rel='stylesheet')
-		link(href='styles/font-awesome.min.css', rel='stylesheet')
-		link(href='styles/animate.min.css', rel='stylesheet')
+		link(href='/styles/font-awesome.min.css', rel='stylesheet')
+		link(href='/styles/animate.min.css', rel='stylesheet')
 		//if lt IE 9
 			script(src='js/html5shiv.js')
 			script(src='js/respond.min.js')
 		link(rel='shortcut icon', href='images/ico/favicon.ico')
-		link(rel='apple-touch-icon-precomposed', sizes='144x144', href='images/ico/apple-touch-icon-144-precomposed.png')
-		link(rel='apple-touch-icon-precomposed', sizes='114x114', href='images/ico/apple-touch-icon-114-precomposed.png')
-		link(rel='apple-touch-icon-precomposed', sizes='72x72', href='images/ico/apple-touch-icon-72-precomposed.png')
-		link(rel='apple-touch-icon-precomposed', href='images/ico/apple-touch-icon-57-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/images/ico/apple-touch-icon-144-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/images/ico/apple-touch-icon-114-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/images/ico/apple-touch-icon-72-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', href='/images/ico/apple-touch-icon-57-precomposed.png')
 	// /head
 	body
 		header#header
@@ -55,13 +55,13 @@ html(lang='en')
 							span.icon-bar
 							span.icon-bar
 							span.icon-bar
-						a.navbar-brand(href='index.html')
+						a.navbar-brand(href='/')
 							h1
-								img(src='images/logo.png', alt='logo')
+								img(src='/images/logo.png', alt='logo')
 					.collapse.navbar-collapse
 						ul.nav.navbar-nav.navbar-right
 							li.active
-								a(href='index.html') Home
+								a(href='/') Home
 							li.dropdown
 								a(href='#')
 									| Pages 
@@ -84,7 +84,7 @@ html(lang='en')
 									li
 										a(href='coming-soon.html') Coming Soon
 							li.dropdown
-								a(href='blog.html')
+								a(href='blog')
 									| Blog 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
@@ -144,14 +144,14 @@ html(lang='en')
 			.container
 				.row
 					.col-sm-12.text-center.bottom-separator
-						img.img-responsive.inline(src='images/home/under.png', alt='')
+						img.img-responsive.inline(src='/images/home/under.png', alt='')
 					.col-md-4.col-sm-6
 						.testimonial.bottom
 							h2 Testimonial
 							.media
 								.pull-left
 									a(href='#')
-										img(src='images/home/profile1.png', alt='')
+										img(src='/images/home/profile1.png', alt='')
 								.media-body
 									blockquote Nisi commodo bresaola, leberkas venison eiusmod bacon occaecat labore tail.
 									h3
@@ -159,7 +159,7 @@ html(lang='en')
 							.media
 								.pull-left
 									a(href='#')
-										img(src='images/home/profile2.png', alt='')
+										img(src='/images/home/profile2.png', alt='')
 								.media-body
 									blockquote
 										| Capicola nisi flank sed minim sunt aliqua rump pancetta leberkas venison eiusmod.
@@ -205,8 +205,16 @@ html(lang='en')
 								| Designed by 
 								a(target='_blank', href='http://www.themeum.com') Themeum
 		// /#footer
-		script(type='text/javascript', src='js/jquery/jquery-2.1.4.min.js')
-		script(type='text/javascript', src='js/bootstrap/bootstrap-3.3.5.min.js')
-		script(type='text/javascript', src='js/lightbox.min.js')
-		script(type='text/javascript', src='js/wow.min.js')
-		script(type='text/javascript', src='js/main.js')
+		script(type='text/javascript', src='/js/jquery/jquery-2.1.4.min.js')
+		script(type='text/javascript', src='/js/bootstrap/bootstrap-3.3.5.min.js')
+		script(type='text/javascript', src='/js/lightbox.min.js')
+		script(type='text/javascript', src='/js/wow.min.js')
+		script(type='text/javascript', src='/js/main.js')
+
+		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
+		//- which generate links to edit content for users who can access Keystone
+		if user && user.canAccessKeystone
+			script(src='/keystone/js/content/editor.js')
+
+		//- Include template-specific javascript files by extending the js block
+		block js
