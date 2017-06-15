@@ -92,6 +92,22 @@ exports = module.exports = function (req, res) {
 		});
 	});
 
+	// load latest comments
+	view.on('init', function (next) {
+		keystone.list('PostComment').model.find()
+			.where('commentState', 'published')
+			.limit(3)
+			.populate('post','slug')
+			.populate('author','name photo')
+			.sort({'publishedOn':-1})
+			.exec(function (err, comments) {
+				if (err) return res.err(err);
+				if (!comments) return;// res.notfound('No recents comments');
+				locals.data.comments = comments;
+				next();
+			});
+	});
+
 	// Render the view
 	view.render('blog');
 };

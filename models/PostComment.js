@@ -40,6 +40,13 @@ PostComment.schema.post('save', function () {
 	}
 });
 
+PostComment.schema.virtual('truncated').get(function () {
+	if (this.content.length < 70)
+		return this.content;
+	else
+		return this.content.substring(0, 70) + "[...]";
+});
+
 PostComment.track = true;
 PostComment.defaultColumns = 'author, post, publishedOn, commentState';
 PostComment.register();
