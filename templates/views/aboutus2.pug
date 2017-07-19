@@ -1,0 +1,273 @@
+extends ../layouts/default
+block intro
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title About Us
+                p Why our Clients love to work with us.
+
+    // /#page-breadcrumb
+block content	  
+    section#about-company.padding-top.wow.fadeInUp(data-wow-duration='400ms', data-wow-delay='400ms')
+      .container
+        .row
+          .col-sm-12.text-center
+            img.margin-bottom(src='images/aboutus/5.png', alt='')
+            h1.margin-bottom About Our Company
+            p
+              | Pork chop duis eu pig, labore sausage venison. Shankle fugiat duis, filet mignon tri-tip venison beef shank ribeye
+              br
+              |  aliqua cillum dolore sed do in.
+    // /#about-company
+    section#services
+      .container
+        .row
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='300ms')
+                img(src='images/home/icon1.png', alt='')
+              h2 Incredibly Responsive
+              p
+                | Ground round tenderloin flank shank ribeye. Hamkevin meatball swine. Cow shankle beef sirloin chicken ground round.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='600ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='600ms')
+                img(src='images/home/icon2.png', alt='')
+              h2 Superior Typography
+              p
+                | Hamburger ribeye drumstick turkey, strip steak sausage ground round shank pastrami beef brisket pancetta venison.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='900ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='900ms')
+                img(src='images/home/icon3.png', alt='')
+              h2 Swift Page Builder
+              p
+                | Venison tongue, salami corned beef ball tip meatloaf bacon. Fatback pork belly bresaola tenderloin bone pork kevin shankle.
+    // /#services
+    section#action
+      .vertical-center
+        .container
+          .row
+            .action.count
+              .col-sm-3.text-center.wow.bounceIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+                h1.timer.bold(data-to='7000', data-speed='3000', data-from='0')
+                h3 Happy Clients
+              .col-sm-3.text-center.wow.bounceIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+                h1.timer.bold(data-to='12', data-speed='3000', data-from='0')
+                h3 Years in Business
+              .col-sm-3.text-center.wow.bounceIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+                h1.timer.bold(data-to='432', data-speed='3000', data-from='0')
+                h3 Cups of Coffee
+              .col-sm-3.text-center.wow.bounceIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+                h1.timer.bold(data-to='145', data-speed='3000', data-from='0')
+                h3 Total Project
+    // /#action
+    section#company-information.padding-top
+      .container
+        .row
+          .about-us
+            .col-sm-7.wow.fadeInLeft(data-wow-duration='1000ms', data-wow-delay='300ms')
+              h2.bold About Triangle
+              .row
+                .col-sm-5
+                  img.img-responsive(src='images/aboutus/6.png', alt='')
+                .col-sm-7
+                  h3.top-zero Who we are
+                  p
+                    | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
+                    br
+                    br
+                    |  Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+            .col-sm-5.wow.fadeInRight(data-wow-duration='1000ms', data-wow-delay='300ms')
+              .our-skills
+                h2.bold Our Skills
+                .single-skill
+                  h3 Design
+                  .progress
+                    .progress-bar.progress-bar-primary.six-sec-ease-in-out(role='progressbar', data-transition='35') 35%
+                .single-skill
+                  h3 HTML
+                  .progress
+                    .progress-bar.progress-bar-primary.six-sec-ease-in-out(role='progressbar', data-transition='80') 80%
+                .single-skill
+                  h3 PHP
+                  .progress
+                    .progress-bar.progress-bar-primary.six-sec-ease-in-out(role='progressbar', data-transition='60') 60%
+    // /#company-information
+    section#team
+      .container
+        .row
+          h1.title.text-center.wow.fadeInDown(data-wow-duration='500ms', data-wow-delay='300ms') Meet the Team
+          p.text-center.wow.fadeInDown(data-wow-duration='400ms', data-wow-delay='400ms')
+            | Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            br
+            |                 Ut enim ad minim veniam, quis nostrud
+          #team-carousel.carousel.slide.wow.fadeIn(data-ride='carousel', data-wow-duration='400ms', data-wow-delay='400ms')
+            // Indicators
+            ol.carousel-indicators.visible-xs
+              li.active(data-target='#team-carousel', data-slide-to='0')
+              li(data-target='#team-carousel', data-slide-to='1')
+            // Wrapper for slides
+            .carousel-inner
+              .item.active
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/1.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/2.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/3.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/1.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+              .item
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/4.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/3.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/2.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src='images/aboutus/1.jpg', alt='')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='#')
+                              i.fa.fa-facebook
+                          li
+                            a(href='#')
+                              i.fa.fa-twitter
+                          li
+                            a(href='#')
+                              i.fa.fa-google-plus
+                    .person-info
+                      h2 John Doe
+                      p CEO & Developer
+            // Controls
+            a.left.team-carousel-control.hidden-xs(href='#team-carousel', data-slide='prev') left
+            a.right.team-carousel-control.hidden-xs(href='#team-carousel', data-slide='next') right
+    // /#team
+
