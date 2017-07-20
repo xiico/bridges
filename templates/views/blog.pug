@@ -1,36 +1,7 @@
 extends ../layouts/default
-
-mixin post(post)
-	.col-sm-12.col-md-12
-		div.single-blog.single-column
-			.post-thumb
-				a(href='/blog/post/' + post.slug)
-					img(src=post._.image.fit(850,400)).img-responsive
-				.post-overlay
-					span.uppercase
-						a(href='/blog/post/' + post.slug)
-							| #{post._.publishedDate.format('D')} 
-							br
-							small #{post._.publishedDate.format('MMMM')} 
-			.post-content.overflow
-				h2.post-title.bold
-					a(href='/blog/post/' + post.slug)= post.title
-				div(data-ks-editable=editable(user, { list: 'Post', id: post.id }))
-					h3.post-author
-						a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}
-				p!= post.content.brief
-				if post.content.extended
-					p: a(href='/blog/post/' + post.slug).read-more Read more...
-				.post-bottom.overflow
-					ul.nav.navbar-nav.post-nav
-						li
-							a(href='/blog/post/' + post.slug)
-								i.fa.fa-heart
-								| 32 Love
-						li
-							a(href='/blog/post/' + post.slug)
-								i.fa.fa-comments
-								| #{utils.plural(post.comments, '* Comment')}
+include ../mixins/post
+include ../mixins/latest-comments
+include ../mixins/categories
 
 block intro
 	section#page-breadcrumb
@@ -69,28 +40,11 @@ block content
 						.sidebar-item.recent
 							h3 Comments
 							if data.comments && data.comments.length
-								each comment in data.comments							
-									.media
-										.pull-left
-											a(href='/blog/post/' + comment.post.slug)
-												img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(52,52) : 'http://placehold.it/52x52', alt=comment.author.name.full, width=52, height=52).img-rounded
-										.media-body
-											h4
-												a(href='/blog/post/' + comment.post.slug)= comment.truncated
-											p posted on  #{comment._.publishedOn.format('DD MMMM YYYY')} 
+								+lastest-comments(data.comments)
 							else
 								span No recent comments
 						if data.categories.length
-							.sidebar-item.categories
-								h3 Categories
-								ul.nav.navbar-stacked
-									li(class=!data.category ? 'active' : false)
-										a(href='/blog') All Categories
-									each cat in data.categories
-										li(class=data.category && data.category.id == cat.id ? 'active' : false)
-											a(href='/blog/' + cat.key)= cat.name
-												if cat.postCount
-													span.pull-right= cat.postCount
+							+categories(data.categories, data.category)
 						.sidebar-item.tag-cloud
 							h3 Tag Cloud
 							ul.nav.nav-pills

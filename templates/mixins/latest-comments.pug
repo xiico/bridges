@@ -1,0 +1,11 @@
+mixin lastest-comments(comments)
+	if comments && comments.length
+		each comment in data.comments							
+			.media
+				.pull-left
+					a(href='/blog/post/' + comment.post.slug)
+						img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(52,52) : 'http://placehold.it/52x52', alt=comment.author.name.full, width=52, height=52).img-rounded
+				.media-body
+					h4
+						a(href='/blog/post/' + comment.post.slug)= comment.truncated
+					p posted on  #{comment._.publishedOn.format('DD MMMM YYYY')} 

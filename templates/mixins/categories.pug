@@ -1,0 +1,12 @@
+mixin categories(categories, category)
+	if categories
+		.sidebar-item.categories
+			h3 Categories
+			ul.nav.navbar-stacked
+				li(class=!category ? 'active' : false)
+					a(href='/blog') All Categories
+				each cat in categories
+					li(class=category && category.id == cat.id ? 'active' : false)
+						a(href='/blog/' + cat.key)= cat.name
+							if cat.postCount
+								span.pull-right= cat.postCount

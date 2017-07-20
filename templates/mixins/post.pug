@@ -1,0 +1,31 @@
+mixin post(post)
+	.col-sm-12.col-md-12
+		div.single-blog.single-column
+			.post-thumb
+				a(href='/blog/post/' + post.slug)
+					img(src=post._.image.fit(850,400)).img-responsive
+				.post-overlay
+					span.uppercase
+						a(href='/blog/post/' + post.slug)
+							| #{post._.publishedDate.format('D')} 
+							br
+							small #{post._.publishedDate.format('MMMM')} 
+			.post-content.overflow
+				h2.post-title.bold
+					a(href='/blog/post/' + post.slug)= post.title
+				div(data-ks-editable=editable(user, { list: 'Post', id: post.id }))
+					h3.post-author
+						a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}
+				p!= post.content.brief
+				if post.content.extended
+					p: a(href='/blog/post/' + post.slug).read-more Read more...
+				.post-bottom.overflow
+					ul.nav.navbar-nav.post-nav
+						li
+							a(href='/blog/post/' + post.slug)
+								i.fa.fa-heart
+								| No Love
+						li
+							a(href='/blog/post/' + post.slug)
+								i.fa.fa-comments
+								| #{utils.plural(post.comments, '* Comment')}
