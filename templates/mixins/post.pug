@@ -17,7 +17,9 @@ mixin post(post)
 					h3.post-author
 						a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}
 				p!= post.content.brief
-				if post.content.extended
+				if full
+					p!= post.content.extended
+				else if post.content.extended
 					p: a(href='/blog/post/' + post.slug).read-more Read more...
 				.post-bottom.overflow
 					ul.nav.navbar-nav.post-nav

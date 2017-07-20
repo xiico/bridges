@@ -14,6 +14,7 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
 	info: { type: Types.Text, initial: true},
 	site: { type: Types.Url, initial: true},
+	registered: { type: Types.Date, required: true, initial: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 	canPost: { type: Boolean, label: 'Can write posts', index: true },
