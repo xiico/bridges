@@ -1,0 +1,125 @@
+extends ../layouts/default
+block intro
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Portfolio
+                p Be Creative
+    // /#action
+block content    
+    section#portfolio-information.padding-top
+      .container
+        .row
+          .col-sm-6
+            img.img-responsive(src='images/portfolio-details/1.jpg', alt='')
+          .col-sm-6
+            .project-name.overflow
+              h2.bold Sailing Vivamus 
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-clock-o
+                    | February11,2014
+                li
+                  a(href='#')
+                    i.fa.fa-tag
+                    | Branding
+            .project-info.overflow
+              h3 Project Info
+              p
+                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Suspendisse potenti. Proin quis eros odio, dapibus dictum mauris. Donec nisi libero, adipiscing id pretium eget, consectetur sit amet leo. Nam at eros quis mi egestas fringilla non nec purus.
+              ul.elements
+                li
+                  i.fa.fa-angle-right
+                  |  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                li
+                  i.fa.fa-angle-right
+                  |  Donec tincidunt felis quis ipsum porttitor, non rutrum lorem rhoncus.
+                li
+                  i.fa.fa-angle-right
+                  |  Nam in quam consectetur nulla placerat dapibus ut ut nunc.
+            .skills.overflow
+              h3 Skills:
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Design
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | HTML/CSS
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Javascript
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Backend
+            .client.overflow
+              h3 Client:
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-bolt
+                    | Okler Themes
+            .live-preview
+              a.btn.btn-common.uppercase(href='#') Live preview
+    // /#portfolio-information
+    section#related-work.padding-top.padding-bottom
+      .container
+        .row
+          h1.title.text-center Related Work
+          .col-sm-3
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/1.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/1.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/2.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/2.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/3.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/3.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/4.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/4.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+    // /#related-work

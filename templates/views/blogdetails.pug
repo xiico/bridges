@@ -1,0 +1,230 @@
+extends ../layouts/default
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Blog Details
+                p Blog with right sidebar
+    // /#page-breadcrumb
+block content    
+    section#blog-details.padding-top
+      .container
+        .row
+          .col-md-9.col-sm-7
+            .row
+              .col-md-12.col-sm-12
+                .single-blog.blog-details.two-column
+                  .post-thumb
+                    a(href='#')
+                      img.img-responsive(src='images/blog/7.jpg', alt='')
+                    .post-overlay
+                      span.uppercase
+                        a(href='#')
+                          | 14 
+                          br
+                          small Feb
+                  .post-content.overflow
+                    h2.post-title.bold
+                      a(href='#') Advanced business cards design
+                    h3.post-author
+                      a(href='#') Posted by micron News
+                    p
+                      | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
+                      br
+                      br
+                      |                                     There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                    .post-bottom.overflow
+                      ul.nav.navbar-nav.post-nav
+                        li
+                          a(href='#')
+                            i.fa.fa-tag
+                            | Creative
+                        li
+                          a(href='#')
+                            i.fa.fa-heart
+                            | 32 Love
+                        li
+                          a(href='#')
+                            i.fa.fa-comments
+                            | 3 Comments
+                    .blog-share
+                      span.st_facebook_hcount
+                      span.st_twitter_hcount
+                      span.st_linkedin_hcount
+                      span.st_pinterest_hcount
+                      span.st_email_hcount
+                    .author-profile.padding
+                      .row
+                        .col-sm-2
+                          img(src='images/blogdetails/1.png', alt='')
+                        .col-sm-10
+                          h3 Rodrix Hasel
+                          p
+                            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                          span
+                            | Website:
+                            a(href='www.jooomshaper.com')  www.jooomshaper.com
+                    .response-area
+                      h2.bold Comments
+                      ul.media-list
+                        li.media
+                          .post-comment
+                            a.pull-left(href='#')
+                              img.media-object(src='images/blogdetails/2.png', alt='')
+                            .media-body
+                              span
+                                i.fa.fa-user
+                                | Posted by 
+                                a(href='#') Endure
+                              p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.
+                              ul.nav.navbar-nav.post-nav
+                                li
+                                  a(href='#')
+                                    i.fa.fa-clock-o
+                                    | February 11,2014
+                                li
+                                  a(href='#')
+                                    i.fa.fa-reply
+                                    | Reply
+                          .parrent
+                            ul.media-list
+                              li.post-comment.reply
+                                a.pull-left(href='#')
+                                  img.media-object(src='images/blogdetails/3.png', alt='')
+                                .media-body
+                                  span
+                                    i.fa.fa-user
+                                    | Posted by 
+                                    a(href='#') Endure
+                                  p
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                                  ul.nav.navbar-nav.post-nav
+                                    li
+                                      a(href='#')
+                                        i.fa.fa-clock-o
+                                        | February 11,2014
+                        li.media
+                          .post-comment
+                            a.pull-left(href='#')
+                              img.media-object(src='images/blogdetails/4.png', alt='')
+                            .media-body
+                              span
+                                i.fa.fa-user
+                                | Posted by 
+                                a(href='#') Endure
+                              p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.
+                              ul.nav.navbar-nav.post-nav
+                                li
+                                  a(href='#')
+                                    i.fa.fa-clock-o
+                                    | February 11,2014
+                                li
+                                  a(href='#')
+                                    i.fa.fa-reply
+                                    | Reply
+                    // /Response-area
+          .col-md-3.col-sm-5
+            .sidebar.blog-sidebar
+              .sidebar-item.recent
+                h3 Comments
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project1.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project2.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project3.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+              .sidebar-item.categories
+                h3 Categories
+                ul.nav.navbar-stacked
+                  li
+                    a(href='#')
+                      | Lorem ipsum
+                      span.pull-right (1)
+                  li.active
+                    a(href='#')
+                      | Dolor sit amet
+                      span.pull-right (8)
+                  li
+                    a(href='#')
+                      | Adipisicing elit
+                      span.pull-right (4)
+                  li
+                    a(href='#')
+                      | Sed do
+                      span.pull-right (9)
+                  li
+                    a(href='#')
+                      | Eiusmod
+                      span.pull-right (3)
+                  li
+                    a(href='#')
+                      | Mockup
+                      span.pull-right (4)
+                  li
+                    a(href='#')
+                      | Ut enim ad minim 
+                      span.pull-right (2)
+                  li
+                    a(href='#')
+                      | Veniam, quis nostrud 
+                      span.pull-right (8)
+              .sidebar-item.tag-cloud
+                h3 Tag Cloud
+                ul.nav.nav-pills
+                  li
+                    a(href='#') Corporate
+                  li
+                    a(href='#') Joomla
+                  li
+                    a(href='#') Abstract
+                  li
+                    a(href='#') Creative
+                  li
+                    a(href='#') Business
+                  li
+                    a(href='#') Product
+              .sidebar-item.popular
+                h3 Latest Photos
+                ul.gallery
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular1.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular2.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular3.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular4.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular5.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular1.jpg', alt='')
+    // /#blog

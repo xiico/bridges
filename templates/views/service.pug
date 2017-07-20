@@ -1,0 +1,235 @@
+extends ../layouts/default
+block intro
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Services
+                p Designed to suit you.
+    // /#page-breadcrumb
+block content    
+    section#company-information.choose
+      .container
+        .row
+          .col-sm-6.wow.fadeInDown(data-wow-duration='1000ms', data-wow-delay='0ms')
+            img.img-responsive(src='images/services/4.png', alt='')
+          .col-sm-6.padding-top.wow.fadeInDown(data-wow-duration='1000ms', data-wow-delay='0ms')
+            h2 Why Choose Us?
+            p
+              | Nisi commodo bresaola, leberkas venison eiusmod bacon occaecat labore
+              br
+              |  tail corned beef Capicola nisi flank sed.
+            ul.elements
+              li.wow.fadeInUp(data-wow-duration='900ms', data-wow-delay='100ms')
+                i.fa.fa-angle-right
+                |  when an unknown printer took a galley of type
+              li.wow.fadeInUp(data-wow-duration='800ms', data-wow-delay='200ms')
+                i.fa.fa-angle-right
+                |  scrambled it to make a type specimen book.
+              li.wow.fadeInUp(data-wow-duration='700ms', data-wow-delay='300ms')
+                i.fa.fa-angle-right
+                |  scrambled it to make a type specimen book.
+              li.wow.fadeInUp(data-wow-duration='600ms', data-wow-delay='400ms')
+                i.fa.fa-angle-right
+                |  scrambled it to make a type specimen book.
+              li.wow.fadeInUp(data-wow-duration='500ms', data-wow-delay='500ms')
+                i.fa.fa-angle-right
+                |  but also the leap into electronic typesetting.
+    // /#company-information
+    section#services
+      .container
+        .row
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='300ms')
+                img(src='images/home/icon1.png', alt='')
+              h2 Incredibly Responsive
+              p
+                | Ground round tenderloin flank shank ribeye. Hamkevin meatball swine. Cow shankle beef sirloin chicken ground round.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='600ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='600ms')
+                img(src='images/home/icon2.png', alt='')
+              h2 Superior Typography
+              p
+                | Hamburger ribeye drumstick turkey, strip steak sausage ground round shank pastrami beef brisket pancetta venison.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='900ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='900ms')
+                img(src='images/home/icon3.png', alt='')
+              h2 Swift Page Builder
+              p
+                | Venison tongue, salami corned beef ball tip meatloaf bacon. Fatback pork belly bresaola tenderloin bone pork kevin shankle.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='300ms')
+                img(src='images/services/1.png', alt='')
+              h2 Incredibly Responsive
+              p
+                | Ground round tenderloin flank shank ribeye. Hamkevin meatball swine. Cow shankle beef sirloin chicken ground round.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='600ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='600ms')
+                img(src='images/services/2.png', alt='')
+              h2 Superior Typography
+              p
+                | Hamburger ribeye drumstick turkey, strip steak sausage ground round shank pastrami beef brisket pancetta venison.
+          .col-sm-4.text-center.padding.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='900ms')
+            .single-service
+              .wow.scaleIn(data-wow-duration='500ms', data-wow-delay='900ms')
+                img(src='images/services/3.png', alt='')
+              h2 Swift Page Builder
+              p
+                | Venison tongue, salami corned beef ball tip meatloaf bacon. Fatback pork belly bresaola tenderloin bone pork kevin shankle.
+    // /#services
+    section#action.responsive
+      .vertical-center
+        .container
+          .row
+            .action.take-tour
+              .col-sm-7.wow.fadeInLeft(data-wow-duration='500ms', data-wow-delay='300ms')
+                h1.title Triangle Corporate Template
+                p A responsive, retina-ready & wide multipurpose template.
+              .col-sm-5.text-center.wow.fadeInRight(data-wow-duration='500ms', data-wow-delay='300ms')
+                .tour-button
+                  a.btn.btn-common(href='#') TAKE THE TOUR
+    // /#action
+    section#recent-projects.recent-projects
+      .container
+        .row
+          h1.title.text-center.wow.fadeInDown(data-wow-duration='500ms', data-wow-delay='300ms') Recent Projects
+          p.text-center.padding-bottom.wow.fadeInDown(data-wow-duration='400ms', data-wow-delay='400ms')
+            | Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            br
+            |                 Ut enim ad minim veniam, quis nostrud
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='300ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/1.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/1.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='400ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/2.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/2.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='500ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/3.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/3.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='600ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/4.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/4.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='700ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/5.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/5.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='800ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/6.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/6.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='900ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/7.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/7.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+          .col-sm-3.col-xs-6.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='1000ms')
+            .portfolio-wrapper
+              .portfolio-single
+                .portfolio-thumb
+                  img.img-responsive(src='images/portfolio/8.jpg', alt='')
+                .portfolio-view
+                  ul.nav.nav-pills
+                    li
+                      a(href='images/portfolio/8.jpg', data-lightbox='example-set')
+                        i.fa.fa-eye
+              .portfolio-info
+                h2 Sailing Vivamus
+    // /#recent-projects
+    section#clients
+      .container
+        .row
+          .col-sm-12
+            .clients.text-center.wow.fadeInUp(data-wow-duration='500ms', data-wow-delay='300ms')
+              p
+                img.img-responsive(src='images/home/clients.png', alt='')
+              h1.title Happy Clients
+              p
+                | Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                br
+                |  Ut enim ad minim veniam, quis nostrud
+            .clients-logo.wow.fadeIn(data-wow-duration='1000ms', data-wow-delay='600ms')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client1.png', alt='')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client2.png', alt='')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client3.png', alt='')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client4.png', alt='')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client5.png', alt='')
+              .col-xs-3.col-sm-2
+                a(href='#')
+                  img.img-responsive(src='images/home/client6.png', alt='')
+    // /#clients

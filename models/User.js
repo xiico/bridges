@@ -12,6 +12,8 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	photo: { type: Types.CloudinaryImage, collapse: true },
 	password: { type: Types.Password, initial: true, required: true },
+	info: { type: Types.Text, initial: true},
+	site: { type: Types.Url, initial: true},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 	canPost: { type: Boolean, label: 'Can write posts', index: true },

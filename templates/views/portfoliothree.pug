@@ -1,0 +1,179 @@
+extends ../layouts/default
+block intro
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Portfolio
+                p Be Creative
+    // /#action
+block content    
+    section#portfolio
+      .container
+        .row
+          ul.portfolio-filter.text-center
+            li
+              a.btn.btn-default.active(href='#', data-filter='*') All
+            li
+              a.btn.btn-default(href='#', data-filter='.branded') Branded
+            li
+              a.btn.btn-default(href='#', data-filter='.design') Design
+            li
+              a.btn.btn-default(href='#', data-filter='.folio') Folio
+            li
+              a.btn.btn-default(href='#', data-filter='.logos') Logos
+            li
+              a.btn.btn-default(href='#', data-filter='.mobile') Mobile
+            li
+              a.btn.btn-default(href='#', data-filter='.mockup') Mockup
+          // /#portfolio-filter
+          .portfolio-items
+            .col-sm-6.portfolio-item.branded.logos
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/17.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/17.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.mockup.folio
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/18.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/18.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.design.logos
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/19.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/19.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.design.logos
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/20.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/20.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.branded.mobile
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/21.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/21.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.branded.mockup
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/22.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/22.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.branded.folio
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/23.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/23.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+            .col-sm-6.portfolio-item.design.logos
+              .portfolio-wrapper
+                .portfolio-single
+                  .portfolio-thumb
+                    img.img-responsive(src='images/portfolio/24.jpg', alt='')
+                  .portfolio-view
+                    ul.nav.nav-pills
+                      li
+                        a(href='portfolio-details.html')
+                          i.fa.fa-link
+                      li
+                        a(href='images/portfolio/24.jpg', data-lightbox='example-set')
+                          i.fa.fa-eye
+                .portfolio-info
+                  h2 Sailing Vivamus
+          .portfolio-pagination
+            ul.pagination
+              li
+                a(href='#') left
+              li
+                a(href='#') 1
+              li
+                a(href='#') 2
+              li.active
+                a(href='#') 3
+              li
+                a(href='#') 4
+              li
+                a(href='#') 5
+              li
+                a(href='#') 6
+              li
+                a(href='#') 7
+              li
+                a(href='#') 8
+              li
+                a(href='#') 9
+              li
+                a(href='#') right
+    // /#portfolio
+append footer  
+    script(type="text/javascript" src="js/jquery.isotope.min.js")        

@@ -1,0 +1,280 @@
+extends ../layouts/default
+block intro
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Portfolio
+                p Be Creative
+    // /#page-breadcrumb
+block content    
+    section#projects
+      .container
+        .row
+          .col-md-9.col-sm-8
+            .row
+              ul.portfolio-filter.text-center
+                li
+                  a.btn.btn-default.active(href='#', data-filter='*') All
+                li
+                  a.btn.btn-default(href='#', data-filter='.branded') Branded
+                li
+                  a.btn.btn-default(href='#', data-filter='.design') Design
+                li
+                  a.btn.btn-default(href='#', data-filter='.folio') Folio
+                li
+                  a.btn.btn-default(href='#', data-filter='.logos') Logos
+                li
+                  a.btn.btn-default(href='#', data-filter='.mobile') Mobile
+                li
+                  a.btn.btn-default(href='#', data-filter='.mockup') Mockup
+              // /#portfolio-filter
+              .portfolio-items
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.branded.logos
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/1.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/1.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.mockup.folio
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/2.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/2.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.design.logos
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/3.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/3.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.design.logos
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/4.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/4.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.branded.mobile
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/5.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/5.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.branded.mockup
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/6.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/6.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.branded.folio
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/7.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/7.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.design.logos
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/8.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/8.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+                .col-xs-6.col-sm-6.col-md-4.portfolio-item.mobile.logos
+                  .portfolio-wrapper
+                    .portfolio-single
+                      .portfolio-thumb
+                        img.img-responsive(src='images/portfolio/9.jpg', alt='')
+                      .portfolio-view
+                        ul.nav.nav-pills
+                          li
+                            a(href='portfolio-details.html')
+                              i.fa.fa-link
+                          li
+                            a(href='images/portfolio/9.jpg', data-lightbox='example-set')
+                              i.fa.fa-eye
+                    .portfolio-info
+                      h2 Sailing Vivamus
+              .portfolio-pagination
+                ul.pagination
+                  li
+                    a(href='#') left
+                  li
+                    a(href='#') 1
+                  li
+                    a(href='#') 2
+                  li.active
+                    a(href='#') 3
+                  li
+                    a(href='#') 4
+                  li
+                    a(href='#') 5
+                  li
+                    a(href='#') 6
+                  li
+                    a(href='#') 7
+                  li
+                    a(href='#') 8
+                  li
+                    a(href='#') 9
+                  li
+                    a(href='#') right
+          .col-md-3.col-sm-4.padding-top
+            .sidebar.portfolio-sidebar
+              .sidebar-item.categories
+                h3 Project Categories
+                ul.nav.navbar-stacked
+                  li
+                    a(href='#')
+                      | Branded
+                      span.pull-right (1)
+                  li.active
+                    a(href='#')
+                      | Design
+                      span.pull-right (8)
+                  li
+                    a(href='#')
+                      | Folio
+                      span.pull-right (4)
+                  li
+                    a(href='#')
+                      | Logos
+                      span.pull-right (9)
+                  li
+                    a(href='#')
+                      | Mobile
+                      span.pull-right (3)
+                  li
+                    a(href='#')
+                      | Mockup
+                      span.pull-right (4)
+                  li
+                    a(href='#')
+                      | Php
+                      span.pull-right (2)
+                  li
+                    a(href='#')
+                      | Wordpress
+                      span.pull-right (8)
+              .sidebar-item.recent
+                h3 Recent Projects
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project1.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project2.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+                .media
+                  .pull-left
+                    a(href='#')
+                      img(src='images/portfolio/project3.jpg', alt='')
+                  .media-body
+                    h4
+                      a(href='#') Lorem ipsum dolor sit amet consectetur adipisicing elit,
+                    p posted on  07 March 2014
+              .sidebar-item.popular
+                h3 Popular Projects
+                ul.gallery
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular1.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular2.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular3.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular4.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular5.jpg', alt='')
+                  li
+                    a(href='#')
+                      img(src='images/portfolio/popular1.jpg', alt='')
+    // /#projects
+append footer  
+    script(type="text/javascript" src="js/jquery.isotope.min.js")        
