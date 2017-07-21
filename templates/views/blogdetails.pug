@@ -1,4 +1,11 @@
 extends ../layouts/default
+block extrahead
+  script(type='text/javascript').
+    var switchTo5x=true;
+  script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
+  script(type='text/javascript').
+    stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});
+
 block intro    
     section#page-breadcrumb
       .vertical-center.sun
@@ -66,7 +73,7 @@ block content
                             | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliq Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
                           span
                             | Website:
-                            a(href='www.jooomshaper.com')  www.jooomshaper.com
+                            a(href='http://www.jooomshaper.com')  www.jooomshaper.com
                     .response-area
                       h2.bold Comments
                       ul.media-list
