@@ -44,14 +44,29 @@ mixin comment-post(comment)
 	li.media
 		.post-comment
 			a.pull-left(href='#')
-				img.media-object(src=comment.author.photo ? src=comment.author.photo.url : 'http://placehold.it/127x137', alt=comment.author.name.full, width=127, height=137)
+				img.media-object(src=comment.author.photo ? src=comment.author.photo.url : 'http://placehold.it/127x137', alt=comment.author.name.full, width=127)
 			.media-body
 				span
 					i.fa.fa-user
 					| Posted by 
 					a(href='#')= comment.author.name.full
-				p(id=comment.id data-author=comment.author.name.full)
-					+comment-content(comment)
+						if user && user.id === comment.author.id
+							|  &middot; 
+							a(href='?remove=comment&comment=' + comment.id, title='Delete this comment', rel='tooltip', data-placement='left').comment-delete.js-delete-confirm Delete					
+				div(id=comment.id data-author=comment.author.name.full)
+						-
+							var start = comment.content.indexOf('[quote');
+							var quoteContent;
+							if (start >= 0){
+								var authorEnd = comment.content.indexOf(']');
+								var quoteEnd = comment.content.indexOf('[/quote]');
+								var quoteAuthor = comment.content.substring(start,authorEnd);
+								var author = quoteAuthor.split('=')[1].replace("'","").replace("'","");
+								quoteContent = comment.content.substring(start,quoteEnd).split(']')[1];
+								quoteContent = '<div class="quote-bg"><div class="quote-author">' + author + '</div><div>' + quoteContent + '</div></div>' + '\n';
+								comment.content = comment.content.replace(comment.content.substring(start,quoteEnd + '[/quote]'.length),'');
+							} else quoteContent = "";
+						| !{quoteContent + comment.content}
 				ul.nav.navbar-nav.post-nav
 					li
 						a(href='#')
