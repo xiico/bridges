@@ -50,19 +50,40 @@ mixin comment-post(comment)
 					i.fa.fa-user
 					| Posted by 
 					a(href='#')= comment.author.name.full
-				p
-					| #{comment.content.replace(/\n/g, '<br>')}
+				p(id=comment.id data-author=comment.author.name.full)
+					+comment-content(comment)
 				ul.nav.navbar-nav.post-nav
 					li
 						a(href='#')
 							i.fa.fa-clock-o
 							| #{comment._.publishedOn.format('DD MMMM YYYY')} 
-					li
-						a(href='#' onclick="reply();")
-							i.fa.fa-reply
-							| Reply	
+					if user
+						li
+							a(href='#' onclick="reply($('#"+comment.id+"'));")
+								i.fa.fa-reply
+								| Reply	
 
 mixin comment-thread(comments)
 	if comments
 		for comment in comments
 			+comment-post(comment)
+//-[quote='Test User']comment left[/quote]
+mixin comment-content(comment)
+	-
+		var start = comment.content.indexOf('[quote');
+		var quoteContent;
+		if (start >= 0){
+			var authorEnd = comment.content.indexOf(']');
+			var quoteEnd = comment.content.indexOf('[/quote]');
+			var quoteAuthor = comment.content.substring(start,authorEnd);
+			var author = quoteAuthor.split('=')[1].replace("'","").replace("'","");
+			quoteContent = comment.content.substring(start,quoteEnd).split(']')[1];
+			quoteContent = '<div class="quote-bg"><div class="quote-author">' + author + '</div><div>' + quoteContent + '</div></div>' + '\n';
+			comment.content = comment.content.replace(comment.content.substring(start,quoteEnd + '[/quote]'.length),'');
+		} else quoteContent = "";
+	| !{quoteContent + comment.content}
+//- <div class="quote-bg">
+//-   <div class="quote-author">My Name</div>
+//-   <div>This is some text in a div element.</div>
+//- </div>		
+	

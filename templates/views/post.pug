@@ -103,6 +103,6 @@ block js
 			var comments = $('#comments-area');
 			var input = $('#comment');
 			$('html, body').animate({ scrollTop: comments.offset().top }, 250);		
-			input.text(data);
+			input.text("[quote author='" + data.data("author") + "']" + data.html() + "[/quote]\n");
 			input.focus();
 		}
