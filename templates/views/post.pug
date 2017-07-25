@@ -1,39 +1,78 @@
 extends ../layouts/default
+include ../mixins/post
+include ../mixins/latest-comments
+block extrahead
+	script(type='text/javascript').
+		var switchTo5x=true;
+	script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
+	script(type='text/javascript').
+		stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});
 
-include ../mixins/commenting
 
+block intro
+	section#page-breadcrumb
+		.vertical-center.sun
+			.container
+				.row
+					.action
+						.col-sm-12
+							h1.title Blog Details
+							p Blog with right sidebar
+	// /#page-breadcrumb
 block content
-	.container: .row: .col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-		article
-			p: a(href='/blog') &larr; back to the blog
-			hr
-			if !data.post
-				h2 Invalid Post.
-			else
-				header
-					h1= data.post.title
-					h5 Posted 
-						if data.post.publishedDate
-							| on #{data.post._.publishedDate.format('MMMM Do, YYYY')} 
-						if data.post.categories && data.post.categories.length
-							| in 
-							each cat, cat_i in data.post.categories
-								a(href='/blog/' + cat.key)= cat.name
-								if cat_i < data.post.categories.length - 1
-									| , 
-								else
-									|  
-						if data.post.author
-							| by #{data.post.author.name.first}
-				.post
-					if data.post.image.exists
-						.image-wrap: img(src=data.post._.image.fit(750,450)).img-responsive
-					!= data.post.content.full
-				//- comments
-				div
-					+comment-form()
-					+comment-thread(comments)
-
+	section#blog-details.padding-top
+		.container
+			.row
+				.col-md-9.col-sm-7
+					.row
+						+post(data.post,true)
+				.col-md-3.col-sm-5
+					.sidebar.blog-sidebar
+						.sidebar-item.recent
+							h3 Comments
+							if data.comments && data.comments.length
+								+latest-comments(data.comments)
+							else
+								span No recent comments
+						if data.categories.length
+							+categories(data.categories, data.category)
+						.sidebar-item.tag-cloud
+							h3 Tag Cloud
+							ul.nav.nav-pills
+								li
+									a(href='#') Corporate
+								li
+									a(href='#') Joomla
+								li
+									a(href='#') Abstract
+								li
+									a(href='#') Creative
+								li
+									a(href='#') Business
+								li
+									a(href='#') Product
+						.sidebar-item.popular
+							h3 Latest Photos
+							ul.gallery
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular1.jpg', alt='')
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular2.jpg', alt='')
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular3.jpg', alt='')
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular4.jpg', alt='')
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular5.jpg', alt='')
+								li
+									a(href='#')
+										img(src='/images/portfolio/popular1.jpg', alt='')
+	// /#blog
 block js
 	script.
 		jQuery(function($) {			
@@ -58,4 +97,12 @@ block js
 					submit.attr('disabled','disabled');
 				}
 			});
-		});									
+		});	
+	script.
+		function reply(data){			
+			var comments = $('#comments-area');
+			var input = $('#comment');
+			$('html, body').animate({ scrollTop: comments.offset().top }, 250);		
+			input.text(data);
+			input.focus();
+		}

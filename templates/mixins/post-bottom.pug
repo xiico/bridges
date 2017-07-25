@@ -1,0 +1,24 @@
+include ../mixins/commenting
+mixin post-bottom(post)
+	.blog-share
+		span.st_facebook_hcount
+		span.st_twitter_hcount
+		span.st_linkedin_hcount
+		span.st_pinterest_hcount
+		span.st_email_hcount
+	.author-profile.padding
+		.row
+			.col-sm-2
+				img(src=post.author.photo.url, alt='')
+			.col-sm-10
+				h3= post.author.name.first
+				p!= post.author.info
+				span
+					| Website:
+					a(href=post.author.site)= post.author.site
+	.response-area
+		h2#comments-area.bold Comments
+		ul.media-list
+			+comment-form()
+			+comment-thread(comments)
+	// /Response-area

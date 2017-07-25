@@ -1,4 +1,5 @@
-mixin post(post)
+include post-bottom
+mixin post(post,full)
 	div(data-ks-editable=editable(user, { list: 'Post', id: post.id })).col-sm-12.col-md-12
 		div.single-blog.single-column
 			.post-thumb
@@ -31,3 +32,5 @@ mixin post(post)
 							a(href='/blog/post/' + post.slug)
 								i.fa.fa-comments
 								| #{utils.plural(post.comments, '* Comment')}
+				if full
+					+post-bottom(post)

@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var PostComment = keystone.list('PostComment');
+var async = require('async');
 
 exports = module.exports = function (req, res) {
 
@@ -13,6 +14,7 @@ exports = module.exports = function (req, res) {
 	};
 	locals.data = {
 		posts: [],
+		categories: [],
 	};
 	//locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
 	locals.formData = req.body || {};
@@ -41,6 +43,31 @@ exports = module.exports = function (req, res) {
 			next(err);
 		});
 	});*/
+
+	// count post comments
+	view.on('init', function (next) {
+
+		keystone.list('PostComment').model.count().where('post').in([locals.data.post.id]).exec(function (err, count) {
+			locals.data.post.comments = count;
+			next(err);
+		});		
+	});
+
+	// load latest comments
+	view.on('init', function (next) {
+		keystone.list('PostComment').model.find()
+			.where('commentState', 'published')
+			.limit(3)
+			.populate('post','slug')
+			.populate('author','name photo')
+			.sort({'publishedOn':-1})
+			.exec(function (err, comments) {
+				if (err) return res.err(err);
+				if (!comments) return;// res.notfound('No recents comments');
+				locals.data.comments = comments;
+				next(err);
+			});
+	});	
 
 	// Load comments on the Post
 	view.on('init', function (next) {
