@@ -98,7 +98,7 @@ html(lang='en')
 									li
 										a(href='/blogthree') 1 Column + Left Sidebar
 									li
-										a(href='/blogfour') Blog Masonary
+										a(href='/blogmasonry') Blog Masonary
 									li
 										a(href='/blogdetails') Blog Details
 							li.dropdown
@@ -120,6 +120,12 @@ html(lang='en')
 										a(href='/portfoliodetails') Portfolio Details
 							li
 								a(href='/shortcodes ') Shortcodes
+							if user
+								if user.canAccessKeystone
+									li: a(href='/keystone') Open Keystone
+								li: a(href='/keystone/signout') Sign Out
+							else
+								li: a(href='/keystone/signin') Sign In								
 					.search
 						form(role='form')
 							i.fa.fa-search

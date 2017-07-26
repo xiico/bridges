@@ -1,0 +1,7 @@
+include ../mixins/post-masonry
+.masonery_area
+	each post in data.posts.results	
+		+post-masonry(post)
+nav#pagination
+	p
+		a(href='/blogmasonry/' + data.posts.next)

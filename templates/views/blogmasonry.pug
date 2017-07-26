@@ -1,0 +1,57 @@
+extends ../layouts/default
+include ../mixins/post-masonry
+block intro
+		section#page-breadcrumb
+			.vertical-center.sun
+				.container
+					.row
+						.action
+							.col-sm-12
+								h1.title Blog
+								p Blog with left sidebar
+								p= "Number of posts: " + data.posts.total
+		// /#action
+block content
+		section#blog.padding-top.padding-bottom
+			.container
+				.row
+					.masonery_area
+						each post in data.posts.results
+							+post-masonry(post)
+					nav#pagination
+						p
+							a(href='/blogmasonry/' + data.posts.next)
+		// /#blog
+append footer
+		script(type='text/javascript', src='js/audio.min.js')
+		script.
+			audiojs.events.ready(function() {
+			var as = audiojs.createAll();
+			});
+		script(type='text/javascript', src='js/masonry.pkgd.js')
+		script(type='text/javascript', src='js/main.js')
+		script(type='text/javascript', src='js/jquery.infinitescroll.min.js')
+block js
+	script.
+		$(document).ready(function() {
+			var grid = $('.masonery_area');
+
+			grid.infinitescroll({
+				// Pagination element that will be hidden
+				navSelector: '#pagination',
+
+				// Next page link
+				nextSelector: '#pagination p a',
+
+				// Selector of items to retrieve
+				itemSelector: '.col-md-3',
+
+				// Loading message
+				loadingText: 'Loading new items…'
+			},
+
+			// Function called once the elements are retrieved
+			function(new_elts) {
+				grid.masonry('appended', new_elts);
+			});
+		});

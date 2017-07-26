@@ -15,7 +15,7 @@ mixin post(post,full)
 				h2.post-title.bold
 					a(href='/blog/post/' + post.slug)= post.title
 				h3.post-author
-						a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}				
+					a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}				
 				if full
 					| !{post.content.brief}
 					p.extended!= post.content.extended

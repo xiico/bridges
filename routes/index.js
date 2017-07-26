@@ -58,7 +58,8 @@ exports = module.exports = function (app) {
 	app.all('/blogone', routes.views.blogone);
 	app.all('/blogtwo', routes.views.blogtwo);
 	app.all('/blogthree', routes.views.blogthree);
-	app.all('/blogfour', routes.views.blogfour);
+	//app.all('/blogmasonry', routes.views.blogmasonry);
+	app.all('/blogmasonry/:page?', routes.views.blogmasonry);
 	app.all('/blogdetails', routes.views.blogdetails);
 	app.all('/portfolio', routes.views.portfolio);
 	app.all('/portfolioone', routes.views.portfolioone);
