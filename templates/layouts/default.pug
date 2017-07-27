@@ -61,24 +61,24 @@ html(lang='en')
 								img(src='/images/logo.png', alt='logo')
 					.collapse.navbar-collapse
 						ul.nav.navbar-nav.navbar-right
-							li.active
+							li(class={active: url === "/"})
 								a(href='/') Home
 							li.dropdown
 								a(href='#')
 									| Pages 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li
+									li(class={active: url === "/aboutus"})
 										a(href='/aboutus') About
-									li
+									li(class={active: url === "/aboutus2"})
 										a(href='/aboutus2') About 2
-									li
+									li(class={active: url === "/service"})
 										a(href='/service') Services
-									li
+									li(class={active: url === "/pricing"})
 										a(href='/pricing') Pricing
-									li
+									li(class={active: url === "/contact"})
 										a(href='/contact') Contact us
-									li
+									li(class={active: url === "/contact2"})
 										a(href='/contact2') Contact us 2
 									li
 										a(href='404.html') 404 error
@@ -89,36 +89,36 @@ html(lang='en')
 									| Blog 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li
+									li(class={active: url === "/blog"})
 										a(href='/blog') Blog Default
-									li
-										a(href='/blogtwo') Timeline Blog
-									li
+									li(class={active: url === "/blogtimeline"})
+										a(href='/blogtimeline') Timeline Blog
+									li(class={active: url === "/blogone"})
 										a(href='/blogone') 2 Columns + Right Sidebar
-									li
+									li(class={active: url === "/blogthree"})
 										a(href='/blogthree') 1 Column + Left Sidebar
-									li
+									li(class={active: url === "/blogmasonry"})
 										a(href='/blogmasonry') Blog Masonary
-									li
+									li(class={active: url === "/blogdetails"})
 										a(href='/blogdetails') Blog Details
 							li.dropdown
 								a(href='#')
 									| Portfolio 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li
+									li(class={active: url === "/portfolio"})
 										a(href='/portfolio') Portfolio Default
-									li
+									li(class={active: url === "/portfoliofour"})
 										a(href='/portfoliofour') Isotope 3 Columns + Right Sidebar
-									li
+									li(class={active: url === "/portfolioone"})
 										a(href='/portfolioone') 3 Columns + Right Sidebar
-									li
+									li(class={active: url === "/portfoliotwo"})
 										a(href='/portfoliotwo') 3 Columns + Left Sidebar
-									li
+									li(class={active: url === "/portfoliothree"})
 										a(href='/portfoliothree') 2 Columns
-									li
+									li(class={active: url === "/portfoliodetails"})
 										a(href='/portfoliodetails') Portfolio Details
-							li
+							li(class={active: url === "/shortcodes"})
 								a(href='/shortcodes ') Shortcodes
 							if user
 								if user.canAccessKeystone

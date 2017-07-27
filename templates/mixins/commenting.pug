@@ -54,19 +54,19 @@ mixin comment-post(comment)
 							|  &middot; 
 							a(href='?remove=comment&comment=' + comment.id, title='Delete this comment', rel='tooltip', data-placement='left').comment-delete.js-delete-confirm Delete					
 				div(id=comment.id data-author=comment.author.name.full)
-						-
-							var start = comment.content.indexOf('[quote');
-							var quoteContent;
-							if (start >= 0){
-								var authorEnd = comment.content.indexOf(']');
-								var quoteEnd = comment.content.indexOf('[/quote]');
-								var quoteAuthor = comment.content.substring(start,authorEnd);
-								var author = quoteAuthor.split('=')[1].replace("'","").replace("'","");
-								quoteContent = comment.content.substring(start,quoteEnd).split(']')[1];
-								quoteContent = '<div class="quote-bg"><div class="quote-author">' + author + '</div><div>' + quoteContent + '</div></div>' + '\n';
-								comment.content = comment.content.replace(comment.content.substring(start,quoteEnd + '[/quote]'.length),'');
-							} else quoteContent = "";
-						| !{quoteContent + comment.content}
+					-
+						var start = comment.content.indexOf('[quote');
+						var quoteContent;
+						if (start >= 0){
+							var authorEnd = comment.content.indexOf(']');
+							var quoteEnd = comment.content.indexOf('[/quote]');
+							var quoteAuthor = comment.content.substring(start,authorEnd);
+							var author = quoteAuthor.split('=')[1].replace("'","").replace("'","");
+							quoteContent = comment.content.substring(start,quoteEnd).split(']')[1];
+							quoteContent = '<div class="quote-bg"><div class="quote-author">' + author + '</div><div>' + quoteContent + '</div></div>' + '\n';
+							comment.content = comment.content.replace(comment.content.substring(start,quoteEnd + '[/quote]'.length),'');
+						} else quoteContent = "";
+					| !{quoteContent + comment.content}
 				ul.nav.navbar-nav.post-nav
 					li
 						a(href='#')

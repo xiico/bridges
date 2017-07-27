@@ -9,7 +9,7 @@ block intro
 							.col-sm-12
 								h1.title Blog
 								p Blog with left sidebar
-								p= "Number of posts: " + data.posts.total
+								p= "Number of posts: " + (data.posts ? data.posts.total : -1)
 		// /#action
 block content
 		section#blog.padding-top.padding-bottom

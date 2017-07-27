@@ -16,16 +16,8 @@ exports = module.exports = function (req, res) {
 		categories: [],
 	};
 	locals.filters = {
-		post: req.params.page,
+		page: req.params.page,
 	};
-
-	function postsMasonry(error, results){		
-		// if (error) {
-		// 	res.send({ error:error });
-		// 	return;
-		// }
-		// res.send({ ok:true, posts: results });
-	}
 	
 	// Load the posts
 	view.on('get', function (next) {
@@ -43,10 +35,6 @@ exports = module.exports = function (req, res) {
 			.sort('-publishedDate')
 			.populate('author categories');
 
-		// if (locals.data.category) {
-		// 	q.where('categories').in([locals.data.category]);
-		// }
-
 		q.exec(function (err, results) {
 			//locals.data.posts = results;
 			locals.data.posts = results;
@@ -56,10 +44,8 @@ exports = module.exports = function (req, res) {
 					next(err);
 				});	
 			}, function (err) {
-				res.render('postspage', locals, postsMasonry);
 				res.render('postspage');
 			});
-			//res.render('postspage', locals, postsMasonry)
 		});
 	});	
 
@@ -76,10 +62,6 @@ exports = module.exports = function (req, res) {
 		})
 			.sort('-publishedDate')
 			.populate('author categories');
-
-		// if (locals.data.category) {
-		// 	q.where('categories').in([locals.data.category]);
-		// }
 
 		q.exec(function (err, results) {
 			locals.data.posts = results;

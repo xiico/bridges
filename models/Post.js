@@ -24,6 +24,7 @@ Post.add({
 		extended: { type: Types.Html, wysiwyg: true, height: 400 },
 	},
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: true },
+	video: { type: Types.Url, initial: true},
 });
 
 Post.schema.virtual('content.full').get(function () {
