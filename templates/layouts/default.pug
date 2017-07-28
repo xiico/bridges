@@ -68,18 +68,18 @@ html(lang='en')
 									| Pages 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li(class={active: url === "/aboutus"})
-										a(href='/aboutus') About
-									li(class={active: url === "/aboutus2"})
-										a(href='/aboutus2') About 2
-									li(class={active: url === "/service"})
-										a(href='/service') Services
-									li(class={active: url === "/pricing"})
-										a(href='/pricing') Pricing
-									li(class={active: url === "/contact"})
-										a(href='/contact') Contact us
-									li(class={active: url === "/contact2"})
-										a(href='/contact2') Contact us 2
+									li
+										a(class={active: url === "/aboutus"} href='/aboutus') About
+									li
+										a(class={active: url === "/aboutus2"} href='/aboutus2') About 2
+									li
+										a(class={active: url === "/service"} href='/service') Services
+									li
+										a(class={active: url === "/pricing"} href='/pricing') Pricing
+									li
+										a(class={active: url === "/contact"} href='/contact') Contact us
+									li
+										a(class={active: url === "/contact2"} href='/contact2') Contact us 2
 									li
 										a(href='404.html') 404 error
 									li
@@ -89,35 +89,35 @@ html(lang='en')
 									| Blog 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li(class={active: url === "/blog"})
-										a(href='/blog') Blog Default
-									li(class={active: url === "/blogtimeline"})
-										a(href='/blogtimeline') Timeline Blog
-									li(class={active: url === "/blogone"})
-										a(href='/blogone') 2 Columns + Right Sidebar
-									li(class={active: url === "/blogthree"})
-										a(href='/blogthree') 1 Column + Left Sidebar
-									li(class={active: url === "/blogmasonry"})
-										a(href='/blogmasonry') Blog Masonary
-									li(class={active: url === "/blogdetails"})
-										a(href='/blogdetails') Blog Details
+									li
+										a(class={active: url === "/blog"} href='/blog') Blog Default
+									li
+										a(class={active: url === "/blogtimeline"} href='/blogtimeline') Timeline Blog
+									li
+										a(class={active: url === "/blogone"} href='/blogone') 2 Columns + Right Sidebar
+									li
+										a(class={active: url === "/blogthree"} href='/blogthree') 1 Column + Left Sidebar
+									li
+										a(class={active: url === "/blogmasonry"} href='/blogmasonry') Blog Masonary
+									li
+										a(class={active: url === "/blogdetails"} href='/blogdetails') Blog Details
 							li.dropdown
 								a(href='#')
 									| Portfolio 
 									i.fa.fa-angle-down
 								ul.sub-menu(role='menu')
-									li(class={active: url === "/portfolio"})
-										a(href='/portfolio') Portfolio Default
-									li(class={active: url === "/portfoliofour"})
-										a(href='/portfoliofour') Isotope 3 Columns + Right Sidebar
-									li(class={active: url === "/portfolioone"})
-										a(href='/portfolioone') 3 Columns + Right Sidebar
-									li(class={active: url === "/portfoliotwo"})
-										a(href='/portfoliotwo') 3 Columns + Left Sidebar
-									li(class={active: url === "/portfoliothree"})
-										a(href='/portfoliothree') 2 Columns
-									li(class={active: url === "/portfoliodetails"})
-										a(href='/portfoliodetails') Portfolio Details
+									li
+										a(class={active: url === "/portfolio"} href='/portfolio') Portfolio Default
+									li
+										a(class={active: url === "/portfoliofour"} href='/portfoliofour') Isotope 3 Columns + Right Sidebar
+									li
+										a(class={active: url === "/portfolioone"} href='/portfolioone') 3 Columns + Right Sidebar
+									li
+										a(class={active: url === "/portfoliotwo"} href='/portfoliotwo') 3 Columns + Left Sidebar
+									li
+										a(class={active: url === "/portfoliothree"} href='/portfoliothree') 2 Columns
+									li
+										a(class={active: url === "/portfoliodetails"} href='/portfoliodetails') Portfolio Details
 							li(class={active: url === "/shortcodes"})
 								a(href='/shortcodes ') Shortcodes
 							if user

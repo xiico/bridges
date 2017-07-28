@@ -51,7 +51,7 @@ mixin comment-post(comment)
 					| Posted by 
 					a(href='#')= comment.author.name.full
 						if user && user.id === comment.author.id
-							|  &middot; 
+							| &middot; 
 							a(href='?remove=comment&comment=' + comment.id, title='Delete this comment', rel='tooltip', data-placement='left').comment-delete.js-delete-confirm Delete					
 				div(id=comment.id data-author=comment.author.name.full)
 					-

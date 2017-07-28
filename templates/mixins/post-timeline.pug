@@ -1,23 +1,24 @@
 mixin post-timeline(post)
-    .col-sm-6.padding-left.padding-top.arrow-left.wow.fadeInRight(data-wow-duration='1000ms', data-wow-delay='300ms')
-      .single-blog.timeline
-        .single-blog-wrapper
-          .post-thumb
-            img.img-responsive(src=post.imageMasonary.url, alt='', width=480)
-            .post-overlay
-              span.uppercase
-                a(href='#')
-                  | #{post._.publishedDate.format('D')} 
-                  br
-                  small #{post._.publishedDate.format('MMMM')} 
-        .post-content.overflow
-          h2.post-title.bold
-            a(href='/blog/post/' + post.slug)= post.title
-          h3.post-author
-            a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}
-          | !{post.content.brief}
-          a(href='/blog/post/' + post.slug).read-more Read more...
-          .post-bottom.overflow
-            span.post-date.pull-left #{post._.publishedDate.format('MMMM Do, YYYY')}
-            span.comments-number.pull-right
-              | #{utils.plural(post.comments, '* Comment')}
+  .single-blog.timeline
+    .single-blog-wrapper
+      .post-thumb
+        img.img-responsive(src=post.image.url, alt='', width=480)
+        .post-overlay
+          span.uppercase
+            a(href='/blog/post/' + post.slug)
+              | #{post._.publishedDate.format('D')} 
+              br
+              small #{post._.publishedDate.format('MMMM')} 
+    .post-content.overflow
+      h2.post-title.bold
+        a(href='/blog/post/' + post.slug)= post.title
+      h3.post-author
+        a(href='/blog/post/' + post.slug) Posted by #{post.author.name.first}
+      .truncate
+        | !{post.content.brief}
+      a(href='/blog/post/' + post.slug).read-more Read more...
+      .post-bottom.overflow
+        span.post-date.pull-left #{post._.publishedDate.format('MMMM Do, YYYY')}
+        span.comments-number.pull-right
+          a(href='/blog/post/' + post.slug)
+            | #{utils.plural(post.comments, '* Comment')}
