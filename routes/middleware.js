@@ -18,13 +18,54 @@ var _ = require('lodash');
 	or replace it with your own templates / logic.
 */
 exports.initLocals = function (req, res, next) {
+	// res.locals.navLinks = [
+	// 	{ label: 'Home', key: 'home', href: '/' },
+	// 	{ label: 'Blog', key: 'blog', href: '/blog' },
+	// 	{ label: 'Gallery', key: 'gallery', href: '/gallery' },
+	// 	{ label: 'Contact', key: 'contact', href: '/contact' },
+	// 	{ label: 'About Us', key: 'aboutus', href: '/aboutus' },
+	// ];
+
 	res.locals.navLinks = [
-		{ label: 'Home', key: 'home', href: '/' },
-		{ label: 'Blog', key: 'blog', href: '/blog' },
-		{ label: 'Gallery', key: 'gallery', href: '/gallery' },
-		{ label: 'Contact', key: 'contact', href: '/contact' },
-		{ label: 'About Us', key: 'aboutus', href: '/aboutus' },
+		{ section: "Home", links: [], key: "home", href: "/" },
+		{
+			section: "Pages", links: [
+				{ label: 'About', key: 'aboutus', href: '/aboutus' },
+				{ label: 'About 2', key: 'aboutus', href: '/aboutus2' },
+				{ label: 'Services', key: 'service', href: '/service' },
+				{ label: 'Pricing', key: 'pricing', href: '/pricing' },
+				{ label: 'Contact us', key: 'contact', href: '/contact' },
+				{ label: 'Contact us 2', key: 'contact2', href: '/contact2' },
+				{ label: '404 error', key: '404error', href: '404.html' },
+				{ label: 'Coming Soon', key: 'comingsoon', href: 'coming-soon.html' },],
+			key: "pages"
+		},
+		{
+			section: "Pages", links: [
+				{ label: 'About', key: 'aboutus', href: '/aboutus' },
+				{ label: 'About 2', key: 'aboutus', href: '/aboutus2' },
+				{ label: 'Services', key: 'service', href: '/service' },
+				{ label: 'Pricing', key: 'pricing', href: '/pricing' },
+				{ label: 'Contact us', key: 'contact', href: '/contact' },
+				{ label: 'Contact us 2', key: 'contact2', href: '/contact2' },
+				{ label: '404 error', key: '404error', href: '404.html' },
+				{ label: 'Coming Soon', key: 'comingsoon', href: 'coming-soon.html' },],
+			key: "pages"
+		},
+		{
+			section: "Pages", links: [
+				{ label: 'About', key: 'aboutus', href: '/aboutus' },
+				{ label: 'About 2', key: 'aboutus', href: '/aboutus2' },
+				{ label: 'Services', key: 'service', href: '/service' },
+				{ label: 'Pricing', key: 'pricing', href: '/pricing' },
+				{ label: 'Contact us', key: 'contact', href: '/contact' },
+				{ label: 'Contact us 2', key: 'contact2', href: '/contact2' },
+				{ label: '404 error', key: '404error', href: '404.html' },
+				{ label: 'Coming Soon', key: 'comingsoon', href: 'coming-soon.html' },],
+			key: "pages"
+		},
 	];
+
 	res.locals.user = req.user;
 	res.locals.url = req.url;
 	next();

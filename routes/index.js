@@ -40,6 +40,7 @@ keystone.set('500', function (req, res, next) {
 // Import Route Controllers
 var routes = {
 	views: importRoutes('./views'),
+	api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
@@ -68,6 +69,7 @@ exports = module.exports = function (app) {
 	app.all('/portfoliofour', routes.views.portfoliofour);
 	app.all('/portfoliodetails', routes.views.portfoliodetails);
 	app.all('/shortcodes', routes.views.shortcodes);
+	app.all('/calendardata', keystone.middleware.api, routes.api.calendar.list);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

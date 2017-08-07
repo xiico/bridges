@@ -52,6 +52,9 @@ keystone.set('nav', {
 	users: 'users',
 });
 
+//Redirects user after signin
+keystone.set('signin redirect', '/');
+
 // Start Keystone to connect to your database and initialise the web server
 
 
