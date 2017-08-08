@@ -97,9 +97,9 @@ exports = module.exports = function (req, res) {
 		keystone.list('PostComment').model.find()
 			.where('commentState', 'published')
 			.limit(3)
-			.populate('post','slug')
-			.populate('author','name photo')
-			.sort({'publishedOn':-1})
+			.populate('post', 'slug')
+			.populate('author', 'name photo')
+			.sort({ publishedOn: -1 })
 			.exec(function (err, comments) {
 				if (err) return res.err(err);
 				if (!comments) return;// res.notfound('No recents comments');
@@ -110,5 +110,5 @@ exports = module.exports = function (req, res) {
 
 	// Render the view
 	view.render('blog');
-	//view.render('blog_old');
+	// view.render('blog_old');
 };

@@ -1,0 +1,41 @@
+extends ../layouts/default
+block extrahead
+  link(href='/styles/fullcalendar.min.css', rel='stylesheet')
+  link(href='/styles/fullcalendar.print.min.css', rel='stylesheet', media='print')
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Teacher's calendar
+                p Book your classes!
+    // /#action
+block content    
+    section#calendar-section
+      .container
+        .row
+          .col-md-2
+            .teacher-photo
+              img.img-responsive(src=teacher.photo.url, alt="Teacher's photo")
+            .media-body
+              h3= teacher.name.full
+            .panel.panel-default#panel-participants
+              // Default panel contents
+              .panel-heading Participants
+              // Table
+              table#participants.table
+          .col-md-8
+            #calendar
+          .col-md-2
+            .media-body
+              h3 Help Section
+              p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.            
+    // /#map-section
+    script.
+      var userid = '#{userid}';
+append footer
+  script(src='/js/calendar/lib/moment.min.js')
+  script(src='/js/fullcalendar.min.js')
+  script(type="text/javascript" src="/js/calendar.js")

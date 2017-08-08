@@ -18,7 +18,7 @@ exports = module.exports = function (req, res) {
 	locals.filters = {
 		page: req.params.page,
 	};
-	
+
 	// Load the posts
 	view.on('get', function (next) {
 
@@ -36,25 +36,25 @@ exports = module.exports = function (req, res) {
 			.populate('author categories');
 
 		q.exec(function (err, results) {
-			//locals.data.posts = results;
+			// locals.data.posts = results;
 			locals.data.posts = results;
 			async.each(locals.data.posts.results, function (post, next) {
 				keystone.list('PostComment').model.count().where('post').in([post.id]).exec(function (err, count) {
 					post.comments = count;
 					next(err);
-				});	
+				});
 			}, function (err) {
 				res.render('postspage');
 			});
 		});
-	});	
+	});
 
 	// Load the posts
 	view.on('init', function (next) {
 
 		var q = keystone.list('Post').paginate({
 			page: 1,
-			perPage: 10,//5
+			perPage: 10, // 5
 			maxPages: 1,
 			filters: {
 				state: 'published',
@@ -67,7 +67,7 @@ exports = module.exports = function (req, res) {
 			locals.data.posts = results;
 			next(err);
 		});
-	});	
+	});
 
 	// count post comments
 	view.on('init', function (next) {

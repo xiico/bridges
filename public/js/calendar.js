@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#panel-participants').hide();
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -30,8 +31,11 @@ $(document).ready(function () {
                 url: '/calendardata',
                 type: 'GET',
                 data: {
-                    custom_param1: 'something',
-                    custom_param2: 'somethingelse'
+                    userid: userid,
+                    //custom_param2: 'somethingelse'
+                },
+                success: function(data){
+                    //alert(JSON.stringify(data));
                 },
                 error: function () {
                     alert('there was an error while fetching events!');
@@ -81,12 +85,22 @@ $(document).ready(function () {
             //- alert('View: ' + view.name);
             // change the border color just for fun
             //$(this).css('border-color', 'red');
-            alert(JSON.stringify(calEvent));
-            $('#title').val(calEvent.title);
-            $('#start').text(calEvent.start);
-            $('#end').text(calEvent.end);
-            $('#myModal').modal('show');
-            $('#myModal').data("event", JSON.stringify(calEvent));
+
+            // alert(JSON.stringify(calEvent));
+            // $('#title').val(calEvent.title);
+            // $('#start').text(calEvent.start);
+            // $('#end').text(calEvent.end);
+            // $('#myModal').modal('show');
+            // $('#myModal').data("event", JSON.stringify(calEvent));
+
+            if(calEvent.participants){
+                $("#panel-participants tr").remove();
+                $('#panel-participants').show();
+                for (var i = 0, participant;participant = calEvent.participants[i]; i++){
+                    $('#participants').append('<tr><td>'+i+'.</td><td>'+participant.name.first + ' ' + participant.name.last +'</td></tr>');
+                }
+            } else $('#panel-participants').hide();
+            
         }
     });
 });

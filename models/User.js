@@ -12,7 +12,7 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	photo: { type: Types.CloudinaryImage, collapse: true },
 	password: { type: Types.Password, initial: true, required: true },
-	info: { type: Types.Text, initial: true},
+	info: { type: Types.Html, wysiwyg: true, height: 400 },
 	site: { type: Types.Url, initial: true},
 	registered: { type: Types.Date, required: true, initial: true },
 }, 'Permissions', {
@@ -32,6 +32,7 @@ User.schema.virtual('canAccessKeystone').get(function () {
  * Relationships
  */
 User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
+User.relationship({ ref: 'CalendarEvent', path: 'calendarevents', refPath: 'owner' });
 
 User.schema.methods.wasActive = function () {
 	this.lastActiveOn = new Date();
@@ -41,5 +42,5 @@ User.schema.methods.wasActive = function () {
 /**
  * Registration
  */
-User.defaultColumns = 'name, email, isAdmin, canPost';
+User.defaultColumns = 'name, isAdmin, Teacher, Student';
 User.register();

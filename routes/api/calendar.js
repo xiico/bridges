@@ -32,13 +32,14 @@ var keystone = require('keystone');
 
 exports.list = function (req, res) {
 	var locals = res.locals;
-	if(!locals.user){
-		res.send({"error":"there's no user logged in."});
+	var userid = req.query.userid;
+	if(!userid){
+		res.send({"error":"no user selected."});
 		return;
 	}
-	var q = keystone.list('CalendarEvent').model.findOne({
-		owner: locals.user.id,
-	}).populate('owner participants');
+	var q = keystone.list('CalendarEvent').model.find({
+		owner: userid,
+	}, { _id: 0 }).populate('participants', 'name');
 
 	q.exec(function (err, result) {
 		if (err) return err;

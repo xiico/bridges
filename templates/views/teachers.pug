@@ -1,0 +1,36 @@
+extends ../layouts/default
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Meet the team
+                p They are the best!
+    // /#action
+block content    
+    section#team
+      .container
+        .row
+          if teachers 
+            each teacher in teachers
+                .col-sm-3.col-xs-6
+                  .team-single-wrapper
+                    .team-single
+                      .person-thumb
+                        img.img-responsive(src=teacher.photo.url, alt='', width='480', height='495')
+                      .social-profile
+                        ul.nav.nav-pills
+                          li
+                            a(href='/teacher/'+teacher.id)
+                              i.fa.fa-eye
+                          li
+                            a(href='/calendar/'+teacher.id)
+                              i.fa.fa-calendar
+                    .person-info
+                      h2= teacher.name.first + ' ' + teacher.name.last
+    // /#team
+append footer  
+    script(type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true")
+    script(type="text/javascript" src="js/gmaps.js")
