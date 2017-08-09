@@ -14,6 +14,7 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
 	info: { type: Types.Html, wysiwyg: true, height: 400 },
 	site: { type: Types.Url, initial: true},
+	timezone: { type: Types.Text, initial: true},
 	registered: { type: Types.Date, required: true, initial: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },

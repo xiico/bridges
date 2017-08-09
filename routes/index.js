@@ -69,9 +69,12 @@ exports = module.exports = function (app) {
 	app.all('/portfoliofour', routes.views.portfoliofour);
 	app.all('/portfoliodetails', routes.views.portfoliodetails);
 	app.all('/shortcodes', routes.views.shortcodes);
-	app.all('/calendardata', keystone.middleware.api, routes.api.calendar.list);
 	app.all('/calendar/:userid', routes.views.calendar);
 	app.all('/teachers', routes.views.teachers);
+
+	// Calendar API
+	app.all('/calendardata', keystone.middleware.api, routes.api.calendar.list);
+	app.all('/calendarevent/create', keystone.middleware.api, routes.api.calendar.create);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

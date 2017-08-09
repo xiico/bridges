@@ -11,18 +11,35 @@ $(document).ready(function () {
         eventLimit: true, // allow "more" link when too many events
         selectable: true,
         selectHelper: true,
+        defaultView: 'agendaWeek',
+        selectOverlap: false,
+        timezone: 'America/Sao_Paulo',
         select: function (start, end) {
             var title = prompt('Event Title:');
             var eventData;
             if (title) {
                 eventData = {
                     title: title,
-                    start: start,
-                    end: end
+                    start: start.toISOString(),
+                    end: end.toISOString(),
+                    owner: userid
                 };
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                
+                saveEvent(eventData, function(event){
+                    event.start = moment(event.start);
+                    if(event.end) event.end = moment(event.end);
+                    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+                });
             }
             $('#calendar').fullCalendar('unselect');
+        },
+        eventRender: function(event, el) {
+            // render the timezone offset below the event title
+            if (event.start.hasZone()) {
+                el.find('.fc-title').after(
+                    $('<div class="tzo"/>').text(event.start.format('Z'))
+                );
+            }
         },
         //events: []
         eventSources: [
@@ -37,11 +54,12 @@ $(document).ready(function () {
                 success: function(data){
                     //alert(JSON.stringify(data));
                 },
-                error: function () {
+                error: function (err) {
                     alert('there was an error while fetching events!');
                 },
                 color: '#3a87ad',   // a non-ajax option
-                textColor: 'white' // a non-ajax option
+                textColor: 'white', // a non-ajax option
+                overlap: false
             }
         ],
         businessHours: {
@@ -61,11 +79,6 @@ $(document).ready(function () {
         },
         eventOverlap: function (stillEvent, movingEvent) {
             return stillEvent.allDay && movingEvent.allDay;
-        },
-        dayRender: function (date, cell) {
-            if (date > new Date('2017-05-25')) {
-                $(cell).addClass('disabled');
-            }
         },
         eventDrop: function (event, delta, revertFunc) {
             alert(event.title + " was dropped on " + event.start.format());
@@ -104,17 +117,15 @@ $(document).ready(function () {
         }
     });
 });
-function saveData() {
-    var evt = JSON.parse($('#myModal').data("event"))
-    saveMyData(evt)
-}
-function saveMyData(event) {
-    jQuery.post(
-        '/event/save',
-        {
-            title: event.title,
-            start: event.start,
-            end: event.end
-        }
-    );
+
+function saveEvent(event, callback) {
+    // jQuery.post(
+    //     '/calendarevent/create',
+    //     event
+    // );
+    // $.post('/calendarevent/create', event, function (data) {
+    //     callback(data);
+    // });
+    $.post("/calendarevent/create", event)
+        .done(callback);
 }

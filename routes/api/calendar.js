@@ -1,5 +1,5 @@
 var keystone = require('keystone');
-
+var CalendarEvent = keystone.list('CalendarEvent');
 // exports = module.exports = function (req, res) {
 // 	var locals = res.locals;
 
@@ -32,18 +32,48 @@ var keystone = require('keystone');
 
 exports.list = function (req, res) {
 	var locals = res.locals;
-	var userid = req.query.userid;
-	if(!userid){
+	var userid = res.locals.user ? res.locals.user.id : null;
+	var qid = req.query.userid;
+	var isOwner = res.locals.user && res.locals.user.id == qid;
+	if(!qid){
 		res.send({"error":"no user selected."});
 		return;
 	}
 	var q = keystone.list('CalendarEvent').model.find({
-		owner: userid,
-	}, { _id: 0 }).populate('participants', 'name');
+		owner: qid,
+	}, { _id: 0 }).populate('participants', 'name').lean();
 
+	//studente one - 5988b355b877951a0822b510
+	//studente two - 5988b39cb877951a0822b511
 	q.exec(function (err, result) {
 		if (err) return err;
-		if (!result) res.send({"error":"no events."});
+		if (!result) res.send({ "error": "no events." });
+		if (isOwner)
+			res.send(result);
+		else {
+			for (var i = 0, e; e = result[i]; i++) {
+				if (!(e.participants && e.participants.some(function (p) { return p._id.equals(userid) }))) {
+					result[i] = { start: (result[i].allDay ? result[i].start.toISOString().substr(0,10) : result[i].start.toISOString()), rendering: 'background', className:'fc-business-container' };
+					if(result[i].end)
+						result[i].end= result[i].end.toISOString();
+				}
+			}
+		}
 		res.send(result);
+	});
+}
+
+
+/**
+ * Create a Post
+ */
+exports.create = function (req, res) {
+	var item = new CalendarEvent.model(),
+		data = (req.method == 'POST') ? req.body : req.query;
+		item.getUpdateHandler(req).process(data, function (err) {
+		if (err) return res.apiError('error', err);
+		var evt = JSON.parse(JSON.stringify(item));
+		delete evt._id;
+		res.apiResponse(evt);
 	});
 }

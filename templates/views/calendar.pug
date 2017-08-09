@@ -33,6 +33,21 @@ block content
               h3 Help Section
               p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.            
     // /#map-section
+    .modal.fade#myModal(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Modal title
+          .modal-body
+            p One fine body…
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes
+        // /.modal-content
+      // /.modal-dialog
+    // /.modal    
     script.
       var userid = '#{userid}';
 append footer
