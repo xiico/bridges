@@ -1,0 +1,22 @@
+mixin profile-button(user)
+  a(href='#')
+    | #{user.name.full}
+    i.fa.fa-angle-down
+  ul.sub-menu.profile-button(role='profile')
+    li
+      .navbar-login
+        .row
+          .col-lg-4
+            img.img-responsive(src=user.photo.url)
+          .col-lg-8
+            p.text-left
+              strong= user.name.full
+            p.text-left.small= user.email
+            p.text-left
+              a.btn.btn-common.profile-anchor(href='/profile/'+user._id) View Profile
+    li
+      .navbar-login.navbar-login-session
+        .row
+          .col-lg-12
+            p
+              a.btn.btn-common.profile-anchor(href='/keystone/signout') Logout

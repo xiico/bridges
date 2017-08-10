@@ -7,9 +7,9 @@ $(document).ready(function () {
             right: 'month,agendaWeek,agendaDay,listWeek'
         },
         defaultDate: '2017-05-12',
-        editable: true,
+        editable: !!uid,
         eventLimit: true, // allow "more" link when too many events
-        selectable: true,
+        selectable: !!uid,
         selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
@@ -22,6 +22,7 @@ $(document).ready(function () {
                     title: title,
                     start: start.toISOString(),
                     end: end.toISOString(),
+                    participants: [uid],
                     owner: userid
                 };
                 
@@ -42,26 +43,33 @@ $(document).ready(function () {
             }
         },
         //events: []
-        eventSources: [
-            // your event source
-            {
-                url: '/calendardata',
-                type: 'GET',
-                data: {
-                    userid: userid,
-                    //custom_param2: 'somethingelse'
-                },
-                success: function(data){
-                    //alert(JSON.stringify(data));
-                },
-                error: function (err) {
-                    alert('there was an error while fetching events!');
-                },
-                color: '#3a87ad',   // a non-ajax option
-                textColor: 'white', // a non-ajax option
-                overlap: false
-            }
-        ],
+        eventSources: {
+            events: function (start, end, timezone, callback) {
+                // your event source
+                $.ajax({
+                    url: '/calendardata',
+                    type: 'GET',
+                    data: {
+                        userid: userid,
+                        //custom_param2: 'somethingelse'
+                    },
+                    success: function (data) {
+                        //alert(JSON.stringify(data));
+                        data.forEach(function (evt, index) {
+                            evt.start = moment(evt.start);
+                            if (evt.end) evt.end = moment(evt.end);
+                            //if((evt.owner && evt.owner === uid) || (!(evt.participants && evt.participants.some(function (p) { return p._id === uid })))) evt.color = '#3a87ad';
+                        });
+                        callback(data);
+                    },
+                    error: function (err) {
+                        alert('there was an error while fetching events!');
+                    }
+                })
+            },
+            color: '#3a87ad',//'#b72a00',   // a non-ajax option
+            textColor: 'white', // a non-ajax option
+        },
         businessHours: {
             start: '08:00',
             end: '20:00',

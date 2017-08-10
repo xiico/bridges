@@ -1,4 +1,5 @@
 include ../mixins/flash-messages
+include ../mixins/profile-button
 
 doctype html
 html(lang='en')
@@ -125,7 +126,7 @@ html(lang='en')
 							if user
 								if user.canAccessKeystone
 									li: a(href='/keystone') Open Keystone
-								li: a(href='/keystone/signout') Sign Out
+								li.dropdown: +profile-button(user)
 							else
 								li: a(href='/keystone/signin') Sign In								
 					.search

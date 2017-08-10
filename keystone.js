@@ -50,6 +50,7 @@ keystone.set('nav', {
 	galleries: 'galleries',
 	enquiries: 'enquiries',
 	users: 'users',
+	'calendar-events': 'calendar-events',
 });
 
 //Redirects user after signin

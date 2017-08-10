@@ -9,6 +9,7 @@ exports = module.exports = function (req, res) {
 	// item in the header navigation.
 	locals.section = 'calendar';
 	locals.userid = req.params.userid
+	locals.uid = req.user ? req.user.id : null;
 
 	view.query('teacher', keystone.list('User').model.findOne({_id:locals.userid}));
 

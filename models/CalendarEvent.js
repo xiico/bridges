@@ -41,4 +41,5 @@ CalendarEvent.add({
 // Post.relationship({ path: 'comments', ref: 'PostComment', refPath: 'post' });
 
 // Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';
+CalendarEvent.defaultColumns = 'title, state|20%, owner|20%, start|20%';
 CalendarEvent.register();

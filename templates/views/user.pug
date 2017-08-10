@@ -1,0 +1,72 @@
+extends ../layouts/default
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title User Profile
+                p Nice to meet you
+    // /#action
+block content    
+    section#portfolio-information.padding-top.padding-bottom
+      .container
+        .row
+          .col-sm-3
+            img.img-responsive(src=profile.photo.url, alt='')
+          .col-sm-9
+            .project-name.overflow
+              h2.bold= profile.name.full
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-clock-o
+                    | #{profile._.registered.format('MMMM Do, YYYY')} 
+                li
+                  a(href='#')
+                    i.fa.fa-tag
+                    | Branding
+            .project-info.overflow
+              h3 Teacher Info
+              p
+                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Suspendisse potenti. Proin quis eros odio, dapibus dictum mauris. Donec nisi libero, adipiscing id pretium eget, consectetur sit amet leo. Nam at eros quis mi egestas fringilla non nec purus.
+              ul.elements
+                li
+                  i.fa.fa-angle-right
+                  |  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                li
+                  i.fa.fa-angle-right
+                  |  Donec tincidunt felis quis ipsum porttitor, non rutrum lorem rhoncus.
+                li
+                  i.fa.fa-angle-right
+                  |  Nam in quam consectetur nulla placerat dapibus ut ut nunc.
+            .skills.overflow
+              h3 Skills:
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Design
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | HTML/CSS
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Javascript
+                li
+                  a(href='#')
+                    i.fa.fa-check-square
+                    | Backend
+            .client.overflow
+              h3 Client:
+              ul.nav.navbar-nav.navbar-default
+                li
+                  a(href='#')
+                    i.fa.fa-bolt
+                    | Okler Themes
+            .live-preview
+              a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
+    // /#map-section
