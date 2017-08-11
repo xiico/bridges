@@ -25,8 +25,8 @@ block content
                     | #{profile._.registered.format('MMMM Do, YYYY')} 
                 li
                   a(href='#')
-                    i.fa.fa-tag
-                    | Branding
+                    i.fa.fa-globe
+                    | #{(profile.timezone ? profile.timezone.text : 'not set')}
             .project-info.overflow
               h3 Teacher Info
               p

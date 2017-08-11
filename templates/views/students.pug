@@ -1,0 +1,25 @@
+extends ../layouts/default
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title View the students
+                p Know your costumers!
+    // /#action
+block content    
+    section#team
+      .container
+        .row
+          if students 
+            ul.media-list
+              each student in students                
+                li.media
+                  .media-left
+                    a(href='/user/'+student.id)
+                      img.media-object.img-circle(src=student.photo.url, alt=student.name.full, width='100')
+                  .media-body
+                    a(href='/user/'+student.id)
+                      h4.media-heading= student.name.full

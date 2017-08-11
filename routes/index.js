@@ -71,6 +71,7 @@ exports = module.exports = function (app) {
 	app.all('/shortcodes', routes.views.shortcodes);
 	app.all('/calendar/:userid', routes.views.calendar);
 	app.all('/teachers', routes.views.teachers);
+	app.all('/students', routes.views.students);
 	app.all('/user/:id', routes.views.user);
 
 	// Calendar API

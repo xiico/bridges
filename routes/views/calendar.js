@@ -11,7 +11,9 @@ exports = module.exports = function (req, res) {
 	locals.userid = req.params.userid
 	locals.uid = req.user ? req.user.id : null;
 
-	view.query('teacher', keystone.list('User').model.findOne({_id:locals.userid}));
+	view.query('profile', keystone.list('User').model.findOne({_id:locals.userid}).populate('timezone'));
+
+	if(!locals.user) return res.status(404).render('errors/404');	
 
 	// Render the view
 	view.render('calendar');

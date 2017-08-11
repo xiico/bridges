@@ -15,7 +15,7 @@ User.add({
 	info: { type: Types.Html, wysiwyg: true, height: 400 },
 	moto: { type: String, height: 400 },
 	site: { type: Types.Url, initial: true},
-	timezone: { type: String, initial: true},
+	timezone: { type: Types.Relationship, ref: 'TimeZone', index: true },
 	registered: { type: Types.Date, required: true, initial: true },
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },

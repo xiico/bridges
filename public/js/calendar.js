@@ -13,7 +13,8 @@ $(document).ready(function () {
         selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
-        timezone: 'America/Sao_Paulo',
+        timezone: 'Europe/London',//'America/Sao_Paulo','America/Santiago','Europe/London'
+        ignoreTimezone: false,
         select: function (start, end) {
             var title = prompt('Event Title:');
             var eventData;
@@ -55,6 +56,8 @@ $(document).ready(function () {
                     },
                     success: function (data) {
                         //alert(JSON.stringify(data));
+                        //moment().tz(timezone).format();
+                        var tz = timezone;
                         data.forEach(function (evt, index) {
                             evt.start = moment(evt.start);
                             if (evt.end) evt.end = moment(evt.end);
@@ -127,13 +130,5 @@ $(document).ready(function () {
 });
 
 function saveEvent(event, callback) {
-    // jQuery.post(
-    //     '/calendarevent/create',
-    //     event
-    // );
-    // $.post('/calendarevent/create', event, function (data) {
-    //     callback(data);
-    // });
-    $.post("/calendarevent/create", event)
-        .done(callback);
+    $.post("/calendarevent/create", event).done(callback);
 }

@@ -9,18 +9,22 @@ block intro
           .row
             .action
               .col-sm-12
-                h1.title Teacher's calendar
-                p Book your classes!
+                h1.title= (profile.isTeacher ? 'Teacher' : 'Student') + "'s calendar"
+                p= (profile.isTeacher ? 'Book your classes!' : 'Check it out!')
     // /#action
 block content    
     section#calendar-section
       .container
         .row
           .col-md-2
-            .teacher-photo
-              img.img-responsive(src=teacher.photo.url, alt="Teacher's photo")
+            .user-photo
+              img.img-responsive(src=profile.photo.url, alt="User's photo")
             .media-body
-              h3= teacher.name.full
+              .timezone
+                i.fa.fa-globe
+                | #{(profile.timezone ? profile.timezone.text : 'not set')}
+              .user-name
+                a(href='/user/' + profile.id)= profile.name.full
             .panel.panel-default#panel-participants
               // Default panel contents
               .panel-heading Participants
