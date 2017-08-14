@@ -17,9 +17,18 @@ block content
             ul.media-list
               each student in students                
                 li.media
-                  .media-left
-                    a(href='/user/'+student.id)
-                      img.media-object.img-circle(src=student.photo.url, alt=student.name.full, width='100')
-                  .media-body
-                    a(href='/user/'+student.id)
-                      h4.media-heading= student.name.full
+                  .post-comment
+                    a.pull-left(href='/user/' + student.id)
+                      img.media-object(src=student.photo ? src=student.photo.url : 'http://placehold.it/127x137', alt=student.name.full, width=127)
+                    .media-body
+                      h3= student.name.full
+                      p
+                        | #{student.email}
+                      ul.nav.navbar-nav.post-nav
+                        li.cellphone
+                          i.fa.fa-mobile
+                          | #{student.cellphone}
+                        if user && (student.id == userid || user.isTeacher || user.isAdmin)
+                          li
+                            a(href='/calendar/'+student.id)
+                              i.fa.fa-calendar

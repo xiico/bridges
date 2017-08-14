@@ -9,7 +9,6 @@ var User = new keystone.List('User');
 
 User.add({
 	name: { type: Types.Name, required: true, index: true },
-	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
 	photo: { type: Types.CloudinaryImage, collapse: true },
 	password: { type: Types.Password, initial: true, required: true },
 	info: { type: Types.Html, wysiwyg: true, height: 400 },
@@ -22,6 +21,10 @@ User.add({
 	canPost: { type: Boolean, label: 'Can write posts', index: true },
 	isTeacher: { type: Boolean, label: 'Teacher', index: true },
 	isStudent: { type: Boolean, label: 'Student', index: true }
+}, 'Contact',{
+	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
+	cellphone: {type: Types.Number, format: '(00) 00000 0000', required: true, initial: true}
+
 });
 
 // Provide access to Keystone

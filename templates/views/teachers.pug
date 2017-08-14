@@ -25,9 +25,10 @@ block content
                           li
                             a(href='/user/'+teacher.id)
                               i.fa.fa-eye
-                          li
-                            a(href='/calendar/'+teacher.id)
-                              i.fa.fa-calendar
+                          if user && (user.isStudent || teacher.id == userid)
+                            li
+                              a(href='/calendar/'+teacher.id)
+                                i.fa.fa-calendar
                     .person-info
                       h2= teacher.name.first + ' ' + teacher.name.last
     // /#team

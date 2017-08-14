@@ -8,10 +8,12 @@ exports = module.exports = function (req, res) {
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'calendar';
-	locals.userid = req.params.userid
-	locals.uid = req.user ? req.user.id : null;
+	locals.userid = req.user ? req.user.id : null;
+	locals.qid = req.params.userid;
 
-	view.query('profile', keystone.list('User').model.findOne({_id:locals.userid}).populate('timezone'));
+	if(!locals.userid || !locals.qid || (locals.userid != locals.qid && !locals.user.isAdmin)) return view.render('errors/404');	
+
+	view.query('profile', keystone.list('User').model.findOne({_id:locals.qid}).populate('timezone'));
 
 	if(!locals.user) return res.status(404).render('errors/404');	
 

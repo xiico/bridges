@@ -82,12 +82,10 @@ html(lang='en')
 									li
 										a(class={active: url === "/contact2"} href='/contact2') Contact us 2
 									if user
-										if user.isAdmin || user.isStudent
-											li
-												a(class={active: url === "/teachers"} href='/teachers') Teachers
-										if user.isAdmin || user.isTeacher
-											li
-												a(class={active: url === "/students"} href='/students') Students												
+										li
+											a(class={active: url === "/teachers"} href='/teachers') Teachers
+										li
+											a(class={active: url === "/students"} href='/students') Students												
 									li
 										a(href='404.html') 404 error
 									li

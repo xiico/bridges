@@ -35,13 +35,15 @@ exports.list = function (req, res) {
 	var userid = res.locals.user ? res.locals.user.id : null;
 	var qid = req.query.userid;
 	var isOwner = res.locals.user && res.locals.user.id == qid;
-	if(!qid){
-		res.send({"error":"no user selected."});
-		return;
-	}
-	var q = keystone.list('CalendarEvent').model.find({
-		owner: qid,
-	}, { _id: 0 }).populate('participants', 'name').lean();
+
+	if(!userid || !qid || userid != qid) return res.send({"error":"not found."});	
+
+	var search;
+	if (!locals.user.isStudent){
+		search = {owner: qid};
+	} else { search = {"participants": {_id:userid}}}
+
+	var q = keystone.list('CalendarEvent').model.find(search, { _id: 0 }).populate('participants', 'name').lean();
 
 	//studente one - 5988b355b877951a0822b510
 	//studente two - 5988b39cb877951a0822b511
@@ -49,7 +51,7 @@ exports.list = function (req, res) {
 		if (err) return err;
 		if (!result) res.send({ "error": "no events." });
 		if (isOwner)
-			res.send(result);
+			return res.send(result);
 		else {
 			for (var i = 0, e; e = result[i]; i++) {
 				if (!(e.participants && e.participants.some(function (p) { return p._id.equals(userid) }))) {
@@ -59,7 +61,7 @@ exports.list = function (req, res) {
 				}
 			}
 		}
-		res.send(result);
+		return res.send(result);
 	});
 }
 

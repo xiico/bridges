@@ -67,6 +67,7 @@ block content
                   a(href='#')
                     i.fa.fa-bolt
                     | Okler Themes
-            .live-preview
-              a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
+            if user.isStudent || user.id == id
+              .live-preview
+                a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section

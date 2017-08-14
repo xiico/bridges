@@ -7,6 +7,7 @@ exports = module.exports = function (req, res) {
 
 	// Set locals
 	locals.section = 'teachers';
+	locals.userid = res.locals.user ? res.locals.user.id : null;
 
 	// Load the galleries by sortOrder
 	view.query('teachers', keystone.list('User').model.find({isTeacher:true}).sort('sortOrder'));
