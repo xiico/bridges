@@ -7,13 +7,13 @@ $(document).ready(function () {
             right: 'month,agendaWeek,agendaDay,listWeek'
         },
         defaultDate: '2017-05-12',
-        editable: !!uid,
+        editable: userid == qid,
         eventLimit: true, // allow "more" link when too many events
-        selectable: !!uid,
+        selectable: userid == qid,
         selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
-        timezone: 'Europe/London',//'America/Sao_Paulo','America/Santiago','Europe/London'
+        timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
         ignoreTimezone: false,
         select: function (start, end) {
             var title = prompt('Event Title:');
@@ -21,15 +21,15 @@ $(document).ready(function () {
             if (title) {
                 eventData = {
                     title: title,
-                    start: start.toISOString(),
-                    end: end.toISOString(),
-                    participants: [uid],
-                    owner: userid
+                    start: moment(start.toISOString()).toISOString(),
+                    end: moment(end.toISOString()).toISOString(),
+                    participants: [userid],
+                    owner: qid
                 };
                 
                 saveEvent(eventData, function(event){
-                    event.start = moment(event.start);
-                    if(event.end) event.end = moment(event.end);
+                    event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
+                    if(event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
                     $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
                 });
             }
@@ -73,21 +73,22 @@ $(document).ready(function () {
             color: '#3a87ad',//'#b72a00',   // a non-ajax option
             textColor: 'white', // a non-ajax option
         },
-        businessHours: {
-            start: '08:00',
-            end: '20:00',
+        businessHours: [{
+            start: '04:00',//08:00
+            end: '16:00',//20:00
             dow: [1, 2, 3, 4, 5, 6]
-        },
-        selectConstraint: {
-            start: '08:00',
-            end: '20:00',
+        },{
+            start: '17:00',//08:00
+            end: '20:00',//20:00
             dow: [1, 2, 3, 4, 5, 6]
-        },
-        eventConstraint: {
-            start: '08:00',
-            end: '20:00',
-            dow: [1, 2, 3, 4, 5, 6]
-        },
+        }],
+        // selectConstraint: {
+        //     start: '04:00',
+        //     end: '16:00',
+        //     dow: [1, 2, 3, 4, 5, 6]
+        // },
+        selectConstraint: 'businessHours',
+        eventConstraint: 'businessHours',
         eventOverlap: function (stillEvent, movingEvent) {
             return stillEvent.allDay && movingEvent.allDay;
         },

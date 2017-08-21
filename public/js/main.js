@@ -117,3 +117,7 @@ function pad(n, width, z) {
 	n = n + '';
 	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
   }
+
+function offSetToTime(offset)  {
+	return (offset>0?"+":"-") +  pad(Math.floor(Math.abs(offset)),2,0)+":"+pad(Math.abs(offset*60)%60,2,0)
+}

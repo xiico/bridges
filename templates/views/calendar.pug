@@ -54,7 +54,8 @@ block content
     // /.modal    
     script.
       var userid = '#{userid}';
-      var uid = '#{uid}';
+      var timezone = !{JSON.stringify(timezone)};
+      var qid = '#{qid}';
 append footer
   script(src='/js/calendar/lib/moment.min.js')
   script(src='/js/fullcalendar.min.js')
