@@ -13,11 +13,7 @@ exports = module.exports = function (req, res) {
 		locals.section = 'calendar';
 		locals.userid = req.user ? req.user.id : null;
 		locals.qid = req.params.userid;
-		locals.isOwner = res.locals.user && res.locals.user.id == locals.qid;		
-
-		if (!locals.user.timezone) {
-			locals.user.timezone = ["598dcbc0533daca5f7ee5e4d"];
-		}
+		locals.isOwner = res.locals.user && res.locals.user.id == locals.qid;	
 
 		// if (!locals.userid || !locals.qid || (locals.userid != locals.qid && !locals.user.isAdmin && !locals.user.isStudent)) {
 		// 	req.flash('Access denied');
