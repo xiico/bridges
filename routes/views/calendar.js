@@ -24,7 +24,7 @@ exports = module.exports = function (req, res) {
 		// if(locals.user.timezone)
 		// 	view.query('timezone', keystone.list('TimeZone').model.findOne({_id:"598dcbc0533daca5f7ee5e4d"}));//"598dcbc0533daca5f7ee5e4d",locals.user.timezone.toString()
 
-		//if (!locals.user) return res.status(404).render('errors/404');
+		if (!locals.isOwner && locals.user.isTeacher) return res.status(404).render('errors/404');
 		// var q = keystone.list('Post').model.findOne({
 		// 	state: 'published',
 		// 	slug: locals.filters.post,
