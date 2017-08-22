@@ -36,14 +36,19 @@ exports.list = function (req, res) {
 	var qid = req.query.userid;
 	var isOwner = res.locals.user && res.locals.user.id == qid;
 
-	if(!userid || !qid || userid != qid) return res.send({"error":"not found."});	
+	//if(!userid || !qid || (userid != qid && (!locals.user.isStudent && !locals.user.isAdmin && !isOwner))) return res.send({"error":"not found."});	
 
-	var search;
-	if (!locals.user.isStudent){
-		search = {owner: qid};
-	} else { search = {"participants": {_id:userid}}}
+	var search = {
+		$or: [
+			{owner: qid},
+			{"participants": {_id:qid}}
+		]
+	};
+	// if ((locals.user.isStudent && !isOwner) || locals.user.isTeacher){
+	// 	search = {owner: qid};
+	// } else { search = {"participants": {_id:userid}}}
 
-	var q = keystone.list('CalendarEvent').model.find(search, { _id: 0 }).populate('participants', 'name').lean();
+	var q = keystone.list('CalendarEvent').model.find(search, { _id: 0 }).populate('participants', 'name');
 
 	//studente one - 5988b355b877951a0822b510
 	//studente two - 5988b39cb877951a0822b511
@@ -54,7 +59,7 @@ exports.list = function (req, res) {
 			return res.send(result);
 		else {
 			for (var i = 0, e; e = result[i]; i++) {
-				if (!(e.participants && e.participants.some(function (p) { return p._id.equals(userid) }))) {
+				if (!e.participants || !e.participants.some(function (p) { return p._id.equals(userid) })) {
 					result[i] = { start: (result[i].allDay ? result[i].start.toISOString().substr(0,10) : result[i].start.toISOString()), rendering: 'background', className:'fc-business-container' };
 					if(result[i].end)
 						result[i].end= result[i].end.toISOString();

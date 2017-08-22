@@ -9,33 +9,40 @@ block intro
           .row
             .action
               .col-sm-12
-                h1.title= (profile.isTeacher ? 'Teacher' : 'Student') + "'s calendar"
-                p= (profile.isTeacher ? 'Book your classes!' : 'Check it out!')
+                h1.title= (profile && profile.isStudent ? 'Student' : 'Teacher') + "'s calendar"
+                p= (profile && profile.isStudent ? 'Check it out!' : 'Book your classes!')
     // /#action
 block content    
     section#calendar-section
       .container
         .row
-          .col-md-2
-            .user-photo
-              img.img-responsive(src=profile.photo.url, alt="User's photo")
-            .media-body
-              .timezone
-                i.fa.fa-globe
-                | #{(profile.timezone ? profile.timezone.text : 'not set')}
-              .user-name
-                a(href='/user/' + profile.id)= profile.name.full
-            .panel.panel-default#panel-participants
-              // Default panel contents
-              .panel-heading Participants
-              // Table
-              table#participants.table
-          .col-md-8
-            #calendar
-          .col-md-2
-            .media-body
-              h3 Help Section
-              p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.            
+          if profile
+            .col-md-2
+              .user-photo
+                img.img-responsive(src=profile.photo.url, alt="User's photo")
+              .media-body
+                .timezone
+                  i.fa.fa-globe
+                  | #{(profile.timezone ? profile.timezone.text : 'not set')}
+                  br
+                  i.fa.fa-globe
+                  | local:
+                  span
+                .user-name
+                  a(href='/user/' + profile.id)= profile.name.full
+              .panel.panel-default#panel-participants
+                // Default panel contents
+                .panel-heading Participants
+                // Table
+                table#participants.table
+            .col-md-8
+              #calendar
+            .col-md-2
+              .media-body
+                h3 Help Section
+                p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.          
+          else
+            .col-md-2 No data.              
     // /#map-section
     .modal.fade#myModal(tabindex='-1', role='dialog')
       .modal-dialog(role='document')
@@ -56,6 +63,10 @@ block content
       var userid = '#{userid}';
       var timezone = !{JSON.stringify(timezone)};
       var qid = '#{qid}';
+      var startBusinessHours = '#{startBusinessHours}';
+      var endBusinessHours = '#{endBusinessHours}';
+      var isStudent = '#{user.isStudent}';
+      var owner = !{JSON.stringify(owner)};
 append footer
   script(src='/js/calendar/lib/moment.min.js')
   script(src='/js/fullcalendar.min.js')

@@ -69,7 +69,7 @@ exports = module.exports = function (app) {
 	app.all('/portfoliofour', routes.views.portfoliofour);
 	app.all('/portfoliodetails', routes.views.portfoliodetails);
 	app.all('/shortcodes', routes.views.shortcodes);
-	app.all('/calendar/:userid', routes.views.calendar);
+	app.all('/calendar/:userid', middleware.requireUser, routes.views.calendar);
 	app.all('/teachers', routes.views.teachers);
 	app.all('/students', routes.views.students);
 	app.all('/user/:id', routes.views.user);

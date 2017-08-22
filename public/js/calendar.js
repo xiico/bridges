@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var localUtcOffset = moment().utcOffset()/60;
+    $('.timezone span').text(' (UTC' + moment().format('Z') + ')');
     $('#panel-participants').hide();
     $('#calendar').fullCalendar({
         header: {
@@ -7,13 +9,13 @@ $(document).ready(function () {
             right: 'month,agendaWeek,agendaDay,listWeek'
         },
         defaultDate: '2017-05-12',
-        editable: userid == qid,
+        editable: owner.isTeacher,
         eventLimit: true, // allow "more" link when too many events
-        selectable: userid == qid,
+        selectable: owner.isTeacher,
         selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
-        timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
+        //timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
         ignoreTimezone: false,
         select: function (start, end) {
             var title = prompt('Event Title:');
@@ -51,7 +53,7 @@ $(document).ready(function () {
                     url: '/calendardata',
                     type: 'GET',
                     data: {
-                        userid: userid,
+                        userid: qid,
                         //custom_param2: 'somethingelse'
                     },
                     success: function (data) {
@@ -73,15 +75,15 @@ $(document).ready(function () {
             color: '#3a87ad',//'#b72a00',   // a non-ajax option
             textColor: 'white', // a non-ajax option
         },
-        businessHours: [{
-            start: '04:00',//08:00
-            end: '16:00',//20:00
+        businessHours: /*[{
+            start: startBusinessHours + ':00',//08:00
+            end:  endBusinessHours + ':00',//20:00
             dow: [1, 2, 3, 4, 5, 6]
         },{
             start: '17:00',//08:00
             end: '20:00',//20:00
             dow: [1, 2, 3, 4, 5, 6]
-        }],
+        }]*/ getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset),
         // selectConstraint: {
         //     start: '04:00',
         //     end: '16:00',
@@ -132,4 +134,40 @@ $(document).ready(function () {
 
 function saveEvent(event, callback) {
     $.post("/calendarevent/create", event).done(callback);
+}
+
+function getBusinessHours(bos, boe, originalUTCOffset, localUTCOffset) {
+    var start = parseInt(bos);
+    var end = parseInt(boe);
+
+    var startLocal = start - originalUTCOffset + localUTCOffset;
+    var endLocal = end - originalUTCOffset + localUTCOffset;
+
+    if (startLocal >= 0 && startLocal <= 24 &&
+        endLocal >= 0 && endLocal <= 24) {
+        return {
+            start: offSetToTime(startLocal).substring(1),//08:00
+            end: offSetToTime(endLocal).substring(1),//20:00
+            dow: [1, 2, 3, 4, 5, 6]
+        }
+    } else {
+        if (endLocal > 24) {
+            var bh = [];
+            bh.push(
+                {
+                    start: offSetToTime(startLocal).substring(1),//08:00
+                    end: offSetToTime(24).substring(1),//20:00
+                    dow: [1, 2, 3, 4, 5, 6]
+                }
+            );
+            bh.push(
+                {
+                    start: offSetToTime(0).substring(1),//08:00
+                    end: offSetToTime((endLocal-24)).substring(1),//20:00
+                    dow: [1, 2, 3, 4, 5, 6]
+                }
+            );
+            return bh;
+        }
+    }
 }
