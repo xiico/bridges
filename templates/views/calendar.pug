@@ -38,7 +38,10 @@ block content
             .col-md-8
               #calendar
             .col-md-2
-              .media-body
+              .media-body.credits
+                i.fa.fa-money
+                span Total credits: 
+                | #{(user.credits ? user.credits : 'not set')}
                 h3 Help Section
                 p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.          
           else

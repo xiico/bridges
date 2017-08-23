@@ -18,6 +18,7 @@ User.add({
 	registered: { type: Types.Date, required: true, initial: true },
 	startBusinessHours: { type: Types.Select, options: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'], default: '09', index: true },
 	endBusinessHours: { type: Types.Select, options:   ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'], default: '18', index: true },
+	credits: {type: Number},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 	canPost: { type: Boolean, label: 'Can write posts', index: true },
@@ -49,5 +50,5 @@ User.schema.methods.wasActive = function () {
 /**
  * Registration
  */
-User.defaultColumns = 'name, isAdmin, Teacher, Student';
+User.defaultColumns = 'name, isAdmin, isTeacher, isStudent';
 User.register();

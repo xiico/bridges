@@ -12,11 +12,12 @@ $(document).ready(function () {
         editable: owner.isTeacher,
         eventLimit: true, // allow "more" link when too many events
         selectable: owner.isTeacher,
-        selectHelper: true,
+        //selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
         //timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
         ignoreTimezone: false,
+        eventDurationEditable: false,
         select: function (start, end) {
             var title = prompt('Event Title:');
             var eventData;
@@ -33,6 +34,7 @@ $(document).ready(function () {
                     event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
                     if(event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
                     $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+                    //$('.credits span').text(' (UTC' + moment().format('Z') + ')');
                 });
             }
             $('#calendar').fullCalendar('unselect');
@@ -117,7 +119,7 @@ $(document).ready(function () {
             // $('#title').val(calEvent.title);
             // $('#start').text(calEvent.start);
             // $('#end').text(calEvent.end);
-            // $('#myModal').modal('show');
+            $('#myModal').modal('show');
             // $('#myModal').data("event", JSON.stringify(calEvent));
 
             if(calEvent.participants){
