@@ -1,41 +1,70 @@
 $(document).ready(function () {
     var localUtcOffset = moment().utcOffset()/60;
+    window.calendarEvent = null;
     $('.timezone span').text(' (UTC' + moment().format('Z') + ')');
     $('#panel-participants').hide();
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay,listWeek'
+            right:  (isTeacher ? 'month,' : '') + 'agendaWeek,agendaDay,listWeek'
         },
-        defaultDate: '2017-05-12',
+        validRange: function(nowDate) {
+            return {
+                start: nowDate.subtract(1,'days'),
+                end: nowDate.clone().add(1, 'years')
+            };
+        },
+        minTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset).start,
+        maxTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset).end,
+        firstDay: isStudent ? new Date().getDay() : 0,
+        //defaultDate: '2017-05-12',
         editable: owner.isTeacher,
         eventLimit: true, // allow "more" link when too many events
         selectable: owner.isTeacher,
-        //selectHelper: true,
+        selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
         //timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
         ignoreTimezone: false,
         eventDurationEditable: false,
         select: function (start, end) {
-            var title = prompt('Event Title:');
-            var eventData;
+            var credits = Math.abs(new Date(end) - new Date(start)) / 60 / 1000 / 60;
+
+            if (credits < 1.5 || credits > 4) {
+                if (credits < 1.5) modalProblem('The min class duration is 01:30');
+                if (credits > 4) modalProblem('The max class duration is 04:00');
+                $('#calendar').fullCalendar('unselect');
+                $('#myModal').modal('show');
+                return;
+            }
+            //var title = prompt('Event Title:');
+            var title = 'Portuguese Class';
             if (title) {
-                eventData = {
+                window.calendarEvent = {
                     title: title,
                     start: moment(start.toISOString()).toISOString(),
                     end: moment(end.toISOString()).toISOString(),
                     participants: [userid],
                     owner: qid
                 };
-                
-                saveEvent(eventData, function(event){
-                    event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
-                    if(event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
-                    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
-                    //$('.credits span').text(' (UTC' + moment().format('Z') + ')');
-                });
+
+                if (moment(start.toISOString()) < moment()) {
+                    modalProblem("This is not a valid date.");
+                } else {
+                    if (curCredits - credits >= 0) {
+                        modalOK();
+                        $('.save-event .start').text(start.calendar(null, { sameElse: 'DD/MM/YYYY HH:mm' }));
+                        $('.save-event .end').text(end.calendar(null, { sameElse: 'DD/MM/YYYY HH:mm' }));
+                        $('.save-event .cost').text(credits);
+                        $('.save-event .curr-balance').text(curCredits);
+                        $('.save-event .balance').text(curCredits - credits);
+                    } else {
+                        modalProblem("You don't have enough credits to book this class");
+                    }
+                }
+                $('#myModal').modal('show');
+
             }
             $('#calendar').fullCalendar('unselect');
         },
@@ -133,6 +162,35 @@ $(document).ready(function () {
         }
     });
 });
+
+function modalOK(){
+    $('.book-event').removeClass('hidden');
+    $('.not-enough-credits').addClass('hidden');
+    $('.modal-footer').removeClass('hidden');
+}
+
+function modalProblem(message){
+    $('.book-event').addClass('hidden');
+    $('.problem').removeClass('hidden');
+    $('.modal-footer').addClass('hidden');
+    $('.problem p').text(message);
+}
+
+function saveCalendarEvent(){                
+    saveEvent(window.calendarEvent, function(event){
+        event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
+        if(event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
+        $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+        curCredits = event.credits;
+        $('.credits span').text(curCredits);
+        $.notify({
+            title: '<strong>Success!</strong>',
+            message: 'Your class has been booked.'
+        },{
+            type: 'success'
+        });
+    });
+}
 
 function saveEvent(event, callback) {
     $.post("/calendarevent/create", event).done(callback);

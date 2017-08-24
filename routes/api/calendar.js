@@ -77,22 +77,24 @@ exports.list = function (req, res) {
 exports.create = function (req, res) {
 	var item = new CalendarEvent.model(),
 		data = (req.method == 'POST') ? req.body : req.query;
+
+	var credits = Math.abs(new Date(data.end) - new Date(data.start)) / 60 / 1000 / 60;
+
+	var resultCredits = req.user.credits - credits;
+
+	if (resultCredits < 0) return res.apiError('error', { error: 'Not enough credits.' });
+	
+	var updater = req.user.getUpdateHandler(req);
+
 	item.getUpdateHandler(req).process(data, function (err) {
-
-		var updater = req.user.getUpdateHandler(req);
-
-		var credits = Math.abs(new Date(data.end) - new Date(data.start)) / 60 / 1000 / 60;
-
-		var resultCredits = req.user.credits - credits;
-
-		if (resultCredits < 0) return res.apiError('error', {error:'Not enough credits.'});
-
-		updater.process({credits: resultCredits}, {
+		if (err) return res.apiError('error', err);
+		updater.process({ credits: resultCredits }, {
 			fields: 'credits',
 			flashErrors: true
 		}, function (err) {
 			if (err) return res.apiError('error', err);
 			var evt = JSON.parse(JSON.stringify(item));
+			evt.credits = resultCredits;
 			delete evt._id;
 			res.apiResponse(evt);
 		});

@@ -40,8 +40,8 @@ block content
             .col-md-2
               .media-body.credits
                 i.fa.fa-money
-                span Total credits: 
-                | #{(user.credits ? user.credits : 'not set')}
+                | Total credits: 
+                span= (!isNaN(parseFloat(user.credits)) ? user.credits : 'not set')
                 h3 Help Section
                 p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.          
           else
@@ -53,12 +53,30 @@ block content
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') ×
-            h4.modal-title Modal title
-          .modal-body
-            p One fine body…
+            h4.modal-title Book class
+          .modal-body.save-event
+            .book-event
+              p
+                strong Your current credits balance is: 
+                span.curr-balance
+              p
+                strong This event will be scheduled from:
+                br
+                span.start
+                |  to 
+                span.end
+              p
+                strong This will cost you: 
+                spans.cost
+              p
+                strong 
+                  | Your balance in credits will be: 
+                span.balance
+            .problem.hidden
+              p There was a problem
           .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
-            button.btn.btn-primary(type='button') Save changes
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-primary(type='button', data-dismiss='modal', onclick='saveCalendarEvent()') OK
         // /.modal-content
       // /.modal-dialog
     // /.modal    
@@ -68,7 +86,9 @@ block content
       var qid = '#{qid}';
       var startBusinessHours = '#{startBusinessHours}';
       var endBusinessHours = '#{endBusinessHours}';
-      var isStudent = '#{user.isStudent}';
+      var isStudent = #{user.isStudent};
+      var isTeacher = #{user.isTeacher};
+      var curCredits = #{user.credits};
       var owner = !{JSON.stringify(owner)};
 append footer
   script(src='/js/calendar/lib/moment.min.js')
