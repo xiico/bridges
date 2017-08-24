@@ -35,7 +35,7 @@ $(document).ready(function () {
                 if (credits < 1.5) modalProblem('The min class duration is 01:30');
                 if (credits > 4) modalProblem('The max class duration is 04:00');
                 $('#calendar').fullCalendar('unselect');
-                $('#myModal').modal('show');
+                $('#bookClass').modal('show');
                 return;
             }
             //var title = prompt('Event Title:');
@@ -54,8 +54,16 @@ $(document).ready(function () {
                 } else {
                     if (curCredits - credits >= 0) {
                         modalOK();
-                        $('.save-event .start').text(start.calendar(null, { sameElse: 'DD/MM/YYYY HH:mm' }));
-                        $('.save-event .end').text(end.calendar(null, { sameElse: 'DD/MM/YYYY HH:mm' }));
+                        $('.save-event .date').text(start.calendar(null, {
+                            sameDay: '[Today]',
+                            nextDay: '[Tomorrow]',
+                            nextWeek: 'dddd',
+                            lastDay: '[Yesterday]',
+                            lastWeek: '[Last] dddd',
+                            sameElse: 'DD/MM/YYYY'
+                        }));
+                        $('.save-event .start').text(start.format('HH:mm'));
+                        $('.save-event .end').text(end.format('HH:mm'));
                         $('.save-event .cost').text(credits);
                         $('.save-event .curr-balance').text(curCredits);
                         $('.save-event .balance').text(curCredits - credits);
@@ -63,7 +71,7 @@ $(document).ready(function () {
                         modalProblem("You don't have enough credits to book this class");
                     }
                 }
-                $('#myModal').modal('show');
+                $('#bookClass').modal('show');
 
             }
             $('#calendar').fullCalendar('unselect');
@@ -148,8 +156,23 @@ $(document).ready(function () {
             // $('#title').val(calEvent.title);
             // $('#start').text(calEvent.start);
             // $('#end').text(calEvent.end);
-            $('#myModal').modal('show');
+            $('#infoClass').modal('show');
             // $('#myModal').data("event", JSON.stringify(calEvent));
+
+            var credits = Math.abs(new Date(calEvent.end) - new Date(calEvent.start)) / 60 / 1000 / 60;
+            $('.info-event .date').text(calEvent.start.calendar(null, {
+                sameDay: '[Today]',
+                nextDay: '[Tomorrow]',
+                nextWeek: 'dddd',
+                lastDay: '[Yesterday]',
+                lastWeek: '[Last] dddd',
+                sameElse: 'DD/MM/YYYY'
+            }));
+            $('.info-event .start').text(calEvent.start.format('HH:mm'));
+            $('.info-event .end').text(calEvent.end.format('HH:mm'));
+            $('.info-event .cost').text(credits);
+            $('.info-event .curr-balance').text(curCredits);
+            $('.info-event .balance').text(curCredits - credits);
 
             if(calEvent.participants){
                 $("#panel-participants tr").remove();

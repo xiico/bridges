@@ -30,11 +30,6 @@ block content
                   span
                 .user-name
                   a(href='/user/' + profile.id)= profile.name.full
-              .panel.panel-default#panel-participants
-                // Default panel contents
-                .panel-heading Participants
-                // Table
-                table#participants.table
             .col-md-8
               #calendar
             .col-md-2
@@ -47,7 +42,7 @@ block content
           else
             .col-md-2 No data.              
     // /#map-section
-    .modal.fade#myModal(tabindex='-1', role='dialog')
+    .modal.fade#bookClass(tabindex='-1', role='dialog')
       .modal-dialog(role='document')
         .modal-content
           .modal-header
@@ -60,11 +55,14 @@ block content
                 strong Your current credits balance is: 
                 span.curr-balance
               p
-                strong This event will be scheduled from:
+                strong This class will be scheduled to 
+                  span.date
+                  | :
                 br
-                span.start
+                | from 
+                strong: span.start
                 |  to 
-                span.end
+                strong: span.end
               p
                 strong This will cost you: 
                 spans.cost
@@ -77,6 +75,34 @@ block content
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Cancel
             button.btn.btn-primary(type='button', data-dismiss='modal', onclick='saveCalendarEvent()') OK
+    .modal.fade#infoClass(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Class info
+          .modal-body.save-event
+            .info-event
+              p
+                strong This class is scheduled to 
+                  span.date
+                  | :
+                br
+                | from 
+                strong: span.start
+                |  to 
+                strong: span.end              
+              .panel.panel-default#panel-participants
+                // Default panel contents
+                .panel-heading Participants
+                // Table
+                table#participants.table
+            .problem.hidden
+              p There was a problem
+          .modal-footer
+            button.btn.btn-danger(type='button', data-dismiss='modal', onclick='confirm("Are you sure?")') Cancel Class       
+            button.btn.btn-primary(type='button', data-dismiss='modal') OK            
         // /.modal-content
       // /.modal-dialog
     // /.modal    
