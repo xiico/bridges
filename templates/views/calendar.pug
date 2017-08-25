@@ -101,8 +101,26 @@ block content
             .problem.hidden
               p There was a problem
           .modal-footer
-            button.btn.btn-danger(type='button', data-dismiss='modal', onclick='confirm("Are you sure?")') Cancel Class       
+            button.btn.btn-danger(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
             button.btn.btn-primary(type='button', data-dismiss='modal') OK            
+    .modal.fade#confirmExclusion(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+            h4.modal-title Cancel class
+          .modal-body.save-event
+            .info-event
+              p
+                strong Are you sure you want to cancel this class?
+              .alert.alert-info(role='alert')
+                span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+                span.sr-only Error:
+                span.message
+          .modal-footer
+            button.btn.btn-success(type='button', data-dismiss='modal') Cancel
+            button.btn.btn-danger(type='button', onclick="$('.modal.in').modal('hide')") Unbook        
         // /.modal-content
       // /.modal-dialog
     // /.modal    

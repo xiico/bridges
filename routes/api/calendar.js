@@ -72,7 +72,7 @@ exports.list = function (req, res) {
 
 
 /**
- * Create a Post
+ * Create an Event
  */
 exports.create = function (req, res) {
 	var item = new CalendarEvent.model(),
@@ -94,6 +94,45 @@ exports.create = function (req, res) {
 		}, function (err) {
 			if (err) return res.apiError('error', err);
 			var evt = JSON.parse(JSON.stringify(item));
+			evt.credits = resultCredits;
+			delete evt._id;
+			res.apiResponse(evt);
+		});
+	});
+}
+
+/**
+ * Update an Event
+ */
+exports.update = function (req, res) {
+	var event = new CalendarEvent.model(),
+		data = (req.method == 'POST') ? req.body : req.query;
+
+	var credits = Math.abs(new Date(data.end) - new Date(data.start)) / 60 / 1000 / 60;
+
+	var result = Math.abs(moment() - moment(window.calendarEvent.start.toISOString())) / 1000 / 60 / 60;
+    var message;
+    if(result >= 24) message = {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
+    if(result < 24 && result > 12) message = {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
+    if(result <= 12) message = {type: 'alert-danger', message: 'No credits will be refunded.'};
+
+	var resultCredits = req.user.credits - credits;
+
+	if (resultCredits < 0) return res.apiError('error', { error: 'Not enough credits.' });
+
+	var userUpdater = req.user.getUpdateHandler(req);
+
+	event.getUpdateHandler(req).process({state:data.state}, {
+		fields: 'state',
+		flashErrors: true
+	}, function (err) {
+		if (err) return res.apiError('error', err);
+		userUpdater.process({ credits: resultCredits }, {
+			fields: 'credits',
+			flashErrors: true
+		}, function (err) {
+			if (err) return res.apiError('error', err);
+			var evt = JSON.parse(JSON.stringify(event));
 			evt.credits = resultCredits;
 			delete evt._id;
 			res.apiResponse(evt);

@@ -1,6 +1,13 @@
 $(document).ready(function () {
     var localUtcOffset = moment().utcOffset()/60;
     window.calendarEvent = null;
+    window.colors = {
+        requested: '#f0ad4e', 
+        accepted: '#5cb85c', 
+        active: '#337ab7', 
+        suspended: '#d9534f', 
+        archived: '#5E5E5E'
+    }
     $('.timezone span').text(' (UTC' + moment().format('Z') + ')');
     $('#panel-participants').hide();
     $('#calendar').fullCalendar({
@@ -103,6 +110,7 @@ $(document).ready(function () {
                             evt.start = moment(evt.start);
                             if (evt.end) evt.end = moment(evt.end);
                             //if((evt.owner && evt.owner === uid) || (!(evt.participants && evt.participants.some(function (p) { return p._id === uid })))) evt.color = '#3a87ad';
+                            evt.color = colors[evt.state]
                         });
                         callback(data);
                     },
@@ -156,6 +164,7 @@ $(document).ready(function () {
             // $('#title').val(calEvent.title);
             // $('#start').text(calEvent.start);
             // $('#end').text(calEvent.end);
+            window.calendarEvent = calEvent;
             $('#infoClass').modal('show');
             // $('#myModal').data("event", JSON.stringify(calEvent));
 
@@ -185,6 +194,22 @@ $(document).ready(function () {
         }
     });
 });
+
+function confirmUnbook(){
+    var result = Math.abs(moment() - moment(window.calendarEvent.start.toISOString())) / 1000 / 60 / 60;
+    var message;
+    if(result >= 24) message = {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
+    if(result < 24 && result > 12) message = {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
+    if(result <= 12) message = {type: 'alert-danger', message: 'No credits will be refunded.'};
+
+    $('#confirmExclusion .alert').removeClass('alert-info');
+    $('#confirmExclusion .alert').removeClass('alert-warning');
+    $('#confirmExclusion .alert').removeClass('alert-danger');
+
+    $('#confirmExclusion .alert').addClass(message.type);
+    $('#confirmExclusion .message').text(message.message);
+    $('#confirmExclusion').modal('show');
+}
 
 function modalOK(){
     $('.book-event').removeClass('hidden');
