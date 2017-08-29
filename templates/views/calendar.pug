@@ -98,10 +98,15 @@ block content
                 .panel-heading Participants
                 // Table
                 table#participants.table
+              p
+                strong Status: 
+                span.state
             .problem.hidden
               p There was a problem
           .modal-footer
             button.btn.btn-danger(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
+            if user.isTeacher || user.isAdmin
+              button.btn.btn-success.accept(type='button', data-toggle="modal", onclick="this.disabled = true;updateEvent({id:calendarEvent.id, state:'accepted'}, updateInfo);") Accept
             button.btn.btn-primary(type='button', data-dismiss='modal') OK            
     .modal.fade#confirmExclusion(tabindex='-1', role='dialog')
       .modal-dialog(role='document')
@@ -120,7 +125,7 @@ block content
                 span.message
           .modal-footer
             button.btn.btn-success(type='button', data-dismiss='modal') Cancel
-            button.btn.btn-danger(type='button', onclick="$('.modal.in').modal('hide')") Unbook        
+            button.btn.btn-danger(type='button', onclick="updateEvent({id:calendarEvent.id, state:'suspended'}, updateInfo);") Unbook        
         // /.modal-content
       // /.modal-dialog
     // /.modal    
@@ -132,7 +137,8 @@ block content
       var endBusinessHours = '#{endBusinessHours}';
       var isStudent = #{user.isStudent};
       var isTeacher = #{user.isTeacher};
-      var curCredits = #{user.credits};
+      var isAdmin = #{user.isAdmin};
+      var curCredits = #{user.credits ? user.credits : 0};
       var owner = !{JSON.stringify(owner)};
 append footer
   script(src='/js/calendar/lib/moment.min.js')

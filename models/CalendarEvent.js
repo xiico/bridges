@@ -38,6 +38,8 @@ CalendarEvent.add({
 	categories: { type: Types.Relationship, ref: 'EventCategory' }
 });
 
+CalendarEvent.schema.virtual('ID').get(function () { return this._id; });
+
 // Post.relationship({ path: 'comments', ref: 'PostComment', refPath: 'post' });
 
 // Post.defaultColumns = 'title, state|20%, author|20%, publishedDate|20%';

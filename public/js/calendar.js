@@ -14,16 +14,16 @@ $(document).ready(function () {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right:  (isTeacher ? 'month,' : '') + 'agendaWeek,agendaDay,listWeek'
+            right:  (isTeacher || isAdmin ? 'month,' : '') + 'agendaWeek,agendaDay,listWeek'
         },
         validRange: function(nowDate) {
             return {
-                start: nowDate.subtract(1,'days'),
+                start: nowDate.subtract( isAdmin || isTeacher ? 100 : 1,'days'),
                 end: nowDate.clone().add(1, 'years')
             };
         },
-        minTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset).start,
-        maxTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset).end,
+        minTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone ? timezone.offset : localUtcOffset, localUtcOffset).start,
+        maxTime: getBusinessHours(startBusinessHours, endBusinessHours, timezone ? timezone.offset : localUtcOffset, localUtcOffset).end,
         firstDay: isStudent ? new Date().getDay() : 0,
         //defaultDate: '2017-05-12',
         editable: owner.isTeacher,
@@ -130,7 +130,7 @@ $(document).ready(function () {
             start: '17:00',//08:00
             end: '20:00',//20:00
             dow: [1, 2, 3, 4, 5, 6]
-        }]*/ getBusinessHours(startBusinessHours, endBusinessHours, timezone.offset, localUtcOffset),
+        }]*/ getBusinessHours(startBusinessHours, endBusinessHours, timezone ? timezone.offset : localUtcOffset, localUtcOffset),
         // selectConstraint: {
         //     start: '04:00',
         //     end: '16:00',
@@ -182,6 +182,14 @@ $(document).ready(function () {
             $('.info-event .cost').text(credits);
             $('.info-event .curr-balance').text(curCredits);
             $('.info-event .balance').text(curCredits - credits);
+            $('.info-event .state').text(classState(calEvent.state));
+
+            if(calEvent.state == 'requested') {
+                $('.accept').show();
+                $('.accept').prop('disabled',false);
+            } else  $('.accept').hide();
+
+            if (calEvent.state == 'requested' && (isTeacher || isAdmin)) $('.accept').show();
 
             if(calEvent.participants){
                 $("#panel-participants tr").remove();
@@ -194,6 +202,24 @@ $(document).ready(function () {
         }
     });
 });
+
+function classState(state) {
+    //requested, accepted, active, canceled, archived
+    switch (state) {
+        case 'requested':
+            return 'Waiting acceptance';
+        case 'accepted':
+            return 'Accepted';
+        case 'active':
+            return 'Active';
+        case 'canceled':
+            return 'Canceled';
+        case 'archived':
+            return 'Archived';
+        default:
+            break;
+    }
+}
 
 function confirmUnbook(){
     var result = Math.abs(moment() - moment(window.calendarEvent.start.toISOString())) / 1000 / 60 / 60;
@@ -208,6 +234,7 @@ function confirmUnbook(){
 
     $('#confirmExclusion .alert').addClass(message.type);
     $('#confirmExclusion .message').text(message.message);
+    //suspended
     $('#confirmExclusion').modal('show');
 }
 
@@ -224,24 +251,36 @@ function modalProblem(message){
     $('.problem p').text(message);
 }
 
-function saveCalendarEvent(){                
-    saveEvent(window.calendarEvent, function(event){
-        event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
-        if(event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
-        $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
-        curCredits = event.credits;
-        $('.credits span').text(curCredits);
+function updateInfo(event) {
+    event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
+    if (event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
+    if(!event.newEvent) $('#calendar').fullCalendar( 'removeEvents', calendarEvent.id );
+    event.color = colors[event.state]
+    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
+    curCredits = event.credits;
+    $('.credits span').text(curCredits);
+    if(curCredits)
         $.notify({
             title: '<strong>Success!</strong>',
             message: 'Your class has been booked.'
-        },{
-            type: 'success'
-        });
-    });
+        }, { type: 'success' });
+    if(event.state == 'requested') {
+        $('.accept').show();
+        $('.accept').prop('disabled',false);
+    } else  $('.accept').hide();
+    $('#infoClass').modal('hide');
+}
+
+function saveCalendarEvent(){                
+    saveEvent(window.calendarEvent, updateInfo);
 }
 
 function saveEvent(event, callback) {
     $.post("/calendarevent/create", event).done(callback);
+}
+
+function updateEvent(event, callback) {
+    $.post("/calendarevent/update", { _id: event.id, state: event.state }).done(callback);
 }
 
 function getBusinessHours(bos, boe, originalUTCOffset, localUTCOffset) {
