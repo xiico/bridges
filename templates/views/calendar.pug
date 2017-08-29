@@ -104,7 +104,7 @@ block content
             .problem.hidden
               p There was a problem
           .modal-footer
-            button.btn.btn-danger(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
+            button.btn.btn-danger.unbook(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
             if user.isTeacher || user.isAdmin
               button.btn.btn-success.accept(type='button', data-toggle="modal", onclick="this.disabled = true;updateEvent({id:calendarEvent.id, state:'accepted'}, updateInfo);") Accept
             button.btn.btn-primary(type='button', data-dismiss='modal') OK            
@@ -125,7 +125,7 @@ block content
                 span.message
           .modal-footer
             button.btn.btn-success(type='button', data-dismiss='modal') Cancel
-            button.btn.btn-danger(type='button', onclick="updateEvent({id:calendarEvent.id, state:'suspended'}, updateInfo);") Unbook        
+            button.btn.btn-danger(type='button', onclick="updateEvent({id:calendarEvent.id, state:'suspended'}, updateInfo);$('.modal.in').modal('hide');") Unbook        
         // /.modal-content
       // /.modal-dialog
     // /.modal    

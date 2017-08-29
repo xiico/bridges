@@ -189,6 +189,9 @@ $(document).ready(function () {
                 $('.accept').prop('disabled',false);
             } else  $('.accept').hide();
 
+            if(calEvent.state != 'requested' || calEvent.state != 'accepted') $('#infoClass .unbook').show();
+            else $('#infoClass .unbook').hide();
+
             if (calEvent.state == 'requested' && (isTeacher || isAdmin)) $('.accept').show();
 
             if(calEvent.participants){
