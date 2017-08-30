@@ -1,11 +1,20 @@
 $(document).ready(function () {
+    var timer;
+    $(document).on('mousemove', function(e){
+       clearTimeout(timer);    
+       timer = setTimeout(function() {
+           $(`.help-text`).fadeOut('slow', function() {
+                $(this).text(helpMessage[owner.isStudent ? 0 : 4].message);
+           }).fadeIn();;
+       }, 5000);
+    });
     var localUtcOffset = moment().utcOffset()/60;
     window.calendarEvent = null;
     window.colors = {
         requested: '#f0ad4e', 
         accepted: '#5cb85c', 
         active: '#337ab7', 
-        suspended: '#d9534f', 
+        canceled: '#d9534f', 
         archived: '#5E5E5E'
     }
     $('.timezone span').text(' (UTC' + moment().format('Z') + ')');
@@ -184,12 +193,15 @@ $(document).ready(function () {
             $('.info-event .balance').text(curCredits - credits);
             $('.info-event .state').text(classState(calEvent.state));
 
+            
+            $(".teacher-calendar").prop("href", "/calendar/" + calEvent.owner)
+
             if(calEvent.state == 'requested') {
                 $('.accept').show();
                 $('.accept').prop('disabled',false);
             } else  $('.accept').hide();
 
-            if(calEvent.state != 'requested' || calEvent.state != 'accepted') $('#infoClass .unbook').show();
+            if(calEvent.state == 'requested' || calEvent.state == 'accepted') $('#infoClass .unbook').show();
             else $('#infoClass .unbook').hide();
 
             if (calEvent.state == 'requested' && (isTeacher || isAdmin)) $('.accept').show();
@@ -202,6 +214,18 @@ $(document).ready(function () {
                 }
             } else $('#panel-participants').hide();
             
+        },
+        eventAfterAllRender: function(){
+            $(`.fc-v-event`).data(`help`, 1);
+            $(`.fc-nonbusiness, .fc-bgevent`).addClass('show-help').data(`help`, 5);
+            $(`body`).find('.show-help, a').hover((e) => {
+                var helpId = $(e.currentTarget).data('help');
+                if(helpId !== undefined) $(`.help-text`).text(helpMessage[helpId].message);
+                else $(`.help-text`).text(helpMessage[owner.isStudent ? 0 : 2].message);
+            });
+            $(`body`).find('.show-help, a').mouseleave((e) => {
+                $(`.help-text`).text(helpMessage[owner.isStudent ? 0 : 2].message);
+            });
         }
     });
 });
@@ -213,23 +237,18 @@ function classState(state) {
             return 'Waiting acceptance';
         case 'accepted':
             return 'Accepted';
-        case 'active':
-            return 'Active';
+        case 'taught':
+            return 'Taught';
         case 'canceled':
             return 'Canceled';
         case 'archived':
             return 'Archived';
-        default:
-            break;
     }
 }
 
 function confirmUnbook(){
     var result = Math.abs(moment() - moment(window.calendarEvent.start.toISOString())) / 1000 / 60 / 60;
-    var message;
-    if(result >= 24) message = {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
-    if(result < 24 && result > 12) message = {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
-    if(result <= 12) message = {type: 'alert-danger', message: 'No credits will be refunded.'};
+    var message = creditsMessageAlert(result);
 
     $('#confirmExclusion .alert').removeClass('alert-info');
     $('#confirmExclusion .alert').removeClass('alert-warning');
@@ -237,8 +256,14 @@ function confirmUnbook(){
 
     $('#confirmExclusion .alert').addClass(message.type);
     $('#confirmExclusion .message').text(message.message);
-    //suspended
+    //canceled
     $('#confirmExclusion').modal('show');
+}
+
+function creditsMessageAlert(timeOffset){
+    if(timeOffset >= 24) return {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
+    if(timeOffset < 24 && timeOffset > 12) return {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
+    return {type: 'alert-danger', message: 'No credits will be refunded.'}; //if(result <= 12)
 }
 
 function modalOK(){
@@ -254,28 +279,34 @@ function modalProblem(message){
     $('.problem p').text(message);
 }
 
-function updateInfo(event) {
-    event.start = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
-    if (event.end) event.end = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
-    if(!event.newEvent) $('#calendar').fullCalendar( 'removeEvents', calendarEvent.id );
-    event.color = colors[event.state]
-    $('#calendar').fullCalendar('renderEvent', event, true); // stick? = true
-    curCredits = event.credits;
+function updateInfo(result) {
+    /********/
+    // evt.start = moment(evt.start);
+    // if (evt.end) evt.end = moment(evt.end);
+    /**********/
+
+    result.event.start = moment(result.event.start);//.format('YYYY-MM-DDTHH:mm:ss');
+    if (result.event.end) result.event.end = moment(result.event.end);//.format('YYYY-MM-DDTHH:mm:ss');
+    if (!result.event.newEvent) $('#calendar').fullCalendar('removeEvents', calendarEvent.id || calendarEvent._id);
+    result.event.color = colors[result.event.state]
+    calendarEvent = result.event;
+    $('#calendar').fullCalendar('renderEvent', result.event, true); // stick? = true
+    curCredits = result.credits;
     $('.credits span').text(curCredits);
-    if(curCredits)
+    if (curCredits)
         $.notify({
             title: '<strong>Success!</strong>',
-            message: 'Your class has been booked.'
+            message: result.message
         }, { type: 'success' });
-    if(event.state == 'requested') {
+    if (result.event.state == 'requested') {
         $('.accept').show();
-        $('.accept').prop('disabled',false);
-    } else  $('.accept').hide();
+        $('.accept').prop('disabled', false);
+    } else $('.accept').hide();
     $('#infoClass').modal('hide');
 }
 
 function saveCalendarEvent(){                
-    saveEvent(window.calendarEvent, updateInfo);
+    saveEvent(calendarEvent, updateInfo);
 }
 
 function saveEvent(event, callback) {
@@ -283,7 +314,7 @@ function saveEvent(event, callback) {
 }
 
 function updateEvent(event, callback) {
-    $.post("/calendarevent/update", { _id: event.id, state: event.state }).done(callback);
+    $.post("/calendarevent/update", event).done(callback);
 }
 
 function getBusinessHours(bos, boe, originalUTCOffset, localUTCOffset) {

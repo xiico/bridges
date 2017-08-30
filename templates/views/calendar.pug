@@ -14,10 +14,10 @@ block intro
     // /#action
 block content    
     section#calendar-section
-      .container
+      .container.show-help
         .row
           if profile
-            .col-md-2
+            .col-md-2.show-help
               .user-photo
                 img.img-responsive(src=profile.photo.url, alt="User's photo")
               .media-body
@@ -30,15 +30,15 @@ block content
                   span
                 .user-name
                   a(href='/user/' + profile.id)= profile.name.full
-            .col-md-8
-              #calendar
-            .col-md-2
+            .col-md-8.show-help
+              #calendar.show-help(data-help=!owner.isStudent ? 4 : 0 )
+            .col-md-2.show-help
               .media-body.credits
                 i.fa.fa-money
                 | Total credits: 
                 span= (!isNaN(parseFloat(user.credits)) ? user.credits : 'not set')
                 h3 Help Section
-                p Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi.          
+                p.help-text          
           else
             .col-md-2 No data.              
     // /#map-section
@@ -98,12 +98,15 @@ block content
                 .panel-heading Participants
                 // Table
                 table#participants.table
-              p
+              p.show-help(data-help="3")
                 strong Status: 
                 span.state
             .problem.hidden
               p There was a problem
           .modal-footer
+            if owner.isStudent
+              //p.small= 'isStudent: ' + user.isStudent + ' |qid: ' + qid + ' |owner.id: ' + owner.id
+              a.btn.btn-info.teacher-calendar(type='button', data-toggle="modal") Go to calendar
             button.btn.btn-danger.unbook(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
             if user.isTeacher || user.isAdmin
               button.btn.btn-success.accept(type='button', data-toggle="modal", onclick="this.disabled = true;updateEvent({id:calendarEvent.id, state:'accepted'}, updateInfo);") Accept
@@ -125,7 +128,7 @@ block content
                 span.message
           .modal-footer
             button.btn.btn-success(type='button', data-dismiss='modal') Cancel
-            button.btn.btn-danger(type='button', onclick="updateEvent({id:calendarEvent.id, state:'suspended'}, updateInfo);$('.modal.in').modal('hide');") Unbook        
+            button.btn.btn-danger(type='button', onclick="updateEvent({id:calendarEvent._id, state:'canceled'}, updateInfo);$('.modal.in').modal('hide');") Unbook        
         // /.modal-content
       // /.modal-dialog
     // /.modal    
@@ -143,4 +146,5 @@ block content
 append footer
   script(src='/js/calendar/lib/moment.min.js')
   script(src='/js/fullcalendar.min.js')
+  script(type="text/javascript" src="/js/calendar/helpMessages.js")
   script(type="text/javascript" src="/js/calendar.js")

@@ -25,7 +25,7 @@ var CalendarEvent = new keystone.List('CalendarEvent', {
 
 CalendarEvent.add({
 	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'requested, accepted, active, suspended, archived', default: 'requested', index: true },
+	state: { type: Types.Select, options: 'requested, accepted, taught, canceled, archived', default: 'requested', index: true },
 	owner: { type: Types.Relationship, ref: 'User', index: true },
 	participants: { type: Types.Relationship, ref: 'User', many: true },
     start: { type: Types.Datetime, index: true },
