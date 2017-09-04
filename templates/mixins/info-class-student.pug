@@ -1,0 +1,23 @@
+mixin info-class-student(user)
+  p
+    strong This class is scheduled to 
+      span.date
+      | :
+    br
+    | from 
+    strong: span.start
+    |  to 
+    strong: span.end              
+  .panel-default#panel-participants
+    // Default panel contents                
+    // Table
+    if user.isTeacher
+      .panel-heading Participants
+      table#participants.table
+    else
+      p
+        strong Teacher: 
+        span.teacher-name
+  p.show-help(data-help="3")
+    strong Status: 
+    span.state

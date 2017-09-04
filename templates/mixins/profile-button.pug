@@ -11,6 +11,8 @@ mixin profile-button(user)
           .col-lg-8
             p.text-left
               strong= user.name.full
+              a#calendar-link.to-calendar(href='/calendar/' + user.id, title='View Calendar')
+                i.fa.fa-calendar
             p.text-left.small= user.email
             p.text-left
               a.btn.btn-common.profile-anchor(href='/user/'+user._id) View Profile

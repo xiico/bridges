@@ -36,9 +36,10 @@ exports.list = function (req, res) {
 	var qid = req.query.userid;
 	var isOwner = res.locals.user && res.locals.user.id == qid;
 
-	var search = {	$or: [{owner: qid},	{"participants": {_id:qid}}	]};
+	var search = {	$or: [{owner: qid},	{"participants": {_id:qid}},{"participants": {_id:userid}}	],
+				   $nor: [{"state": "canceled"},{"state": "archived"}]};
 
-	var q = keystone.list('CalendarEvent').model.find(search/*, { _id: 0, categories: 0 }*/).populate('participants', 'name').lean();
+	var q = keystone.list('CalendarEvent').model.find(search/*, { _id: 0, categories: 0 }*/).populate('owner', 'name').populate('participants', 'name').lean();
 
 	//studente one - 5988b355b877951a0822b510
 	//studente two - 5988b39cb877951a0822b511
@@ -82,8 +83,11 @@ exports.create = function (req, res) {
 
 	var resultCredits = req.user.credits - credits;
 
-	if (resultCredits < 0) return res.apiError('error', { error: 'Not enough credits.' });
-	
+	if ((isNaN(resultCredits) || resultCredits < 0) && req.user.isStudent ) return res.apiError('error', { error: 'Not enough credits.' });
+	if(req.user.isStudent){
+		if (credits < 1.5) return res.apiError('error', { error:'The min class duration is 01:30' });
+		if (credits > 4) return res.apiError('error', { error:'The max class duration is 04:00' });
+	}
 	var updater = req.user.getUpdateHandler(req);
 
 	item.getUpdateHandler(req).process(data, function (err) {

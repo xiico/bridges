@@ -13,7 +13,8 @@ $(document).ready(function () {
     window.colors = {
         requested: '#f0ad4e', 
         accepted: '#5cb85c', 
-        active: '#337ab7', 
+        taught: '#337ab7', 
+        block: '#2C1E4F', 
         canceled: '#d9534f', 
         archived: '#5E5E5E'
     }
@@ -41,6 +42,7 @@ $(document).ready(function () {
         selectHelper: true,
         defaultView: 'agendaWeek',
         selectOverlap: false,
+        nowIndicator: true,
         //timezone: timezone.utc[0],//'America/Sao_Paulo','America/Santiago','Europe/London'
         ignoreTimezone: false,
         eventDurationEditable: false,
@@ -62,27 +64,16 @@ $(document).ready(function () {
                     start: moment(start.toISOString()).toISOString(),
                     end: moment(end.toISOString()).toISOString(),
                     participants: [userid],
-                    owner: qid
+                    owner: qid,
+                    state: isStudent ? 'requested' : 'block'
                 };
 
                 if (moment(start.toISOString()) < moment()) {
                     modalProblem("This is not a valid date.");
                 } else {
-                    if (curCredits - credits >= 0) {
-                        modalOK();
-                        $('.save-event .date').text(start.calendar(null, {
-                            sameDay: '[Today]',
-                            nextDay: '[Tomorrow]',
-                            nextWeek: 'dddd',
-                            lastDay: '[Yesterday]',
-                            lastWeek: '[Last] dddd',
-                            sameElse: 'DD/MM/YYYY'
-                        }));
-                        $('.save-event .start').text(start.format('HH:mm'));
-                        $('.save-event .end').text(end.format('HH:mm'));
-                        $('.save-event .cost').text(credits);
-                        $('.save-event .curr-balance').text(curCredits);
-                        $('.save-event .balance').text(curCredits - credits);
+                    if (curCredits - credits >= 0 || isTeacher) {
+                        if (isStudent) showEventInfoStudent(start, end, curCredits, credits);
+                        else showEventInfoTeacher(start, end);
                     } else {
                         modalProblem("You don't have enough credits to book this class");
                     }
@@ -119,7 +110,10 @@ $(document).ready(function () {
                             evt.start = moment(evt.start);
                             if (evt.end) evt.end = moment(evt.end);
                             //if((evt.owner && evt.owner === uid) || (!(evt.participants && evt.participants.some(function (p) { return p._id === uid })))) evt.color = '#3a87ad';
-                            evt.color = colors[evt.state]
+                            if (evt.owner) { 
+                                evt.color = qid == evt.owner._id || qid == userid ? colors[evt.state] : '#290054';                                
+				                evt.startEditable = (qid == evt.owner._id && qid != userid);
+                            }
                         });
                         callback(data);
                     },
@@ -178,23 +172,27 @@ $(document).ready(function () {
             // $('#myModal').data("event", JSON.stringify(calEvent));
 
             var credits = Math.abs(new Date(calEvent.end) - new Date(calEvent.start)) / 60 / 1000 / 60;
-            $('.info-event .date').text(calEvent.start.calendar(null, {
-                sameDay: '[Today]',
-                nextDay: '[Tomorrow]',
-                nextWeek: 'dddd',
-                lastDay: '[Yesterday]',
-                lastWeek: '[Last] dddd',
-                sameElse: 'DD/MM/YYYY'
-            }));
-            $('.info-event .start').text(calEvent.start.format('HH:mm'));
-            $('.info-event .end').text(calEvent.end.format('HH:mm'));
-            $('.info-event .cost').text(credits);
-            $('.info-event .curr-balance').text(curCredits);
-            $('.info-event .balance').text(curCredits - credits);
+            // $('.info-event .date').text(calEvent.start.calendar(null, {
+            //     sameDay: '[Today]',
+            //     nextDay: '[Tomorrow]',
+            //     nextWeek: 'dddd',
+            //     lastDay: '[Yesterday]',
+            //     lastWeek: '[Last] dddd',
+            //     sameElse: 'DD/MM/YYYY'
+            // }));
+            // $('.info-event .start').text(calEvent.start.format('HH:mm'));
+            // $('.info-event .end').text(calEvent.end.format('HH:mm'));
+            // $('.info-event .cost').text(credits);
+            // $('.info-event .curr-balance').text(curCredits);
+            // $('.info-event .balance').text(curCredits - credits);
+            showEventInfoStudent(calEvent.start, calEvent.end, curCredits, credits);
+
             $('.info-event .state').text(classState(calEvent.state));
 
-            
-            $(".teacher-calendar").prop("href", "/calendar/" + calEvent.owner)
+            if( qid != calEvent.owner._id) {
+                $(".teacher-calendar").show();
+                $(".teacher-calendar").prop("href", "/calendar/" + calEvent.owner._id)
+            } else $(".teacher-calendar").hide();
 
             if(calEvent.state == 'requested') {
                 $('.accept').show();
@@ -205,12 +203,15 @@ $(document).ready(function () {
             else $('#infoClass .unbook').hide();
 
             if (calEvent.state == 'requested' && (isTeacher || isAdmin)) $('.accept').show();
-
+            $('#panel-participants').show();
             if(calEvent.participants){
-                $("#panel-participants tr").remove();
-                $('#panel-participants').show();
-                for (var i = 0, participant;participant = calEvent.participants[i]; i++){
-                    $('#participants').append('<tr><td>'+i+'.</td><td>'+participant.name.first + ' ' + participant.name.last +'</td></tr>');
+                if (isTeacher){
+                    $("#panel-participants tr").remove();                    
+                    for (var i = 0, participant;participant = calEvent.participants[i]; i++){
+                        $('#participants').append('<tr><td>'+i+'.</td><td>'+participant.name.first + ' ' + participant.name.last +'</td></tr>');
+                    }
+                } else {
+                    $('.teacher-name').text(calEvent.owner.name.first + ' ' + calEvent.owner.name.last);
                 }
             } else $('#panel-participants').hide();
             
@@ -229,6 +230,29 @@ $(document).ready(function () {
         }
     });
 });
+
+function showEventInfoStudent(start, end, curCredits, credits){
+    modalOK();
+    $('.save-event .date').text(start.calendar(null, {
+        sameDay: '[Today]',
+        nextDay: '[Tomorrow]',
+        nextWeek: 'dddd',
+        lastDay: '[Yesterday]',
+        lastWeek: '[Last] dddd',
+        sameElse: 'DD/MM/YYYY'
+    }));
+    $('.save-event .start').text(start.format('HH:mm'));
+    $('.save-event .end').text(end.format('HH:mm'));
+    $('.save-event .cost').text(credits);
+    $('.save-event .curr-balance').text(curCredits);
+    $('.save-event .balance').text(curCredits - credits);
+}
+
+function showEventInfoTeacher(start, end){
+    modalOK();
+    $('.save-event .start').text(start.format('HH:mm'));
+    $('.save-event .end').text(end.format('HH:mm'));
+}
 
 function classState(state) {
     //requested, accepted, active, canceled, archived

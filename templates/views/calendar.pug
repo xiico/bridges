@@ -1,4 +1,9 @@
 extends ../layouts/default
+include ../mixins/book-event-student
+include ../mixins/book-event-teacher
+include ../mixins/info-class-student
+include ../mixins/info-class-teacher
+
 block extrahead
   link(href='/styles/fullcalendar.min.css', rel='stylesheet')
   link(href='/styles/fullcalendar.print.min.css', rel='stylesheet', media='print')
@@ -51,25 +56,10 @@ block content
             h4.modal-title Book class
           .modal-body.save-event
             .book-event
-              p
-                strong Your current credits balance is: 
-                span.curr-balance
-              p
-                strong This class will be scheduled to 
-                  span.date
-                  | :
-                br
-                | from 
-                strong: span.start
-                |  to 
-                strong: span.end
-              p
-                strong This will cost you: 
-                spans.cost
-              p
-                strong 
-                  | Your balance in credits will be: 
-                span.balance
+              if user.isStudent
+                +book-event-student()
+              else
+                +book-event-teacher()
             .problem.hidden
               p There was a problem
           .modal-footer
@@ -84,29 +74,16 @@ block content
             h4.modal-title Class info
           .modal-body.save-event
             .info-event
-              p
-                strong This class is scheduled to 
-                  span.date
-                  | :
-                br
-                | from 
-                strong: span.start
-                |  to 
-                strong: span.end              
-              .panel.panel-default#panel-participants
-                // Default panel contents
-                .panel-heading Participants
-                // Table
-                table#participants.table
-              p.show-help(data-help="3")
-                strong Status: 
-                span.state
+              if user.isStudent
+                +info-class-student(user)
+              else
+                +info-class-teacher()
             .problem.hidden
               p There was a problem
           .modal-footer
-            if owner.isStudent
-              //p.small= 'isStudent: ' + user.isStudent + ' |qid: ' + qid + ' |owner.id: ' + owner.id
-              a.btn.btn-info.teacher-calendar(type='button', data-toggle="modal") Go to calendar
+            //- if owner.isStudent
+              p.small= 'isStudent: ' + user.isStudent + ' |qid: ' + qid + ' |owner.id: ' + owner.id
+            a.btn.btn-info.teacher-calendar(type='button', data-toggle="modal") Go to calendar
             button.btn.btn-danger.unbook(type='button', data-toggle="modal", onclick="confirmUnbook()") Unbook
             if user.isTeacher || user.isAdmin
               button.btn.btn-success.accept(type='button', data-toggle="modal", onclick="this.disabled = true;updateEvent({id:calendarEvent.id, state:'accepted'}, updateInfo);") Accept
