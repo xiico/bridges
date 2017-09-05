@@ -17,6 +17,9 @@ block content
             img.img-responsive(src=profile.photo.url, alt='')
           .col-sm-9
             .project-name.overflow
+              if user && user.id == qid
+                a.pull-right(href='/user/' + profile.id + '/edit')
+                  i.fa.fa-pencil        
               h2.bold= profile.name.full
               ul.nav.navbar-nav.navbar-default
                 li
@@ -26,7 +29,7 @@ block content
                 li
                   a(href='#')
                     i.fa.fa-globe
-                    | #{(profile.timezone ? profile.timezone.text : 'not set')}
+                    | #{(profile.timezone ? profile.timezone.text : 'not set')}            
             .project-info.overflow
               h3 Teacher Info
               p
@@ -41,25 +44,15 @@ block content
                 li
                   i.fa.fa-angle-right
                   |  Nam in quam consectetur nulla placerat dapibus ut ut nunc.
-            .skills.overflow
-              h3 Skills:
-              ul.nav.navbar-nav.navbar-default
-                li
-                  a(href='#')
-                    i.fa.fa-check-square
-                    | Design
-                li
-                  a(href='#')
-                    i.fa.fa-check-square
-                    | HTML/CSS
-                li
-                  a(href='#')
-                    i.fa.fa-check-square
-                    | Javascript
-                li
-                  a(href='#')
-                    i.fa.fa-check-square
-                    | Backend
+            if user.isTeacher
+              .skills.overflow
+                h3 Business Days:
+                ul.nav.navbar-nav.navbar-default
+                  each bd in profile.dow
+                    li
+                      a.business-days
+                        i.fa.fa-check-square
+                        | #{bd.name}
             .client.overflow
               h3 Client:
               ul.nav.navbar-nav.navbar-default
@@ -67,7 +60,7 @@ block content
                   a(href='#')
                     i.fa.fa-bolt
                     | Okler Themes
-            if user.isStudent || user.id == id
+            if user.isStudent || user.id == qid
               .live-preview
                 a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section

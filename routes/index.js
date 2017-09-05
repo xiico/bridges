@@ -73,6 +73,7 @@ exports = module.exports = function (app) {
 	app.all('/teachers', routes.views.teachers);
 	app.all('/students', routes.views.students);
 	app.all('/user/:id', routes.views.user);
+	app.all('/user/:id/edit', middleware.requireUser, routes.views.edituser);
 
 	// Calendar API
 	app.all('/calendardata', keystone.middleware.api, routes.api.calendar.list);

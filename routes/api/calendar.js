@@ -143,7 +143,7 @@ exports.update = function (req, res) {
 
 			resultCredits = req.user.credits + refund.total;
 			//if (resultCredits < 0) return res.apiError('error', { error: 'Not enough credits.' });
-		}
+		} else if (data.state == 'accepted') refund = { total: 0, message: 'The class has been accepted.' };
 		var userUpdater = req.user.getUpdateHandler(req);
 		event.getUpdateHandler(req).process(data, {
 			fields: 'state',

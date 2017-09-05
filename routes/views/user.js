@@ -9,10 +9,10 @@ exports = module.exports = function (req, res) {
 	locals.section = 'user';	
 
 	if(!locals.user || !req.params.id) return view.render('errors/404');	
-	locals.id = req.params.id;
+	locals.qid = req.params.id;
 
 	// Load the galleries by sortOrder
-	view.query('profile', keystone.list('User').model.findOne({_id:req.params.id}).populate('timezone'));
+	view.query('profile', keystone.list('User').model.findOne({_id:req.params.id}).populate({path: 'dow', options: { sort: { 'key': 1 } } }).populate('timezone'));
 
 	// Load the current post
 	// view.on('init', function (next) {

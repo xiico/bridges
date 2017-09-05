@@ -1,0 +1,76 @@
+extends ../layouts/default
+block intro    
+    section#page-breadcrumb
+      .vertical-center.sun
+        .container
+          .row
+            .action
+              .col-sm-12
+                h1.title Profile Editing Page
+                p Nice to meet you
+    // /#action
+block content    
+    section#portfolio-information.padding-top.padding-bottom
+      .container
+        .row
+          .col-sm-3
+            img.img-responsive(src=profile.photo.url, alt='')
+          .col-sm-9
+            form
+              .form-row.row
+                .form-group.col-md-6
+                  label.col-form-label(for='inputFirstName') First Name
+                  input#inputFirstName.form-control(type='text', placeholder='John' value=user.name.first )
+                .form-group.col-md-6
+                  label.col-form-label(for='inputLastName') Last Name
+                  input#inputLastName.form-control(type='text', placeholder='Doe', value=user.name.last)
+                .form-group.col-md-6
+                  label.col-form-label(for='inputEmail') Email
+                  input#inputEmail.form-control(type='email', placeholder='Email', value=user.email)
+                .form-group.col-md-6
+                  label.col-form-label(for='inputPassword') Password
+                  input#inputPassword.form-control(type='password', placeholder='Password')
+              .form-row.row
+                .form-group.col-md-4
+                  label.col-form-label(for='inputCountry') Country
+                  select#inputCountry.form-control(onchange='montaUF(this.value)') Choose 
+                    if countries
+                      each country in countries
+                        option(value=country.alpha2Code)= country.name
+                .form-group.col-md-3
+                  label.col-form-label(for='inputZip') Zip
+                  .input-group
+                    input#inputZip.form-control(type='text')
+                    span.input-group-btn
+                      button#searchZip.btn.btn-default.disabled(type="button",onclick=`SearchCEP($('#inputZip').val())`)
+                        i.glyphicon.glyphicon-search
+                .form-group.col-md-5
+                  label.col-form-label(for='inputState') State
+                  select.hidden#inputStateSelect.form-control Choose
+                  input#inputStateText.form-control
+              .form-row.row
+                .form-group.col-md-6
+                  label.col-form-label(for='inputCity') City
+                  input#inputCity.form-control(type='text')                
+                .form-group.col-md-6
+                  label.col-form-label(for='inputNeighborhood') Neighborhood
+                  input#inputNeighborhood.form-control(type='text')                               
+              .form-group
+                label.col-form-label(for='inputAddress') Address
+                input#inputAddress.form-control(type='text', placeholder='1234 Main St')
+              .form-group
+                label.col-form-label(for='inputAddress2') Address 2
+                input#inputAddress2.form-control(type='text', placeholder='Apartment, studio, or floor')
+              .form-group
+                .form-check
+                  label.form-check-label
+                    input.form-check-input(type='checkbox')
+                    |  Check me out
+              button.btn.btn-primary.pull-right(type='submit') Save
+
+            if user.isStudent || user.id == id
+              .live-preview
+                a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
+    // /#map-section
+append footer
+  script(type="text/javascript" src="/js/edituser.js")    
