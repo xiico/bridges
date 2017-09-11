@@ -97,7 +97,7 @@ exports.create = function (req, res) {
 			flashErrors: true
 		}, function (err, test) {
 			if (err) return res.apiError('error', err);
-			CalendarEvent.model.findById(item._id).populate('participants', 'name').exec(function (err, event) {
+			CalendarEvent.model.findById(item._id).populate('participants', 'name isStudent').exec(function (err, event) {
 				var evt = JSON.parse(JSON.stringify(event));
 				// evt.credits = resultCredits;
 				// evt.message = 'Your class has been booked.';
@@ -105,7 +105,10 @@ exports.create = function (req, res) {
 				// evt.newEvent = true;
 				// res.apiResponse(evt);
 				evt.newEvent = true;
-				response(err, res, evt, resultCredits, 'Your class has been booked.')
+				if(evt.participants[0].isStudent)
+					response(err, res, evt, resultCredits, 'Your class has been booked.')
+				else
+					response(err, res, evt, resultCredits, 'Your calendar entry was reserved.')
 			});
 		});
 	});
