@@ -185,9 +185,9 @@ $(document).ready(function () {
             // $('.info-event .cost').text(credits);
             // $('.info-event .curr-balance').text(curCredits);
             // $('.info-event .balance').text(curCredits - credits);
-            showEventInfoStudent(calEvent.start, calEvent.end, curCredits, credits);
+            showEventInfoStudent(calEvent.start, calEvent.end, curCredits, credits);            
 
-            $('.info-event .state').text(classState(calEvent.state));
+            $('.info-event-student .state').text(classState(calEvent.state));
 
             if( qid != calEvent.owner._id) {
                 $(".teacher-calendar").show();
@@ -205,6 +205,16 @@ $(document).ready(function () {
             if (calEvent.state == 'requested' && (isTeacher || isAdmin)) $('.accept').show();
             $('#panel-participants').show();
             if(calEvent.participants){
+
+                if(calEvent.participants[0].isStudent) {
+                    $('.info-event-student').show();
+                    $('.info-event-teacher').hide();
+                } else {
+                    $('.info-event-student').hide();
+                    $('.info-event-teacher').show();
+                }
+
+
                 if (isTeacher){
                     $("#panel-participants tr").remove();                    
                     for (var i = 0, participant;participant = calEvent.participants[i]; i++){

@@ -39,7 +39,7 @@ exports.list = function (req, res) {
 	var search = {	$or: [{owner: qid},	{"participants": {_id:qid}},{"participants": {_id:userid}}	],
 				   $nor: [{"state": "canceled"},{"state": "archived"}]};
 
-	var q = keystone.list('CalendarEvent').model.find(search/*, { _id: 0, categories: 0 }*/).populate('owner', 'name').populate('participants', 'name').lean();
+	var q = keystone.list('CalendarEvent').model.find(search/*, { _id: 0, categories: 0 }*/).populate('owner', 'name').populate('participants', 'name isStudent').lean();
 
 	//studente one - 5988b355b877951a0822b510
 	//studente two - 5988b39cb877951a0822b511

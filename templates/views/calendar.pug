@@ -73,11 +73,10 @@ block content
               span(aria-hidden='true') ×
             h4.modal-title Class info
           .modal-body.save-event
-            .info-event
-              if user.isStudent
-                +info-class-student(user)
-              else
-                +info-class-teacher()
+            .info-event-student
+              +info-class-student(user)
+            .info-event-teacher
+              +info-class-teacher()
             .problem.hidden
               p There was a problem
           .modal-footer
