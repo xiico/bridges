@@ -4,7 +4,7 @@ $(document).ready(function () {
        clearTimeout(timer);    
        timer = setTimeout(function() {
            $(`.help-text`).fadeOut('slow', function() {
-                $(this).text(helpMessage[owner.isStudent ? 0 : 4].message);
+                $(this).text(helpMessage[4].message);
            }).fadeIn();;
        }, 5000);
     });
