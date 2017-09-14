@@ -32,6 +32,7 @@ User.add({
 	address: { type: String},
 	city: { type: String},
 	state: { type: String},
+	neighborhood: { type: String},
 	zip: { type: String},
 	country: { type: Types.Relationship, ref: 'Country'},
 });
