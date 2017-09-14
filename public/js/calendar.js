@@ -57,7 +57,7 @@ $(document).ready(function () {
                 return;
             }
             //var title = prompt('Event Title:');
-            var title = 'Portuguese Class';
+            var title = isStudent ? 'Portuguese Class' : 'Blocked Timeslot';
             if (title) {
                 window.calendarEvent = {
                     title: title,
@@ -229,12 +229,12 @@ $(document).ready(function () {
         eventAfterAllRender: function(){
             $(`.fc-v-event`).data(`help`, 1);
             $(`.fc-nonbusiness, .fc-bgevent`).addClass('show-help').data(`help`, 5);
-            $(`body`).find('.show-help, a').hover((e) => {
+            $(`body`).find('.show-help, a').hover(function(e) {
                 var helpId = $(e.currentTarget).data('help');
                 if(helpId !== undefined) $(`.help-text`).text(helpMessage[helpId].message);
                 else $(`.help-text`).text(helpMessage[owner.isStudent ? 0 : 2].message);
             });
-            $(`body`).find('.show-help, a').mouseleave((e) => {
+            $(`body`).find('.show-help, a').mouseleave(function(e){
                 $(`.help-text`).text(helpMessage[owner.isStudent ? 0 : 2].message);
             });
         }
