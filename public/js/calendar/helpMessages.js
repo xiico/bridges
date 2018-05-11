@@ -12,7 +12,7 @@ var helpMessage = [{
     message: `This class has been canceled, you can't change it.`
 }, {
     id: 4,
-    message: `Click or touch a free box in the calendar to ` + (isStudent ? `start booking your classes!` : `prevent students to book them`)
+    message: `Click or touch a free box in the calendar to ` + (isStudent ? `start booking your classes!` : `prevent students from booking them`)
 }, {
     id: 5,
     message: `This time slot has been taken, ` + (isStudent ?  `you` : `students`)  + ` can't book classes that overlap it!`
