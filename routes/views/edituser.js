@@ -12,7 +12,7 @@ exports = module.exports = function (req, res) {
     locals.validationErrors = {};
     locals.userSubmitted = false;
 
-    if(req.params.id != locals.user.id) return view.render('errors/404');	
+    if(!locals.user.isAdmin && req.params.id != locals.user.id) return view.render('errors/404');	
 
     	// Load the current post
 	view.on('init', function (next) {        

@@ -1,4 +1,7 @@
 extends ../layouts/default
+block extrahead
+  script(src="http://knockoutjs.com/js/jquery-1.11.1.min.js")
+  script(src="http://knockoutjs.com/downloads/knockout-latest.js")
 block intro    
     section#page-breadcrumb
       .vertical-center.sun
@@ -7,7 +10,10 @@ block intro
             .action
               .col-sm-12
                 h1.title User Profile
-                p Nice to meet you
+                div.edit-moto
+                  i.pull-right(class="fa fa-pencil", onclick="viewModel.isEditing(!viewModel.isEditing());")
+                  div(data-bind="visible: !isEditing(), html: info")
+                  input(type="text", name="", data-bind="visible: isEditing, value: info")
     // /#action
 block content    
     section#portfolio-information.padding-top.padding-bottom
@@ -64,3 +70,7 @@ block content
               .live-preview
                 a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section
+    script.
+      var userMoto = '#{user.moto}';    
+append footer
+  script(type="text/javascript" src="/js/user.js")  

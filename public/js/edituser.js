@@ -1,30 +1,35 @@
 function SearchCEP(cep) {
     $.ajax({
-        url: 'http://correiosapi.apphb.com/cep/' + cep,
+        //url: 'http://correiosapi.apphb.com/cep/' + cep,
+        url: 'https://viacep.com.br/ws/' + cep + '/json/',
         dataType: 'jsonp',
         crossDomain: true,
         contentType: "application/json",
         statusCode: {
             200: function(data) {
                 console.log(data);
-                $('#inputCity').val(data.cidade);
+                $('#inputCity').val(data.localidade);
                 $('#inputNeighborhood').val(data.bairro);
                 $('#inputAddress').val(data.logradouro);
-                $('#inputStateSelect').val(data.estado);
+                $('#inputStateSelect').val(data.uf);
             },
             400: function (msg) { console.log(msg); }, // Bad Request
             404: function (msg) { console.log("CEP não encontrado!!"); } // Not Found
         }
     });
 }
-/*{
-    bairro: "Setor Institucional"
-    cep: "76872862"
-    cidade: "Ariquemes"
-    estado: "RO"
-    logradouro: "Rio Madeira "
-    tipodelogradouro: "Rua"
-}*/
+/*
+{
+  "cep": "01257-090",
+  "logradouro": "Rua Padre Agostinho Mendicute",
+  "complemento": "",
+  "bairro": "Sumaré",
+  "localidade": "São Paulo",
+  "uf": "SP",
+  "unidade": "",
+  "ibge": "3550308",
+  "gia": "1004"
+} */
 function montaUF(pais){
     if(pais == 'BR') {
         $('#inputStateSelect').removeClass('hidden')
