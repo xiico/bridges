@@ -11,9 +11,12 @@ block intro
               .col-sm-12
                 h1.title User Profile
                 div.edit-moto
-                  i.pull-right(data-bind="css: editStatus", onclick="viewModel.isEditing(!viewModel.isEditing());updateMoto();")
-                  div(data-bind="visible: !isEditing(), html: info")
-                  input(type="text", name="", data-bind="visible: isEditing, value: info")
+                  if user && user.id == qid
+                    i.pull-right(data-bind="css: editStatus", onclick="viewModel.isEditing(!viewModel.isEditing());updateMoto();")
+                    div(data-bind="visible: !isEditing(), html: (info() ? info : 'Edit my Moto!')")
+                    input(type="text", name="", data-bind="visible: isEditing, value: info")
+                  else
+                    div(data-bind="html: info")
     // /#action
 block content    
     section#portfolio-information.padding-top.padding-bottom
@@ -71,6 +74,6 @@ block content
                 a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section
     script.
-      var userMoto = '#{user.moto}';    
+      var userMoto = '#{profile.moto}';    
 append footer
   script(type="text/javascript" src="/js/user.js")  
