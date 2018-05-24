@@ -7,7 +7,8 @@ block extrahead
 	script(type='text/javascript', src='http://w.sharethis.com/button/buttons.js')
 	script(type='text/javascript').
 		stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});
-
+	script(src="http://knockoutjs.com/js/jquery-1.11.1.min.js")
+	script(src="http://knockoutjs.com/downloads/knockout-latest.js")
 
 block intro
 	section#page-breadcrumb
@@ -73,6 +74,9 @@ block content
 									a(href='#')
 										img(src='/images/portfolio/popular1.jpg', alt='')
 	// /#blog
+	script.
+		var isLoved = #{data.post.isLoved};    	
+		var loveCount = #{data.post.loved.length};  
 block js
 	script.
 		jQuery(function($) {			
@@ -106,3 +110,5 @@ block js
 			input.text("[quote author='" + data.data("author") + "']" + data.html() + "[/quote]\n");
 			input.focus();
 		}
+append footer
+	script(type="text/javascript" src="/js/blog.js")  

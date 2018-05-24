@@ -31,6 +31,7 @@ exports = module.exports = function (req, res) {
 
 		q.exec(function (err, result) {
 			locals.data.post = result;
+			locals.data.post.isLoved = !!(result.loved.toString().split(',').find(item => locals.user != null && item == locals.user.id));
 			next(err);
 		});
 	});

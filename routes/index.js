@@ -80,9 +80,11 @@ exports = module.exports = function (app) {
 	app.all('/calendarevent/create', keystone.middleware.api, routes.api.calendar.create);
 	app.all('/calendarevent/update', keystone.middleware.api, routes.api.calendar.update);
 
-
 	// User API
 	app.all('/updatemoto', keystone.middleware.api, routes.api.user.updatemoto);
+
+	// Post API
+	app.all('/lovepost', keystone.middleware.api, routes.api.post.lovepost);
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 

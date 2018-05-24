@@ -25,9 +25,21 @@ mixin post(post,full)
 				.post-bottom.overflow
 					ul.nav.navbar-nav.post-nav
 						li
-							a(href='/blog/post/' + post.slug)
-								i.fa.fa-heart
-								| No Love
+							a(href='#', class={disabled: !full}, onclick="lovePost('" + post.id + "'); return false;")
+								if !full
+									if post.isLoved
+										i.fa.fa-heart
+									else
+										i.fa.fa-heart-o
+								else
+									i(data-bind="css: lovedChanged")
+								if !full
+									if post.loved.length == 0 
+										| No Love
+									else 
+										span #{post.loved.length + " Love"}
+								else
+									span(data-bind="text: loveCountChanged")
 						li
 							a(href='/blog/post/' + post.slug)
 								i.fa.fa-comments

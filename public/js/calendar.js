@@ -49,8 +49,8 @@ $(document).ready(function () {
         select: function (start, end) {
             var credits = Math.abs(new Date(end) - new Date(start)) / 60 / 1000 / 60;
 
-            if (credits < 1.5 || credits > 4) {
-                if (credits < 1.5) modalProblem('The min class duration is 01:30');
+            if (credits < 1 || credits > 4) {
+                if (credits < 1) modalProblem('The min class duration is 01:00');
                 if (credits > 4) modalProblem('The max class duration is 04:00');
                 $('#calendar').fullCalendar('unselect');
                 $('#bookClass').modal('show');
@@ -296,7 +296,7 @@ function confirmUnbook(){
 
 function creditsMessageAlert(timeOffset){
     if(timeOffset >= 24) return {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
-    if(timeOffset < 24 && timeOffset > 12) return {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
+    //if(timeOffset < 24 && timeOffset > 12) return {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
     return {type: 'alert-danger', message: 'No credits will be refunded.'}; //if(result <= 12)
 }
 

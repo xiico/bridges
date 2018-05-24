@@ -14,6 +14,7 @@ block intro
 							p Plenty of Ideas
 	// /#page-breadcrumb
 block content	
+	-var lovedPosts = []
 	section#blog.padding-top
 		.container
 			.row
@@ -21,6 +22,7 @@ block content
 					.row
 						each post in data.posts.results
 							+post(post)
+							-lovedPosts.push(post.isLoved)
 					.blog-pagination
 						if data.posts.totalPages > 1
 							ul.pagination
@@ -82,3 +84,7 @@ block content
 									a(href='#')
 										img(src='/images/portfolio/popular1.jpg', alt='')
 	// /#blog
+append footer
+	script.
+		var loved = [#{lovedPosts}];		
+	script(type="text/javascript" src="/js/blog.js")  

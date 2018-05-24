@@ -84,6 +84,7 @@ exports = module.exports = function (req, res) {
 		async.each(locals.data.posts.results, function (post, next) {
 			keystone.list('PostComment').model.count().where('post').in([post.id]).exec(function (err, count) {
 				post.comments = count;
+				post.isLoved = !!(post.loved.toString().split(',').find(item => locals.user != null && item == locals.user.id));
 				next(err);
 			});
 

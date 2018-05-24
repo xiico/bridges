@@ -5,7 +5,11 @@ exports.updatemoto = function (req, res) {
         fields: 'moto',
         flashErrors: true
     }, function (err) { 
-        if (err) return res.apiError('error', err);
+        if (err) {
+            return res.apiResponse({
+                status:"error",
+                message: err.error});
+        }
         res.apiResponse({
             status:"OK",
             moto: data.moto,

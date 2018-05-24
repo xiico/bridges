@@ -85,7 +85,7 @@ exports.create = function (req, res) {
 
 	if ((isNaN(resultCredits) || resultCredits < 0) && req.user.isStudent ) return res.apiError('error', { error: 'Not enough credits.' });
 	if(req.user.isStudent){
-		if (credits < 1.5) return res.apiError('error', { error:'The min class duration is 01:30' });
+		if (credits < 1) return res.apiError('error', { error:'The min class duration is 01:00' });
 		if (credits > 4) return res.apiError('error', { error:'The max class duration is 04:00' });
 	}
 	var updater = req.user.getUpdateHandler(req);
@@ -141,7 +141,7 @@ exports.update = function (req, res) {
 			var message;
 			refund = { total: 0, message: 'There was no refund.' };
 			if (result >= 24) refund = { total: credits, message: 'All your credits were refunded for this class.' };//'All your credits were refunded for this class.'
-			if (result < 24 && result > 12) refund = { total: credits / 2, message: 'You was refunded half your credits.' };//'You was refunded half your credits.'
+			//if (result < 24 && result > 12) refund = { total: credits / 2, message: 'You was refunded half your credits.' };//'You was refunded half your credits.'
 			//if (result <= 12) //'There was no refund.
 
 			resultCredits = req.user.credits + refund.total;
