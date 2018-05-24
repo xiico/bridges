@@ -10,7 +10,7 @@ exports = module.exports = function (req, res) {
 
 	if(!locals.user || !req.params.id) return view.render('errors/404');	
 	locals.qid = req.params.id;
-	locals.moto = locals.user.moto;
+	locals.motto = locals.user.motto;
 
 	// Load the galleries by sortOrder
 	view.query('profile', keystone.list('User').model.findOne({_id:req.params.id}).populate({path: 'dow', options: { sort: { 'key': 1 } } }).populate('timezone'));

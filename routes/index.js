@@ -81,7 +81,7 @@ exports = module.exports = function (app) {
 	app.all('/calendarevent/update', keystone.middleware.api, routes.api.calendar.update);
 
 	// User API
-	app.all('/updatemoto', keystone.middleware.api, routes.api.user.updatemoto);
+	app.all('/updatemotto', keystone.middleware.api, routes.api.user.updatemotto);
 
 	// Post API
 	app.all('/lovepost', keystone.middleware.api, routes.api.post.lovepost);

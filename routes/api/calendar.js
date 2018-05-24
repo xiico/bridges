@@ -97,7 +97,8 @@ exports.create = function (req, res) {
 			flashErrors: true
 		}, function (err, test) {
 			if (err) return res.apiError('error', err);
-			CalendarEvent.model.findById(item._id).populate('participants', 'name isStudent').exec(function (err, event) {
+			CalendarEvent.model.findById(item._id).populate('participants', 'name isStudent')
+			.populate('owner', 'name').exec(function (err, event) {
 				var evt = JSON.parse(JSON.stringify(event));
 				// evt.credits = resultCredits;
 				// evt.message = 'Your class has been booked.';

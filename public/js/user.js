@@ -1,6 +1,6 @@
 function UserViewModel() {
     this.isEditing = ko.observable(false);
-    this.info = ko.observable(userMoto);
+    this.info = ko.observable(userMotto);
 }
 
 var viewModel = new UserViewModel();
@@ -12,9 +12,9 @@ viewModel.editStatus = ko.pureComputed(function () {
 ko.applyBindings(viewModel);
 
 
-function updateMoto() {
+function updateMotto() {
     if (!viewModel.isEditing()) {
-        $.post("/updatemoto", { moto: viewModel.info() }).done(function (result) {
+        $.post("/updatemotto", { motto: viewModel.info() }).done(function (result) {
             if (result.status == "OK")
                 $.notify({
                     title: '<strong>Success!</strong>',

@@ -22,7 +22,7 @@ exports.lovepost = function (req, res) {
     /*var userUpdater = req.user.getUpdateHandler(req);
     var data = (req.method == 'POST') ? req.body : req.query;
     userUpdater.process(data, {
-        fields: 'moto',
+        fields: 'motto',
         flashErrors: true
     }, function (err) { 
         if (err) {
@@ -32,7 +32,7 @@ exports.lovepost = function (req, res) {
         }
         res.apiResponse({
             status:"OK",
-            moto: data.moto,
-            message: "Moto updated."});
+            motto: data.motto,
+            message: "Motto updated."});
     });*/
 }

@@ -13,7 +13,7 @@ User.add({
 	password: { type: Types.Password, initial: true, required: true },
 	info: { type: Types.Html, wysiwyg: true, height: 400 },
 	shortInfo: { type: Types.Html, wysiwyg: true, height: 400 },
-	moto: { type: String, height: 400 },
+	motto: { type: String, height: 400 },
 	site: { type: Types.Url, initial: true},
 	birthday: { type: Types.Date},
 	timezone: { type: Types.Relationship, ref: 'TimeZone', initial: true, index: true , required: true },

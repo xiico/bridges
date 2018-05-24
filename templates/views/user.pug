@@ -10,10 +10,10 @@ block intro
             .action
               .col-sm-12
                 h1.title User Profile
-                div.edit-moto
+                div.edit-motto
                   if user && user.id == qid
-                    i.pull-right(data-bind="css: editStatus", onclick="viewModel.isEditing(!viewModel.isEditing());updateMoto();")
-                    div(data-bind="visible: !isEditing(), html: (info() ? info : 'Edit my Moto!')")
+                    i.pull-right(data-bind="css: editStatus", onclick="viewModel.isEditing(!viewModel.isEditing());updateMotto();")
+                    div(data-bind="visible: !isEditing(), html: (info() ? info : 'Edit my Motto!')")
                     input(type="text", name="", data-bind="visible: isEditing, value: info")
                   else
                     div(data-bind="html: info")
@@ -74,6 +74,6 @@ block content
                 a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section
     script.
-      var userMoto = '#{profile.moto}';    
+      var userMotto = '#{profile.motto}';    
 append footer
   script(type="text/javascript" src="/js/user.js")  
