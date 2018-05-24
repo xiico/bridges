@@ -12,7 +12,7 @@ mixin post-bottom(post)
 				img(src=post.author.photo.url, alt='')
 			.col-sm-10
 				h3= post.author.name.first
-				p!= post.author.info
+				p!= post.author.shortInfo
 				span
 					| Website:
 					a(href=post.author.site)= post.author.site

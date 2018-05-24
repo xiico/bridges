@@ -12,6 +12,7 @@ User.add({
 	photo: { type: Types.CloudinaryImage, collapse: true },
 	password: { type: Types.Password, initial: true, required: true },
 	info: { type: Types.Html, wysiwyg: true, height: 400 },
+	shortInfo: { type: Types.Html, wysiwyg: true, height: 400 },
 	moto: { type: String, height: 400 },
 	site: { type: Types.Url, initial: true},
 	birthday: { type: Types.Date},
