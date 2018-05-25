@@ -16,9 +16,9 @@ CreditHistory.add({
     date: { type: Types.Datetime, index: true, required: true, initial: true },
     before: { type: Number, initial: true},
     amount: { type: Number, initial: true},
-    after: { type: Number, initial: true}
+    balance: { type: Number, initial: true}
 });
 
 CreditHistory.schema.virtual('ID').get(function () { return this._id; });
-CreditHistory.defaultColumns = 'type, owner|20%, date|20%, amount';
+CreditHistory.defaultColumns = 'type, owner|20%, date|20%, amount, balance';
 CreditHistory.register();

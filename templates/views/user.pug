@@ -26,7 +26,7 @@ block content
             img.img-responsive(src=profile.photo.url, alt='')
           .col-sm-9
             .project-name.overflow
-              if user && user.id == qid
+              if user && (user.id == qid || user.isAdmin)
                 a.pull-right(href='/user/' + profile.id + '/edit')
                   i.fa.fa-pencil        
               h2.bold= profile.name.full

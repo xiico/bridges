@@ -82,6 +82,7 @@ exports = module.exports = function (app) {
 
 	// User API
 	app.all('/updatemotto', keystone.middleware.api, routes.api.user.updatemotto);
+	app.all('/addcredits', keystone.middleware.api, routes.api.user.addcredits);
 
 	// Post API
 	app.all('/lovepost', keystone.middleware.api, routes.api.post.lovepost);

@@ -22,6 +22,7 @@ User.add({
 	endBusinessHours: { type: Types.Select, options:   ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'], default: '18', index: true },
 	dow: { type: Types.Relationship, ref: 'Dow', many: true},
 	credits: {type: Number},
+	lastCreditType: { type: Types.Select, options: 'class, refund, bought, gift', default: 'class'},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 	canPost: { type: Boolean, label: 'Can write posts', index: true },
@@ -43,6 +44,28 @@ User.schema.virtual('canAccessKeystone').get(function () {
 	return this.isAdmin;
 });
 
+
+/**
+ * User CreditsHistory
+ */
+User.schema.path('credits').set(function (newVal) {
+	this.previousCredits = this.credits;
+	return newVal;
+  });
+User.schema.post('save', function () {
+	if (this.previousCredits != this.credits) {
+		keystone.lists.CreditHistory.model.create({
+			type: this.lastCreditType,
+			owner: this,
+			date: new Date(),
+			before: this.previousCredits,
+			amount: this.credits - this.previousCredits,
+			balance: this.credits
+		}, function (err) {
+			if (err) return;
+		});
+	}
+});
 
 /**
  * Relationships

@@ -295,7 +295,7 @@ function confirmUnbook(){
 }
 
 function creditsMessageAlert(timeOffset){
-    if(timeOffset >= 24) return {type: 'alert-info', message: 'All your credits will be refunded for this class.'};
+    if(timeOffset >= 24 || isTeacher) return {type: 'alert-info', message: 'All ' + (isTeacher ? 'the' : 'your') + ' credits will be refunded for this class.'};
     //if(timeOffset < 24 && timeOffset > 12) return {type: 'alert-warning', message: 'You will only be refunded half your credits.'};
     return {type: 'alert-danger', message: 'No credits will be refunded.'}; //if(result <= 12)
 }

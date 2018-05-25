@@ -92,8 +92,8 @@ exports.create = function (req, res) {
 
 	item.getUpdateHandler(req).process(data, function (err) {
 		if (err) return res.apiError('error', err);
-		updater.process({ credits: resultCredits }, {
-			fields: 'credits',
+		updater.process({ credits: resultCredits, lastCreditType: 'class' }, {
+			fields: 'credits, lastCreditType',
 			flashErrors: true
 		}, function (err, test) {
 			if (err) return res.apiError('error', err);
@@ -141,7 +141,7 @@ exports.update = function (req, res) {
 			var result = Math.abs(new Date() - new Date(event.start.toISOString())) / 1000 / 60 / 60;
 			var message;
 			refund = { total: 0, message: 'There was no refund.' };
-			if (result >= 24) refund = { total: credits, message: 'All your credits were refunded for this class.' };//'All your credits were refunded for this class.'
+			if (result >= 24 || req.user.isTeacher) refund = { total: credits, message: 'All ' + (req.user.isTeacher ? 'the' : 'your') + ' credits were refunded for this class.' };//'All your credits were refunded for this class.'
 			//if (result < 24 && result > 12) refund = { total: credits / 2, message: 'You was refunded half your credits.' };//'You was refunded half your credits.'
 			//if (result <= 12) //'There was no refund.
 
@@ -155,8 +155,8 @@ exports.update = function (req, res) {
 		}, function (err) {
 			if (err) return res.apiError('error', err);
 			if (resultCredits)
-				userUpdater.process({ credits: resultCredits }, {
-					fields: 'credits',
+				userUpdater.process({ credits: resultCredits, lastCreditType: 'refund' }, {
+					fields: 'credits, lastCreditType',
 					flashErrors: true
 				}, function (err) { 
 					var evt = JSON.parse(JSON.stringify(event));

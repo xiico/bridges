@@ -56,3 +56,41 @@ function montaUF(pais){
 
 	});
 }
+
+function UserViewModel() {
+    this.credits = ko.observable(userCredits);
+}
+
+var viewModel = new UserViewModel();
+
+viewModel.creditBalance = ko.pureComputed(function () {
+    if (viewModel.credits() >= 8)
+        return "progress-bar-success";
+    else if (viewModel.credits() >= 4 && viewModel.credits() < 8)
+        return "progress-bar-warning";
+    else
+        return "progress-bar-danger";
+}, viewModel);
+
+
+viewModel.barWidth = ko.pureComputed(function () {
+    return (Math.min(1, viewModel.credits() / 20) * 100).toString() + "%";
+}, viewModel);
+
+ko.applyBindings(viewModel);
+
+function addCredits() {
+    $.post("/addcredits", { id: userID, credits: $('#creditValue').val(), creditType: $('#creditType').val()}).done(function (result) {
+        if (result.status == "OK"){
+            $.notify({
+                title: '<strong>Success!</strong>',
+                message: result.message                
+            }, { type: 'success' });
+            viewModel.credits(result.credits);
+        } else
+            $.notify({
+                title: '<strong>Error!</strong>',
+                message: result.message
+            }, { type: 'error' });
+    });
+}

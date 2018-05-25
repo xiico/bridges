@@ -1,4 +1,7 @@
 extends ../layouts/default
+block extrahead
+  script(src="http://knockoutjs.com/js/jquery-1.11.1.min.js")
+  script(src="http://knockoutjs.com/downloads/knockout-latest.js")    
 block intro    
     section#page-breadcrumb
       .vertical-center.sun
@@ -15,19 +18,51 @@ block content
         .row
           .col-sm-3
             img.img-responsive(src=profile.photo.url, alt='')
+            label.col-form-label Credits balance: 
+            .progress.progress-credit
+              div.progress-bar(role="progressbar" aria-valuenow="40" aria-valuemin="0" 
+              aria-valuemax="100" data-bind="css: creditBalance, style: { width: barWidth }") 
+                span(data-bind="text: '$ ' + credits() ")
+            if user.isAdmin
+              h3 add credits:
+              .form-row.row
+                .form-group.col-md-12
+                  label.col-form-label(for='creditType') Credit Type
+                  select#creditType.form-control.inline
+                    option(value="bought") Bought
+                    option(value="class") Gift
+                    option(value="refund") Refund
+              .form-row.row
+                .form-group.col-md-12
+                  label.col-form-label(for='creditValue') Credit Amount
+                  select#creditValue.form-control.inline
+                    option(value="1") 1
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="4") 4
+                    option(value="5") 5
+                    option(value="6") 6
+                    option(value="7") 7
+                    option(value="8" selected) 8
+                    option(value="9") 9
+                    option(value="5") 10
+                    option(value="5") 20
+              .form-row.row
+                .form-group.col-md-12
+                  button.btn.btn-primary.inline.pull-right(onclick="addCredits();") Add
           .col-sm-9
             form(method='post')
               input(type='hidden', name='action', value='edituser')
               .form-row.row
                 .form-group.col-md-6
                   label.col-form-label(for='inputFirstName') First Name
-                  input#inputFirstName.form-control(type='text', placeholder='John', name='name.first', value=user.name.first )
+                  input#inputFirstName.form-control(type='text', placeholder='John', name='name.first', value=profile.name.first )
                 .form-group.col-md-6
                   label.col-form-label(for='inputLastName') Last Name
-                  input#inputLastName.form-control(type='text', placeholder='Doe', name='name.last', value=user.name.last)
+                  input#inputLastName.form-control(type='text', placeholder='Doe', name='name.last', value=profile.name.last)
                 .form-group.col-md-6
                   label.col-form-label(for='inputEmail') Email
-                  input#inputEmail.form-control(type='email', placeholder='Email', name='email', value=user.email)
+                  input#inputEmail.form-control(type='email', placeholder='Email', name='email', value=profile.email)
                 .form-group.col-md-6
                   label.col-form-label(for='inputPassword') Password
                   input#inputPassword.form-control(type='password', name='inputPassword', placeholder='Password')
@@ -41,7 +76,7 @@ block content
                 .form-group.col-md-3
                   label.col-form-label(for='inputZip') Zip
                   .input-group
-                    input#inputZip.form-control(name='zip', type='text', value=user.zip)
+                    input#inputZip.form-control(name='zip', type='text', value=profile.zip)
                     span.input-group-btn
                       button#searchZip.btn.btn-default.disabled(type="button",onclick=`SearchCEP($('#inputZip').val())`)
                         i.glyphicon.glyphicon-search
@@ -52,23 +87,23 @@ block content
               .form-row.row
                 .form-group.col-md-6
                   label.col-form-label(for='inputCity') City
-                  input#inputCity.form-control(name='city', type='text', value=user.city)                
+                  input#inputCity.form-control(name='city', type='text', value=profile.city)                
                 .form-group.col-md-6
                   label.col-form-label(for='inputNeighborhood') Neighborhood
-                  input#inputNeighborhood.form-control(name='neighborhood', type='text', value=user.neighborhood)                               
+                  input#inputNeighborhood.form-control(name='neighborhood', type='text', value=profile.neighborhood)                               
               .form-group
                 label.col-form-label(for='inputAddress') Address
-                input#inputAddress.form-control(name='address', type='text', placeholder='1234 Main St', value=user.address)
+                input#inputAddress.form-control(name='address', type='text', placeholder='1234 Main St', value=profile.address)
               .form-group
                 label.col-form-label(for='inputAddress2') Address 2
-                input#inputAddress2.form-control(name='address2', type='text', placeholder='Apartment, studio, or floor', value=user.address2)
+                input#inputAddress2.form-control(name='address2', type='text', placeholder='Apartment, studio, or floor', value=profile.address2)
               .form-row.row
                 .form-group.col-md-6
                   label.col-form-label(for='inputBirthday') Birthday
-                  input#inputBirthday.form-control(name='birthday', type='text', value=user.birthday)                
+                  input#inputBirthday.form-control(name='birthday', type='text', value=profile.birthday)                
                 .form-group.col-md-6
                   label.col-form-label(for='inputPhone') Phone
-                  input#inputPhone.form-control(name='cellphone', type='text', value=user.cellphone)                   
+                  input#inputPhone.form-control(name='cellphone', type='text', value=profile.cellphone)                   
               .form-group
                 .form-check
                   label.form-check-label
@@ -76,9 +111,12 @@ block content
                     |  Check me out
               button.btn.btn-primary.pull-right(type='submit') Save
 
-            if user.isStudent || user.id == id
+            if profile.isStudent || profile.id == id
               .live-preview
                 a.btn.btn-common.uppercase(href='/calendar/' + profile.id) View Calendar
     // /#map-section
+    script.
+      var userCredits = #{profile.credits};        
+      var userID = '#{profile.id}';  
 append footer
   script(type="text/javascript" src="/js/edituser.js")    

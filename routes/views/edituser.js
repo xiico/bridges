@@ -26,11 +26,9 @@ exports = module.exports = function (req, res) {
 
     view.query('profile', keystone.list('User').model.findOne({_id:req.params.id}).populate('timezone'));
 
-    // On POST requests, add the Enquiry item to the database
+    // On POST requests, add the User item to the database
     view.on('post', { action: 'edituser' }, function (next) {
-        User.model.findById(req.body.id).exec(function (err, event) {
-
-            var editUser = new User.model();
+        User.model.findById(req.body.id).exec(function (err, user) {
             var updater = editUser.getUpdateHandler(req);
             updater.process(req.body, {
                 flashErrors: true,
